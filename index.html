@@ -319,6 +319,31 @@
             min-height: 0;
         }
         #descricao-evento::placeholder { color: rgba(255,255,255,0.5); }
+        #readonly-banner {
+            display: none;
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+            padding: 10px 14px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        #readonly-banner button {
+            background: #ffc107;
+            color: #333;
+            border: none;
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+        #readonly-banner button:hover { background: #e0a800; }
+        .readonly-overlay { pointer-events: none; opacity: 0.5; }
         .header-nav {
             display: flex;
             gap: 8px;
@@ -464,6 +489,7 @@
             }
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -483,8 +509,13 @@
     </div>
 </div>
 
+<div id="readonly-banner">
+    <span>👁️ Evento fechado — modo leitura</span>
+    <button onclick="desbloquearEvento()">🔓 Desbloquear para editar</button>
+</div>
+
 <!-- ADICIONAR ORDEM -->
-<div class="section">
+<div class="section" id="section-adicionar">
     <h2>1. Adiciona uma Ordem</h2>
 
     <div class="form-row">
@@ -512,7 +543,7 @@
 
 
 <!-- OFERTAS -->
-<div class="section">
+<div class="section" id="section-ofertas">
     <h2>2b. 🎁 Ofertas</h2>
 
     <div class="form-row" style="flex-wrap:wrap; gap:8px; margin-bottom:10px;">
@@ -602,7 +633,11 @@
             <button onclick="adicionarItemMenu()">+ Add</button>
         </div>
 
-        <button class="secondary" style="width:100%;margin-top:14px;font-size:12px;" onclick="resetConfigs()">↺ Repor configurações originais</button>
+        <div class="config-add-row" style="margin-top:14px;">
+            <button onclick="document.getElementById('input-xlsx').click()" style="flex:1;">📥 Importar Excel</button>
+            <button class="danger" onclick="limparConfigs()" style="flex:1;">🗑️ Limpar tudo</button>
+        </div>
+        <input type="file" id="input-xlsx" accept=".xlsx" style="display:none;" onchange="importarExcel()">
     </div>
 </div>
 
@@ -620,36 +655,13 @@
 </div>
 
 <script>
-// Defaults
-const AMIGOS_DEFAULT = ['Diogo', 'Barrona', 'Mestre', 'Regi', 'Filipe', 'J Helder', 'J Paulo', 'Luca', 'Sam', 'Mocas'];
-let amigos = [...AMIGOS_DEFAULT];
+let amigos = [];
 
-const MENU_DEFAULT = {
-    'Bandida': 3.50,
-    'Batatas': 3.00,
-    'Bifana': 4.50,
-    'Bitoque': 13.90,
-    'Café': 0.90,
-    'Caneca': 3.50,
-    'Chamuça': 2.00,
-    'Coca-Cola': 1.80,
-    'Copo Reutilizável': 1.00,
-    'Costeletão': 17.90,
-    'Croquete': 2.00,
-    'Imperial': 1.50,
-    'Lagarto': 12.90,
-    'Ovo Extra': 1.50,
-    'Ovos Rotos': 11.90,
-    'Panachê': 2.00,
-    'Pão': 1.50,
-    'Pica-pau Vazia': 12.90,
-    'Prego': 6.90,
-    'Queijo': 4.50
-};
-let menu = Object.assign({}, MENU_DEFAULT);
+let menu = {};
 
-let historico = []; // array of saved events
-let eventoAtualId = null; // id of current event if loaded from history
+let historico = [];
+let eventoAtualId = null;
+let modoReadOnly = false;
 
 let estado = {
     ordens: [],
@@ -678,6 +690,7 @@ function init() {
     renderConfigAmigos();
     renderConfigMenu();
     atualizarUI();
+    atualizarReadOnly();
     
     document.getElementById('item').addEventListener('change', atualizarPreco);
     document.getElementById('quantidade').addEventListener('change', atualizarPreco);
@@ -1075,6 +1088,7 @@ function navegarHistorico(id) {
         return;
     }
     eventoAtualId = ev.id;
+    modoReadOnly = true;
     estado.ordens = ev.ordens || [];
     estado.ofertas = ev.ofertas || [];
     estado.totalFatura = ev.totalFatura || null;
@@ -1084,6 +1098,7 @@ function navegarHistorico(id) {
     if (estado.totalFatura) atualizarAjuste();
     else { document.getElementById('ajuste-info').style.display = 'none'; }
     salvarNoLocalStorage();
+    atualizarReadOnly();
     atualizarUI();
     renderHistoricoDropdown();
     mostrarMensagem('✓ Evento carregado: ' + (ev.descricao || 'Sem nome'), true);
@@ -1094,6 +1109,7 @@ function novoEvento() {
         if (!confirm('Criar novo evento? Os dados actuais não guardados serão perdidos.')) return;
     }
     eventoAtualId = null;
+    modoReadOnly = false;
     estado.ordens = [];
     estado.ofertas = [];
     estado.totalFatura = null;
@@ -1105,6 +1121,7 @@ function novoEvento() {
     estado.amigosSelecionados.clear();
     estado.ofertaAmigos.clear();
     salvarNoLocalStorage();
+    atualizarReadOnly();
     atualizarUI();
     mostrarMensagem('✓ Novo evento criado', true);
 }
@@ -1139,6 +1156,7 @@ function guardarEFechar() {
     guardarEvento();
     setTimeout(() => {
         eventoAtualId = null;
+        modoReadOnly = false;
         estado.ordens = [];
         estado.ofertas = [];
         estado.totalFatura = null;
@@ -1149,6 +1167,7 @@ function guardarEFechar() {
         estado.amigosSelecionados.clear();
         estado.ofertaAmigos.clear();
         salvarNoLocalStorage();
+        atualizarReadOnly();
         atualizarUI();
         renderHistoricoDropdown();
         mostrarMensagem('✓ Guardado e pronto para novo evento', true);
@@ -1189,15 +1208,18 @@ function importarJSON() {
 function limparTudo() {
     if (confirm('Tem certeza que quer limpar TUDO? Isto não pode ser desfeito!')) {
         eventoAtualId = null;
+        modoReadOnly = false;
         estado.ordens = [];
         estado.ofertas = [];
         estado.totalFatura = null;
         estado.descricaoEvento = '';
         document.getElementById('descricao-evento').value = '';
         document.getElementById('total-fatura').value = '';
+        document.getElementById('ajuste-info').style.display = 'none';
         estado.amigosSelecionados.clear();
         estado.ofertaAmigos.clear();
         salvarNoLocalStorage();
+        atualizarReadOnly();
         atualizarUI();
         mostrarMensagem('✓ Tudo limpo', true);
     }
@@ -1395,7 +1417,7 @@ function exportarPDF() {
             tr { page-break-inside: avoid; }
             table { border-collapse: collapse; }
         </style>
-        </head><body>${html}</body></html>`);
+</head><body>${html}</body></html>`);
     win.document.close();
 }
 
@@ -1440,6 +1462,47 @@ function atualizarAjuste() {
     `).join('');
 }
 
+
+
+function atualizarReadOnly() {
+    const banner = document.getElementById('readonly-banner');
+    const sections = ['section-adicionar', 'section-ofertas', 'section-config'];
+
+    if (modoReadOnly) {
+        banner.style.display = 'flex';
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.classList.add('readonly-overlay');
+        });
+        // Disable inputs and buttons in those sections
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.querySelectorAll('button, input, select').forEach(el => el.disabled = true);
+        });
+        // Also disable descricao and fatura inputs
+        document.getElementById('descricao-evento').disabled = true;
+        document.getElementById('total-fatura').disabled = true;
+    } else {
+        banner.style.display = 'none';
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.remove('readonly-overlay');
+                el.querySelectorAll('button, input, select').forEach(el => el.disabled = false);
+            }
+        });
+        document.getElementById('descricao-evento').disabled = false;
+        document.getElementById('total-fatura').disabled = false;
+    }
+}
+
+function desbloquearEvento() {
+    if (!confirm('Desbloquear este evento para edição? Alterações serão gravadas no histórico ao guardar.')) return;
+    modoReadOnly = false;
+    atualizarReadOnly();
+    mostrarMensagem('🔓 Evento desbloqueado para edição', true);
+}
 
 // ── EDIT ORDEM INLINE ──────────────────────────────────────────────────────
 function toggleEditOrdem(id) {
@@ -1553,10 +1616,10 @@ function guardarConfigs() {
     localStorage.setItem('config_menu', JSON.stringify(menu));
 }
 
-function resetConfigs() {
-    if (!confirm('Repor amigos e menu para os valores originais?')) return;
-    amigos = [...AMIGOS_DEFAULT];
-    menu = Object.assign({}, MENU_DEFAULT);
+function limparConfigs() {
+    if (!confirm('Limpar todos os amigos e itens do menu?')) return;
+    amigos = [];
+    menu = {};
     guardarConfigs();
     renderConfigAmigos();
     renderConfigMenu();
@@ -1564,7 +1627,7 @@ function resetConfigs() {
     renderAmigosBotoes();
     renderOfertaDropdowns();
     renderOfertaAmigos();
-    mostrarMensagem('✓ Configurações repostas', true);
+    mostrarMensagem('✓ Configurações limpas', true);
 }
 
 function renderConfigAmigos() {
@@ -1728,6 +1791,52 @@ function adicionarItemMenu() {
 }
 
 
+
+
+function importarExcel() {
+    const input = document.getElementById('input-xlsx');
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        try {
+            const wb = XLSX.read(e.target.result, {type: 'array'});
+
+            // Sheet "Amigos" — column A
+            const wsAmigos = wb.Sheets['Amigos'];
+            if (wsAmigos) {
+                const rows = XLSX.utils.sheet_to_json(wsAmigos, {header:1});
+                amigos = rows.slice(1).map(r => r[0]).filter(v => v && String(v).trim());
+            }
+
+            // Sheet "Menu" — column A nome, column B preço
+            const wsMenu = wb.Sheets['Menu'];
+            if (wsMenu) {
+                const rows = XLSX.utils.sheet_to_json(wsMenu, {header:1});
+                menu = {};
+                rows.slice(1).forEach(r => {
+                    const nome = r[0] ? String(r[0]).trim() : null;
+                    const preco = parseFloat(r[1]);
+                    if (nome && !isNaN(preco) && preco > 0) menu[nome] = preco;
+                });
+            }
+
+            guardarConfigs();
+            renderConfigAmigos();
+            renderConfigMenu();
+            renderDropdownItens();
+            renderAmigosBotoes();
+            renderOfertaDropdowns();
+            renderOfertaAmigos();
+            mostrarMensagem('✓ ' + amigos.length + ' amigos e ' + Object.keys(menu).length + ' itens importados', true);
+        } catch(err) {
+            mostrarMensagem('❌ Erro ao importar Excel', false);
+            console.error(err);
+        }
+    };
+    reader.readAsArrayBuffer(file);
+    input.value = '';
+}
 
 // Iniciar na página (compatível com todos os browsers)
 if (document.readyState === 'loading') {
