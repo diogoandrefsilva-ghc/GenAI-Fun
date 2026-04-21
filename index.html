@@ -795,7 +795,8 @@ function removerOrdem(id) {
     mostrarMensagem('✓ Ordem removida', true);
 }
 
-function atualizarUI() {
+function atualizarUI() { _atualizarUIInner(); if(typeof atualizarReadOnly==='function') atualizarReadOnly(); }
+function _atualizarUIInner() {
     // Lista de ordens
     const lista = document.getElementById('lista-ordens');
     if (estado.ordens.length === 0) {
@@ -809,8 +810,7 @@ function atualizarUI() {
                     <div class="ordem-hora">${ordem.hora || ''}</div>
                 </div>
                 <div class="ordem-preco">€${ordem.precoTotal.toFixed(2)}</div>
-                <button class="secondary" style="width:28px;height:28px;padding:0;font-size:14px;border-radius:50%;margin-right:4px;" onclick="toggleEditOrdem(${ordem.id})">✏️</button>
-                <button class="ordem-delete" onclick="removerOrdem(${ordem.id})">×</button>
+                ${modoReadOnly ? '' : `<button class="secondary" style="width:28px;height:28px;padding:0;font-size:14px;border-radius:50%;margin-right:4px;" onclick="toggleEditOrdem(${ordem.id})">✏️</button><button class="ordem-delete" onclick="removerOrdem(${ordem.id})">×</button>`}
             </div>
         `).join('');
     }
