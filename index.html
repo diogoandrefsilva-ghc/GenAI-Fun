@@ -648,16 +648,19 @@
         <span id="ajuda-arrow" style="font-size:18px;color:#95a5a6;">▼</span>
     </div>
     <div id="ajuda-body" style="display:none;margin-top:14px;font-size:13px;color:#555;line-height:1.7;">
-        <p><strong>⚙️ Configurações</strong> — Começa por importar o ficheiro Excel com os amigos e o menu do restaurante. Fica guardado para a próxima vez.</p>
-        <p style="margin-top:8px;"><strong>1. Adicionar Ordem</strong> — Seleciona o item, a quantidade e quem comeu/bebeu. Carrega em "Adicionar Ordem".</p>
-        <p style="margin-top:8px;"><strong>2. Ordens Registadas</strong> — Lista de tudo o que foi pedido. O botão ✏️ permite editar uma ordem sem perder a posição. O × apaga.</p>
-        <p style="margin-top:8px;"><strong>2b. Ofertas</strong> — Quando alguém quer pagar uma rodada a outros. O custo sobe na conta de quem oferece e desce na de quem recebe.</p>
-        <p style="margin-top:8px;"><strong>3. Resumo</strong> — Total por pessoa com detalhe do consumo. Introduz o total da fatura do restaurante para ajuste proporcional — ao introduzir a fatura, o evento fica bloqueado.</p>
-        <p style="margin-top:8px;"><strong>💾 Guardar</strong> — Grava no histórico e descarrega o JSON de backup.<br>
-        <strong>✅ Guardar e Fechar</strong> — Mesmo, e limpa para um novo evento.<br>
-        <strong>📤 Importar JSON</strong> — Restaura o histórico de eventos a partir do ficheiro de backup.<br>
+        <p><strong>⚙️ Configurações</strong> — Importa o ficheiro Excel com os amigos e o menu do restaurante. Podes editar, adicionar ou remover entradas diretamente na app. Tudo fica guardado por evento — amigos e menu são específicos de cada jantar.</p>
+        <p style="margin-top:8px;"><strong>📚 Histórico</strong> — Dropdown no topo para navegar entre eventos anteriores. Os eventos fechados ficam em modo leitura; usa <strong>🔓 Desbloquear</strong> para editar. Ao carregar um evento histórico, os amigos e menu desse evento são restaurados.</p>
+        <p style="margin-top:8px;"><strong>＋ Novo</strong> — Cria um novo evento em branco, herdando os amigos e menu do evento mais recente como ponto de partida.</p>
+        <p style="margin-top:8px;"><strong>1. Adicionar Ordem</strong> — Seleciona o item, a quantidade e quem comeu/bebeu. A data do evento é definida automaticamente pela hora da primeira ordem registada.</p>
+        <p style="margin-top:8px;"><strong>2. Ordens Registadas</strong> — Lista de tudo o que foi pedido. O ✏️ edita a ordem no lugar sem perder a posição; o × apaga.</p>
+        <p style="margin-top:8px;"><strong>2b. 🎁 Ofertas</strong> — Quando alguém quer pagar uma rodada a outros. O custo sobe na conta de quem oferece e desce proporcionalmente na de quem recebe.</p>
+        <p style="margin-top:8px;"><strong>3. Resumo</strong> — Total por pessoa com detalhe do consumo e saldo de ofertas. Introduz a fatura do restaurante e confirma com ✓ — o ajuste é calculado proporcionalmente considerando ordens e ofertas, e o evento fica automaticamente bloqueado.</p>
+        <p style="margin-top:8px;"><strong>📋 PDF Conta</strong> — Ordens detalhadas + total por item, ideal para confrontar com a fatura do restaurante.<br>
+        <strong>💸 PDF Divisão</strong> — Conta final por pessoa com detalhe de consumo e ajustes.</p>
+        <p style="margin-top:8px;"><strong>💾 Guardar</strong> — Grava o evento no histórico (localStorage) e descarrega o JSON de backup. Se não houver descrição, o nome fica "Sem Descrição · data · hora".<br>
+        <strong>📤 Importar</strong> — Restaura o histórico completo a partir do ficheiro JSON.<br>
+        <strong>🗑️ Apagar Evento</strong> — Remove o evento atual do histórico permanentemente.<br>
         <strong>🗑️ Limpar Tudo</strong> — Descarta o evento atual sem gravar.</p>
-        <p style="margin-top:8px;"><strong>📚 Histórico</strong> — Navega entre eventos anteriores. Ficam em modo leitura; usa "🔓 Desbloquear" para editar.</p>
     </div>
 </div>
 
