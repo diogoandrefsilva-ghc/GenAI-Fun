@@ -1305,30 +1305,40 @@ function importarJSON() {
     const reader = new FileReader();
     reader.onload = (e) => {
         try {
-            const data = JSON.parse(e.target.result);
+            const text = e.target.result;
+            const data = JSON.parse(text);
             if (!Array.isArray(data)) { mostrarMensagem('❌ Ficheiro inválido', false); return; }
             historico = data;
-            // Carregar amigos/menu do último evento importado
+            // Carregar último evento para a sessão
             if (historico.length > 0) {
                 const ultimo = historico[historico.length - 1];
                 amigos = ultimo.amigos ? JSON.parse(JSON.stringify(ultimo.amigos)) : amigos;
                 menu = ultimo.menu ? JSON.parse(JSON.stringify(ultimo.menu)) : menu;
+                eventoAtualId = ultimo.id;
+                estado.ordens = ultimo.ordens || [];
+                estado.ofertas = ultimo.ofertas || [];
+                estado.totalFatura = ultimo.totalFatura || null;
+                estado.descricaoEvento = ultimo.descricao || '';
+                modoReadOnly = !!ultimo.totalFatura;
+                document.getElementById('descricao-evento').value = estado.descricaoEvento;
+                document.getElementById('total-fatura').value = estado.totalFatura || '';
             }
             salvarHistoricoLocal();
+            salvarNoLocalStorage();
             renderHistoricoDropdown();
-            renderConfigAmigos();
-            renderConfigMenu();
             renderDropdownItens();
             renderAmigosBotoes();
             renderOfertaDropdowns();
             renderOfertaAmigos();
-            mostrarMensagem('✓ Histórico importado: ' + historico.length + ' eventos', true);
+            atualizarUI();
+            mostrarMensagem('✓ ' + historico.length + ' evento(s) importado(s)', true);
         } catch(err) {
-            mostrarMensagem('❌ Erro ao importar JSON', false);
+            console.error(err);
+            mostrarMensagem('❌ Erro ao importar JSON: ' + err.message, false);
         }
+        input.value = '';
     };
-    reader.readAsText(file);
-    input.value = '';
+    reader.readAsText(file, 'UTF-8');
 }
 
 
