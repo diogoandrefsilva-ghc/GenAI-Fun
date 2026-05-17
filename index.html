@@ -852,6 +852,31 @@ function adicionarOrdem() {
 }
 
 function removerOrdem(id) {
+    const ordem = estado.ordens.find(o => o.id === id);
+    if (!ordem) return;
+
+    // Verificar se alguma oferta ficaria inválida
+    const problemasOferta = [];
+    estado.ofertas.forEach(oferta => {
+        if (oferta.item !== ordem.item) return;
+        oferta.para.forEach(destinatario => {
+            if (!ordem.amigos.includes(destinatario)) return;
+            // Verificar se este amigo tem o item noutras ordens (além desta)
+            const temNoutras = estado.ordens.some(o =>
+                o.id !== id && o.item === ordem.item && o.amigos.includes(destinatario)
+            );
+            if (!temNoutras) {
+                problemasOferta.push(destinatario + ' (oferta de ' + oferta.quem + ')');
+            }
+        });
+    });
+
+    if (problemasOferta.length > 0) {
+        const unicos = [...new Set(problemasOferta)];
+        mostrarMensagem('❌ Não é possível eliminar: ' + unicos.join(', ') + ' ficaria sem ' + ordem.item + ' na conta mas tem oferta associada. Remove a oferta primeiro.', false);
+        return;
+    }
+
     estado.ordens = estado.ordens.filter(o => o.id !== id);
     salvarNoLocalStorage();
     atualizarUI();
@@ -1047,6 +1072,15 @@ function adicionarOferta() {
     if (!item) { mostrarMsgOferta('⚠️ Seleciona o item', false); return; }
     if (estado.ofertaAmigos.size === 0) { mostrarMsgOferta('⚠️ Seleciona a quem é oferecido', false); return; }
     if (estado.ofertaAmigos.has(quem)) { mostrarMsgOferta('⚠️ Quem oferece não pode estar na lista de quem recebe', false); return; }
+
+    // Validar que cada destinatário tem o item nas ordens
+    const semItem = Array.from(estado.ofertaAmigos).filter(amigo => {
+        return !estado.ordens.some(o => o.item === item && o.amigos.includes(amigo));
+    });
+    if (semItem.length > 0) {
+        mostrarMsgOferta('❌ ' + semItem.join(', ') + ' não ' + (semItem.length === 1 ? 'tem' : 'têm') + ' ' + item + ' na conta', false);
+        return;
+    }
 
     const precoTotal = menu[item] * qtd;
 
