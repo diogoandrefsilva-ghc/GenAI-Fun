@@ -497,7 +497,33 @@
             }
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        /* Floating GitHub save button */
+        #gh-fab {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #24292e;
+            color: #fff;
+            border: none;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+            cursor: pointer;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+        }
+        #gh-fab:active { transform: scale(0.92); }
+        #gh-fab.saving { background: #f39c12; pointer-events: none; }
+        #gh-fab.saved  { background: #27ae60; }
+        #gh-fab.error  { background: #e74c3c; }
+        #gh-fab svg { width: 22px; height: 22px; fill: currentColor; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    </style>
 </head>
 <body>
 
@@ -514,6 +540,7 @@
             <option value="">📚 Histórico de eventos</option>
         </select>
         <button onclick="novoEvento()">＋ Novo</button>
+        <button id="btn-gh-reset" style="display:none;background:rgba(229,57,53,0.85);border-color:rgba(255,255,255,0.4);font-size:12px;padding:8px 10px;" onclick="ghReset()">🔄 Reset</button>
     </div>
 </div>
 
@@ -613,6 +640,12 @@
             <div id="conta-pessoas-ajustada"></div>
         </div>
     </div>
+
+    <!-- PDFs no final do bloco 3 -->
+    <div style="margin-top:16px;border-top:1px solid #e8e8e8;padding-top:12px;display:flex;gap:8px;">
+        <button onclick="exportarPDFConta()" style="flex:1;">📋 PDF Conta</button>
+        <button onclick="exportarPDFDivisao()" style="flex:1;">💸 PDF Divisão</button>
+    </div>
 </div>
 
 
@@ -672,16 +705,66 @@
 
 <!-- GUARDAR / EXPORTAR -->
 <div class="section">
-    <h2>4. Guardar / Exportar</h2>
+    <div class="config-toggle" onclick="toggleGuardar()">
+        <h2 style="border-bottom:none;margin-bottom:0;">4. 💾 Guardar / Exportar</h2>
+        <span id="guardar-arrow" style="font-size:18px;color:#95a5a6;">▼</span>
+    </div>
+    <div id="guardar-body" style="display:none;margin-top:12px;">
     <div class="botoes-dados">
-        <button onclick="exportarPDFConta()">📋 PDF Conta</button>
-        <button onclick="exportarPDFDivisao()">💸 PDF Divisão</button>
-        <button class="secondary" onclick="document.getElementById('input-json').click()">📤 Importar</button>
+        <button class="secondary" onclick="document.getElementById('input-json').click()">📤 Importar JSON</button>
         <button onclick="guardarEvento()">💾 Guardar</button>
         <button id="btn-apagar-evento" class="danger" onclick="apagarEventoAtual()">🗑️ Apagar Evento</button>
         <button class="danger" onclick="limparTudo()">🗑️ Limpar Tudo</button>
     </div>
     <input type="file" id="input-json" accept=".json" style="display:none;" onchange="importarJSON()">
+
+    <!-- GITHUB SYNC -->
+    <div style="margin-top:15px;border-top:1px solid #e0e0e0;padding-top:15px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;gap:8px" onclick="toggleGhSection()">
+        <div style="display:flex;align-items:center;gap:8px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="color:#7f8c8d;flex-shrink:0"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49.99.1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/></svg>
+          <span style="font-size:13px;color:#7f8c8d;font-weight:600">Sincronização com GitHub</span>
+        </div>
+        <span id="gh-body-arrow" style="font-size:12px;color:#7f8c8d;transition:transform .2s">▶</span>
+      </div>
+      <div id="gh-body" style="display:none;margin-top:12px">
+        <p style="font-size:12px;color:#7f8c8d;margin-bottom:11px">Guarda o <code style="background:#f5f5f5;padding:1px 5px;border-radius:4px;font-size:11px">data.json</code> no repositório. Para <strong>guardar</strong> precisas de um <a href="https://github.com/settings/tokens" target="_blank" style="color:#3498db">Personal Access Token</a> com permissão <code style="background:#f5f5f5;padding:1px 5px;border-radius:4px;font-size:11px">repo</code>.</p>
+        <p style="font-size:12px;color:#e67e22;margin-bottom:11px">⚠️ <strong>Importar do GitHub substitui TODOS os dados locais.</strong> Não é feito automaticamente ao carregar a página para proteger eventos em curso.</p>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:11px">
+          <div>
+            <label style="font-size:12px;font-weight:600;color:#555;display:block;margin-bottom:3px">Token GitHub <em style="text-transform:none;font-weight:400;letter-spacing:0;font-size:11px">(ghp_… — obrigatório para guardar)</em></label>
+            <div style="display:flex;gap:6px">
+              <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="flex:1;padding:8px;border:1px solid #ddd;border-radius:5px;font-size:13px">
+              <button class="secondary" style="font-size:12px;padding:4px 10px;white-space:nowrap" onclick="toggleGhToken()">👁</button>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <div style="flex:1">
+              <label style="font-size:12px;font-weight:600;color:#555;display:block;margin-bottom:3px">Utilizador / Org</label>
+              <input type="text" id="gh-owner" placeholder="ex: joaosilva" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:5px;font-size:13px">
+            </div>
+            <div style="flex:1">
+              <label style="font-size:12px;font-weight:600;color:#555;display:block;margin-bottom:3px">Repositório</label>
+              <input type="text" id="gh-repo" placeholder="ex: split-bill" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:5px;font-size:13px">
+            </div>
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:#555;display:block;margin-bottom:3px">Caminho do ficheiro</label>
+            <input type="text" id="gh-path" placeholder="data.json" value="data.json" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:5px;font-size:13px">
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:#555;display:block;margin-bottom:3px">Branch</label>
+            <input type="text" id="gh-branch" placeholder="main" value="main" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:5px;font-size:13px">
+          </div>
+        </div>
+        <div class="botoes-dados" style="margin-bottom:8px">
+          <button style="background:#24292e;color:#fff;border:none;padding:8px 16px;border-radius:5px;cursor:pointer;font-size:13px" onclick="ghPush()">⬆ Guardar no GitHub</button>
+        </div>
+        <p id="gh-status" style="font-size:12px;margin-top:9px;display:none"></p>
+      </div>
+    </div>
+    <!-- END GITHUB SYNC -->
+    </div><!-- /guardar-body -->
 </div>
 
 <script>
@@ -707,6 +790,8 @@ function init() {
     carregarConfigs();
     carregarHistoricoLocal();
     carregarDoLocalStorage();
+    ghLoadCfg();
+    ghUpdateFab();
 
     // Smart load: if localStorage empty, load latest history event
     if (estado.ordens.length === 0 && historico.length > 0) {
@@ -1834,6 +1919,14 @@ function toggleConfig() {
     arrow.textContent = visible ? '▼' : '▲';
 }
 
+function toggleGuardar() {
+    const body = document.getElementById('guardar-body');
+    const arrow = document.getElementById('guardar-arrow');
+    const visible = body.style.display !== 'none';
+    body.style.display = visible ? 'none' : 'block';
+    arrow.textContent = visible ? '▼' : '▲';
+}
+
 function carregarConfigs() {
     const savedAmigos = localStorage.getItem('config_amigos');
     const savedMenu = localStorage.getItem('config_menu');
@@ -2078,6 +2171,290 @@ function toggleAjuda() {
     arrow.textContent = visible ? '▼' : '▲';
 }
 
+/* ── GITHUB SYNC ───────────────────────────── */
+const GH_KEY = 'splitbill_github_cfg';
+const GH_DEFAULTS = {owner: '', repo: '', path: 'data.json', branch: 'main'};
+
+function ghLoadCfg() {
+    document.getElementById('gh-owner').value = GH_DEFAULTS.owner;
+    document.getElementById('gh-repo').value = GH_DEFAULTS.repo;
+    document.getElementById('gh-path').value = GH_DEFAULTS.path;
+    document.getElementById('gh-branch').value = GH_DEFAULTS.branch;
+    const s = localStorage.getItem(GH_KEY);
+    if (!s) return;
+    try {
+        const c = JSON.parse(s);
+        if (c.token) document.getElementById('gh-token').value = c.token;
+        if (c.owner) document.getElementById('gh-owner').value = c.owner;
+        if (c.repo) document.getElementById('gh-repo').value = c.repo;
+        if (c.path) document.getElementById('gh-path').value = c.path;
+        if (c.branch) document.getElementById('gh-branch').value = c.branch;
+    } catch(e) {}
+}
+
+function ghSaveCfg() {
+    const cfg = {
+        token: document.getElementById('gh-token').value.trim(),
+        owner: document.getElementById('gh-owner').value.trim(),
+        repo: document.getElementById('gh-repo').value.trim(),
+        path: document.getElementById('gh-path').value.trim() || 'data.json',
+        branch: document.getElementById('gh-branch').value.trim() || 'main'
+    };
+    localStorage.setItem(GH_KEY, JSON.stringify(cfg));
+    ghUpdateFab();
+}
+
+function ghGetCfg() {
+    return {
+        token: document.getElementById('gh-token').value.trim(),
+        owner: document.getElementById('gh-owner').value.trim(),
+        repo: document.getElementById('gh-repo').value.trim(),
+        path: document.getElementById('gh-path').value.trim() || 'data.json',
+        branch: document.getElementById('gh-branch').value.trim() || 'main'
+    };
+}
+
+function ghStatus(msg, err) {
+    const el = document.getElementById('gh-status');
+    el.style.display = 'block';
+    el.style.color = err ? '#e74c3c' : '#27ae60';
+    el.textContent = msg;
+}
+
+function toggleGhToken() {
+    const inp = document.getElementById('gh-token');
+    inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+
+function toggleGhSection() {
+    const body = document.getElementById('gh-body');
+    const arrow = document.getElementById('gh-body-arrow');
+    const open = body.style.display === 'none';
+    body.style.display = open ? 'block' : 'none';
+    arrow.style.transform = open ? 'rotate(90deg)' : 'rotate(0deg)';
+}
+
+async function ghPush() {
+    const {token, owner, repo, path, branch} = ghGetCfg();
+    if (!token || !owner || !repo) { mostrarMensagem('Preenche Token, Utilizador e Repositório!', false); return; }
+    ghStatus('A guardar no GitHub…');
+    try {
+        const content = btoa(unescape(encodeURIComponent(JSON.stringify(historico, null, 2))));
+        let sha = null;
+        const check = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`, {
+            headers: {'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json'}
+        });
+        if (check.ok) { const j = await check.json(); sha = j.sha; }
+        else if (check.status !== 404) { throw new Error(`Erro ao verificar ficheiro: ${check.status}`); }
+
+        const body = {message: `SplitBill backup ${new Date().toLocaleString('pt-PT')}`, content, branch};
+        if (sha) body.sha = sha;
+
+        const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+            method: 'PUT',
+            headers: {'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json'},
+            body: JSON.stringify(body)
+        });
+        if (!res.ok) { const e = await res.json(); throw new Error(e.message || res.status); }
+        ghSaveCfg();
+        ghStatus(`✓ Guardado com sucesso em ${owner}/${repo}/${path} (branch: ${branch})`);
+        mostrarMensagem('Dados guardados no GitHub ✓', true);
+    } catch(e) {
+        ghStatus(`✗ Erro: ${e.message}`, true);
+        mostrarMensagem('Erro ao guardar no GitHub!', false);
+    }
+}
+
+async function ghPull() {
+    const {token, owner, repo, path, branch} = ghGetCfg();
+    if (!owner || !repo) { mostrarMensagem('Preenche Utilizador e Repositório!', false); return; }
+    if (!confirm(`Importar dados de ${owner}/${repo}/${path}?\nIsto irá SUBSTITUIR todos os dados locais atuais (histórico e evento em curso).`)) return;
+    ghStatus('A importar do GitHub…');
+    try {
+        let text;
+        if (token) {
+            const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`, {
+                headers: {'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json'}
+            });
+            if (!res.ok) { const e = await res.json(); throw new Error(e.message || res.status); }
+            const j = await res.json();
+            text = decodeURIComponent(escape(atob(j.content.replace(/\n/g, ''))));
+        } else {
+            const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}?t=${Date.now()}`;
+            const res = await fetch(rawUrl);
+            if (!res.ok) throw new Error(`Erro ${res.status} — verifica se o repositório é público e o caminho está correto`);
+            text = await res.text();
+        }
+        const data = JSON.parse(text);
+        if (!Array.isArray(data)) { throw new Error('Ficheiro JSON inválido (esperado array de eventos)'); }
+        historico = data;
+        if (historico.length > 0) {
+            const ultimo = historico[historico.length - 1];
+            amigos = ultimo.amigos ? JSON.parse(JSON.stringify(ultimo.amigos)) : amigos;
+            menu = ultimo.menu ? JSON.parse(JSON.stringify(ultimo.menu)) : menu;
+            eventoAtualId = ultimo.id;
+            estado.ordens = ultimo.ordens || [];
+            estado.ofertas = ultimo.ofertas || [];
+            estado.totalFatura = ultimo.totalFatura || null;
+            estado.descricaoEvento = ultimo.descricao || '';
+            modoReadOnly = !!ultimo.totalFatura;
+            document.getElementById('descricao-evento').value = estado.descricaoEvento;
+            document.getElementById('total-fatura').value = estado.totalFatura || '';
+        }
+        salvarHistoricoLocal();
+        salvarNoLocalStorage();
+        guardarConfigs();
+        renderHistoricoDropdown();
+        renderDropdownItens();
+        renderAmigosBotoes();
+        renderOfertaDropdowns();
+        renderOfertaAmigos();
+        atualizarUI();
+        ghSaveCfg();
+        ghStatus(`✓ Dados importados de ${owner}/${repo}/${path} (branch: ${branch})`);
+        mostrarMensagem('✓ ' + historico.length + ' evento(s) importado(s) do GitHub', true);
+    } catch(e) {
+        ghStatus(`✗ Erro: ${e.message}`, true);
+        mostrarMensagem('Erro ao importar do GitHub!', false);
+    }
+}
+
+async function ghReset() {
+    const {token, owner, repo, path, branch} = ghGetCfg();
+    if (!owner || !repo) { mostrarMensagem('Configura o GitHub primeiro (secção 4)', false); return; }
+    if (!confirm('⚠️ RESET: Isto vai substituir TODOS os dados locais (histórico e evento em curso) pelos dados do GitHub.\n\nTens a certeza?')) return;
+    if (!confirm('Última confirmação — todos os dados locais não guardados no GitHub serão perdidos. Continuar?')) return;
+
+    const btn = document.getElementById('btn-gh-reset');
+    const origText = btn.textContent;
+    btn.textContent = '⏳ A sincronizar…';
+    btn.style.pointerEvents = 'none';
+
+    try {
+        let text;
+        if (token) {
+            const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`, {
+                headers: {'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json'}
+            });
+            if (!res.ok) { const e = await res.json(); throw new Error(e.message || res.status); }
+            const j = await res.json();
+            text = decodeURIComponent(escape(atob(j.content.replace(/\n/g, ''))));
+        } else {
+            const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}?t=${Date.now()}`;
+            const res = await fetch(rawUrl);
+            if (!res.ok) throw new Error(`Erro ${res.status}`);
+            text = await res.text();
+        }
+        const data = JSON.parse(text);
+        if (!Array.isArray(data)) { throw new Error('Ficheiro JSON inválido (esperado array de eventos)'); }
+
+        // Limpar tudo e substituir
+        historico = data;
+        if (historico.length > 0) {
+            const ultimo = historico[historico.length - 1];
+            amigos = ultimo.amigos ? JSON.parse(JSON.stringify(ultimo.amigos)) : amigos;
+            menu = ultimo.menu ? JSON.parse(JSON.stringify(ultimo.menu)) : menu;
+            eventoAtualId = ultimo.id;
+            estado.ordens = ultimo.ordens || [];
+            estado.ofertas = ultimo.ofertas || [];
+            estado.totalFatura = ultimo.totalFatura || null;
+            estado.descricaoEvento = ultimo.descricao || '';
+            modoReadOnly = !!ultimo.totalFatura;
+            document.getElementById('descricao-evento').value = estado.descricaoEvento;
+            document.getElementById('total-fatura').value = estado.totalFatura || '';
+        } else {
+            eventoAtualId = null;
+            estado.ordens = [];
+            estado.ofertas = [];
+            estado.totalFatura = null;
+            estado.descricaoEvento = '';
+            modoReadOnly = false;
+            document.getElementById('descricao-evento').value = '';
+            document.getElementById('total-fatura').value = '';
+        }
+        salvarHistoricoLocal();
+        salvarNoLocalStorage();
+        guardarConfigs();
+        renderHistoricoDropdown();
+        renderDropdownItens();
+        renderAmigosBotoes();
+        renderOfertaDropdowns();
+        renderOfertaAmigos();
+        atualizarUI();
+        mostrarMensagem('🔄 Reset completo — ' + historico.length + ' evento(s) importado(s) do GitHub', true);
+    } catch(e) {
+        mostrarMensagem('Erro no reset: ' + e.message, false);
+    }
+    btn.textContent = origText;
+    btn.style.pointerEvents = '';
+}
+/* ── END GITHUB SYNC ──────────────────────── */
+
+/* ── GITHUB FAB (floating quick-save) ─────── */
+function ghUpdateFab() {
+    const fab = document.getElementById('gh-fab');
+    const resetBtn = document.getElementById('btn-gh-reset');
+    const s = localStorage.getItem(GH_KEY);
+    let hasToken = false;
+    let hasConfig = false;
+    if (s) { try { const c = JSON.parse(s); hasToken = !!c.token; hasConfig = !!(c.owner && c.repo); } catch(e) {} }
+    // Also check if the field is currently filled (before first save of config)
+    const field = document.getElementById('gh-token');
+    if (field && field.value.trim()) hasToken = true;
+    fab.style.display = hasToken ? 'flex' : 'none';
+    if (resetBtn) resetBtn.style.display = (hasToken && hasConfig) ? '' : 'none';
+}
+
+async function ghFabSave() {
+    const fab = document.getElementById('gh-fab');
+    // First do a local save
+    if (estado.ordens.length > 0) {
+        const snap = snaphotEstado();
+        eventoAtualId = snap.id;
+        const idx = historico.findIndex(e => e.id === snap.id);
+        if (idx >= 0) historico[idx] = snap;
+        else historico.push(snap);
+        salvarHistoricoLocal();
+        salvarNoLocalStorage();
+        renderHistoricoDropdown();
+    }
+    // Then push to GitHub
+    const {token, owner, repo, path, branch} = ghGetCfg();
+    if (!token || !owner || !repo) { mostrarMensagem('Configura o GitHub primeiro (secção 4)', false); return; }
+    fab.className = 'saving';
+    fab.innerHTML = '<svg viewBox="0 0 24 24" style="animation:spin 1s linear infinite"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" opacity=".3"/><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg>';
+    try {
+        const content = btoa(unescape(encodeURIComponent(JSON.stringify(historico, null, 2))));
+        let sha = null;
+        const check = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`, {
+            headers: {'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json'}
+        });
+        if (check.ok) { const j = await check.json(); sha = j.sha; }
+        else if (check.status !== 404) { throw new Error(check.status); }
+        const body = {message: `SplitBill backup ${new Date().toLocaleString('pt-PT')}`, content, branch};
+        if (sha) body.sha = sha;
+        const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+            method: 'PUT',
+            headers: {'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json'},
+            body: JSON.stringify(body)
+        });
+        if (!res.ok) throw new Error(res.status);
+        fab.className = 'saved';
+        fab.innerHTML = '<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>';
+        mostrarMensagem('✓ Guardado no GitHub', true);
+    } catch(e) {
+        fab.className = 'error';
+        fab.innerHTML = '<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
+        mostrarMensagem('Erro ao guardar no GitHub!', false);
+    }
+    setTimeout(() => {
+        fab.className = '';
+        fab.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49.99.1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/></svg>';
+        ghUpdateFab();
+    }, 2500);
+}
+/* ── END GITHUB FAB ───────────────────────── */
+
 // Iniciar na página (compatível com todos os browsers)
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
@@ -2107,5 +2484,10 @@ function apagarEventoAtual() {
 // Adiciona botão de apagar evento na interface principal
     // Botão de apagar evento já está no HTML, não precisa ser criado dinamicamente
 </script>
+
+<!-- Floating GitHub Save Button -->
+<button id="gh-fab" onclick="ghFabSave()" title="Guardar no GitHub">
+  <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49.99.1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/></svg>
+</button>
+
 </body>
-</html>
