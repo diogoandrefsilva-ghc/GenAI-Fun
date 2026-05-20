@@ -141,14 +141,21 @@
         }
 
         .ordem {
-            background: #ecf0f1;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 8px;
+            background: white;
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 13px;
+            border: 1px solid #eef1f5;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            transition: box-shadow 0.2s;
+        }
+
+        .ordem:active {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         .ordem-info {
@@ -158,6 +165,8 @@
         .ordem-item {
             font-weight: 600;
             color: #2c3e50;
+            font-size: 14px;
+            letter-spacing: -0.01em;
         }
 
         .ordem-hora {
@@ -168,21 +177,22 @@
 
         .ordem-amigos {
             font-size: 12px;
-            color: #7f8c8d;
+            color: #636e72;
             margin-top: 4px;
         }
 
         .ordem-preco {
             font-weight: 700;
             color: #27ae60;
-            min-width: 50px;
+            min-width: 55px;
             text-align: right;
             margin-right: 10px;
+            font-size: 14px;
         }
 
         .ordem-delete {
-            background: #e74c3c;
-            color: white;
+            background: #ffeaea;
+            color: #e74c3c;
             border: none;
             width: 30px;
             height: 30px;
@@ -190,6 +200,11 @@
             cursor: pointer;
             font-size: 16px;
             padding: 0;
+            transition: background 0.2s;
+        }
+        .ordem-delete:active {
+            background: #e74c3c;
+            color: white;
         }
 
         .resumo {
@@ -540,7 +555,7 @@
             <option value="">📚 Histórico de eventos</option>
         </select>
         <button onclick="novoEvento()">＋ Novo</button>
-        <button id="btn-gh-reset" style="display:none;background:rgba(229,57,53,0.85);border-color:rgba(255,255,255,0.4);font-size:12px;padding:8px 10px;" onclick="ghReset()">🔄 Reset</button>
+        <button id="btn-gh-reset" style="display:none;background:rgba(52,152,219,0.85);border-color:rgba(255,255,255,0.4);font-size:12px;padding:8px 10px;" onclick="ghReset()">🔄 Sync</button>
     </div>
 </div>
 
@@ -741,11 +756,11 @@
           <div style="display:flex;gap:8px">
             <div style="flex:1">
               <label style="font-size:12px;font-weight:600;color:#555;display:block;margin-bottom:3px">Utilizador / Org</label>
-              <input type="text" id="gh-owner" placeholder="ex: joaosilva" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:5px;font-size:13px">
+              <input type="text" id="gh-owner" placeholder="diogoandrefsilva-ghc" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:5px;font-size:13px">
             </div>
             <div style="flex:1">
               <label style="font-size:12px;font-weight:600;color:#555;display:block;margin-bottom:3px">Repositório</label>
-              <input type="text" id="gh-repo" placeholder="ex: split-bill" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:5px;font-size:13px">
+              <input type="text" id="gh-repo" placeholder="SplitBill" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:5px;font-size:13px">
             </div>
           </div>
           <div>
@@ -823,6 +838,9 @@ function init() {
 
     document.getElementById('item').addEventListener('change', atualizarPreco);
     document.getElementById('quantidade').addEventListener('change', atualizarPreco);
+
+    // Prompt to sync from GitHub on load
+    ghPromptSync();
 }
 
 function renderDropdownItens() {
@@ -978,8 +996,8 @@ function _atualizarUIInner() {
         lista.innerHTML = estado.ordens.map(ordem => `
             <div class="ordem" id="ordem-${ordem.id}" style="flex-wrap:wrap;">
                 <div class="ordem-info">
-                    <div class="ordem-item">${ordem.item} (${ordem.quantidade}x €${ordem.precoUnitario.toFixed(2)})</div>
-                    <div class="ordem-amigos">${ordem.amigos.join(', ')}</div>
+                    <div class="ordem-item">${ordem.item} <span style="font-weight:400;color:#95a5a6;font-size:12px;">${ordem.quantidade}× €${ordem.precoUnitario.toFixed(2)}</span></div>
+                    <div class="ordem-amigos">${ordem.amigos.map(a => '<span style="display:inline-block;background:#edf7f0;color:#27ae60;padding:1px 8px;border-radius:10px;font-size:11px;margin:2px 3px 2px 0;font-weight:500;">' + a + '</span>').join('')}</div>
                     <div class="ordem-hora">${ordem.hora || ''}</div>
                 </div>
                 <div class="ordem-preco">€${ordem.precoTotal.toFixed(2)}</div>
@@ -2173,7 +2191,7 @@ function toggleAjuda() {
 
 /* ── GITHUB SYNC ───────────────────────────── */
 const GH_KEY = 'splitbill_github_cfg';
-const GH_DEFAULTS = {owner: '', repo: '', path: 'data.json', branch: 'main'};
+const GH_DEFAULTS = {owner: 'diogoandrefsilva-ghc', repo: 'SplitBill', path: 'data.json', branch: 'main'};
 
 function ghLoadCfg() {
     document.getElementById('gh-owner').value = GH_DEFAULTS.owner;
@@ -2381,12 +2399,92 @@ async function ghReset() {
         renderOfertaDropdowns();
         renderOfertaAmigos();
         atualizarUI();
-        mostrarMensagem('🔄 Reset completo — ' + historico.length + ' evento(s) importado(s) do GitHub', true);
+        mostrarMensagem('🔄 Sync completo — ' + historico.length + ' evento(s) importado(s) do GitHub', true);
     } catch(e) {
-        mostrarMensagem('Erro no reset: ' + e.message, false);
+        mostrarMensagem('Erro no sync: ' + e.message, false);
     }
     btn.textContent = origText;
     btn.style.pointerEvents = '';
+}
+
+async function ghPromptSync() {
+    const {owner, repo, path, branch} = ghGetCfg();
+    if (!owner || !repo) return; // No config, skip
+
+    // Show a non-blocking banner instead of confirm()
+    const banner = document.createElement('div');
+    banner.id = 'sync-banner';
+    banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:2000;background:#2c3e50;color:#fff;padding:14px 15px;text-align:center;font-size:13px;box-shadow:0 2px 12px rgba(0,0,0,0.3);display:flex;flex-direction:column;gap:10px;align-items:center;';
+    banner.innerHTML = `
+        <span>Atualizar dados a partir do GitHub?</span>
+        <div style="display:flex;gap:10px;">
+            <button id="sync-yes" style="background:#27ae60;color:#fff;border:none;padding:8px 20px;border-radius:5px;font-size:13px;cursor:pointer;">✓ Sim, atualizar</button>
+            <button id="sync-no" style="background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.3);padding:8px 20px;border-radius:5px;font-size:13px;cursor:pointer;">✗ Manter locais</button>
+        </div>
+    `;
+    document.body.prepend(banner);
+
+    banner.querySelector('#sync-no').onclick = () => banner.remove();
+    banner.querySelector('#sync-yes').onclick = async () => {
+        const btns = banner.querySelectorAll('button');
+        btns.forEach(b => b.disabled = true);
+        banner.querySelector('span').textContent = '⏳ A sincronizar com o GitHub…';
+        banner.querySelector('div').style.display = 'none';
+        try {
+            const {token} = ghGetCfg();
+            let text;
+            if (token) {
+                const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`, {
+                    headers: {'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json'}
+                });
+                if (!res.ok) throw new Error(res.status);
+                const j = await res.json();
+                text = decodeURIComponent(escape(atob(j.content.replace(/\n/g, ''))));
+            } else {
+                const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}?t=${Date.now()}`;
+                const res = await fetch(rawUrl);
+                if (!res.ok) throw new Error(`Erro ${res.status}`);
+                text = await res.text();
+            }
+            const data = JSON.parse(text);
+            if (!Array.isArray(data)) throw new Error('JSON inválido');
+
+            historico = data;
+            if (historico.length > 0) {
+                const ultimo = historico[historico.length - 1];
+                amigos = ultimo.amigos ? JSON.parse(JSON.stringify(ultimo.amigos)) : amigos;
+                menu = ultimo.menu ? JSON.parse(JSON.stringify(ultimo.menu)) : menu;
+                eventoAtualId = ultimo.id;
+                estado.ordens = ultimo.ordens || [];
+                estado.ofertas = ultimo.ofertas || [];
+                estado.totalFatura = ultimo.totalFatura || null;
+                estado.descricaoEvento = ultimo.descricao || '';
+                modoReadOnly = !!ultimo.totalFatura;
+                document.getElementById('descricao-evento').value = estado.descricaoEvento;
+                document.getElementById('total-fatura').value = estado.totalFatura || '';
+            } else {
+                eventoAtualId = null;
+                estado.ordens = []; estado.ofertas = [];
+                estado.totalFatura = null; estado.descricaoEvento = '';
+                modoReadOnly = false;
+                document.getElementById('descricao-evento').value = '';
+                document.getElementById('total-fatura').value = '';
+            }
+            salvarHistoricoLocal();
+            salvarNoLocalStorage();
+            guardarConfigs();
+            renderHistoricoDropdown();
+            renderDropdownItens();
+            renderAmigosBotoes();
+            renderOfertaDropdowns();
+            renderOfertaAmigos();
+            atualizarUI();
+            mostrarMensagem('✓ Dados atualizados do GitHub (' + historico.length + ' eventos)', true);
+        } catch(e) {
+            mostrarMensagem('Erro ao sincronizar: ' + e.message, false);
+        }
+        banner.remove();
+    };
 }
 /* ── END GITHUB SYNC ──────────────────────── */
 
@@ -2402,7 +2500,7 @@ function ghUpdateFab() {
     const field = document.getElementById('gh-token');
     if (field && field.value.trim()) hasToken = true;
     fab.style.display = hasToken ? 'flex' : 'none';
-    if (resetBtn) resetBtn.style.display = (hasToken && hasConfig) ? '' : 'none';
+    if (resetBtn) resetBtn.style.display = hasConfig ? '' : 'none';
 }
 
 async function ghFabSave() {
