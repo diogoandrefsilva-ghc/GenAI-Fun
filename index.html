@@ -141,21 +141,14 @@
         }
 
         .ordem {
-            background: white;
-            padding: 12px 14px;
-            border-radius: 10px;
-            margin-bottom: 10px;
+            background: #ecf0f1;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 13px;
-            border: 1px solid #eef1f5;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-            transition: box-shadow 0.2s;
-        }
-
-        .ordem:active {
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         .ordem-info {
@@ -165,8 +158,6 @@
         .ordem-item {
             font-weight: 600;
             color: #2c3e50;
-            font-size: 14px;
-            letter-spacing: -0.01em;
         }
 
         .ordem-hora {
@@ -177,22 +168,21 @@
 
         .ordem-amigos {
             font-size: 12px;
-            color: #636e72;
+            color: #7f8c8d;
             margin-top: 4px;
         }
 
         .ordem-preco {
             font-weight: 700;
             color: #27ae60;
-            min-width: 55px;
+            min-width: 50px;
             text-align: right;
             margin-right: 10px;
-            font-size: 14px;
         }
 
         .ordem-delete {
-            background: #ffeaea;
-            color: #e74c3c;
+            background: #e74c3c;
+            color: white;
             border: none;
             width: 30px;
             height: 30px;
@@ -200,11 +190,6 @@
             cursor: pointer;
             font-size: 16px;
             padding: 0;
-            transition: background 0.2s;
-        }
-        .ordem-delete:active {
-            background: #e74c3c;
-            color: white;
         }
 
         .resumo {
@@ -382,6 +367,7 @@
             padding: 8px 10px;
             font-size: 13px;
             min-width: 0;
+            display: none;
         }
         .header-nav select option { background: #2c3e50; color: white; }
         .header-nav button {
@@ -394,6 +380,156 @@
             white-space: nowrap;
         }
         .header-nav button:hover { background: rgba(255,255,255,0.3); }
+
+        /* Historico panel */
+        .historico-toggle-btn {
+            flex: 1;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            border-radius: 4px;
+            padding: 8px 10px;
+            font-size: 13px;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .historico-toggle-btn:hover { background: rgba(255,255,255,0.25); }
+        .historico-panel {
+            display: none;
+            margin-top: 10px;
+            max-height: 280px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 8px;
+            background: rgba(0,0,0,0.15);
+            padding: 6px;
+        }
+        .historico-panel.open { display: block; }
+        .historico-card {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .historico-card:last-child { margin-bottom: 0; }
+        .historico-card:active { background: rgba(255,255,255,0.2); }
+        .historico-card.ativo {
+            background: rgba(46,204,113,0.2);
+            border-color: rgba(46,204,113,0.5);
+        }
+        .historico-card-info { flex: 1; min-width: 0; }
+        .historico-card-nome {
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .historico-card-data {
+            font-size: 11px;
+            color: rgba(255,255,255,0.55);
+            margin-top: 2px;
+        }
+        .historico-card-badge {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-left: 10px;
+            flex-shrink: 0;
+        }
+        .historico-card-badge.fechado {
+            background: rgba(241,196,15,0.25);
+            color: #f1c40f;
+        }
+        .historico-card-badge.aberto {
+            background: rgba(46,204,113,0.25);
+            color: #2ecc71;
+        }
+        .historico-card-badge.atual {
+            background: rgba(52,152,219,0.3);
+            color: #5dade2;
+        }
+        .historico-empty {
+            text-align: center;
+            color: rgba(255,255,255,0.4);
+            font-size: 12px;
+            padding: 16px 0;
+        }
+
+        /* Custom confirm modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 3000;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 0 10px 20px;
+            animation: modalFadeIn 0.2s ease;
+        }
+        .modal-overlay.show { display: flex; }
+        .modal-box {
+            background: white;
+            border-radius: 14px;
+            width: 100%;
+            max-width: 400px;
+            overflow: hidden;
+            animation: modalSlideUp 0.25s ease;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        .modal-body {
+            padding: 20px 18px 16px;
+            text-align: center;
+        }
+        .modal-body .modal-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        .modal-body .modal-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 6px;
+        }
+        .modal-body .modal-msg {
+            font-size: 13px;
+            color: #636e72;
+            line-height: 1.5;
+        }
+        .modal-actions {
+            display: flex;
+            border-top: 1px solid #eee;
+        }
+        .modal-actions button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            background: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .modal-actions button:active { background: #f0f0f0; }
+        .modal-actions button.modal-cancel { color: #95a5a6; }
+        .modal-actions button.modal-confirm { color: #3498db; }
+        .modal-actions button.modal-danger { color: #e74c3c; }
+        .modal-actions button + button { border-left: 1px solid #eee; }
+        @keyframes modalFadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes modalSlideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
         .botoes-dados {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -551,11 +687,28 @@
         onfocus="this.style.background='rgba(255,255,255,0.25)'"
         onblur="this.style.background='rgba(255,255,255,0.15)'">
     <div class="header-nav">
-        <select id="historico-select" onchange="navegarHistorico(this.value)">
+        <select id="historico-select" onchange="navegarHistorico(this.value)" style="display:none;">
             <option value="">📚 Histórico de eventos</option>
         </select>
+        <button class="historico-toggle-btn" onclick="toggleHistoricoPanel()">
+            <span id="historico-toggle-label">📚 Histórico (0 eventos)</span>
+            <span id="historico-toggle-arrow" style="font-size:10px;opacity:0.6;transition:transform 0.2s;">▼</span>
+        </button>
         <button onclick="novoEvento()">＋ Novo</button>
         <button id="btn-gh-reset" style="display:none;background:rgba(52,152,219,0.85);border-color:rgba(255,255,255,0.4);font-size:12px;padding:8px 10px;" onclick="ghReset()">🔄 Sync</button>
+    </div>
+    <div class="historico-panel" id="historico-panel"></div>
+</div>
+
+<!-- Custom confirm modal -->
+<div class="modal-overlay" id="modal-overlay" onclick="fecharModal(event)">
+    <div class="modal-box">
+        <div class="modal-body">
+            <div class="modal-icon" id="modal-icon">⚠️</div>
+            <div class="modal-title" id="modal-title"></div>
+            <div class="modal-msg" id="modal-msg"></div>
+        </div>
+        <div class="modal-actions" id="modal-actions"></div>
     </div>
 </div>
 
@@ -996,8 +1149,8 @@ function _atualizarUIInner() {
         lista.innerHTML = estado.ordens.map(ordem => `
             <div class="ordem" id="ordem-${ordem.id}" style="flex-wrap:wrap;">
                 <div class="ordem-info">
-                    <div class="ordem-item">${ordem.item} <span style="font-weight:400;color:#95a5a6;font-size:12px;">${ordem.quantidade}× €${ordem.precoUnitario.toFixed(2)}</span></div>
-                    <div class="ordem-amigos">${ordem.amigos.map(a => '<span style="display:inline-block;background:#edf7f0;color:#27ae60;padding:1px 8px;border-radius:10px;font-size:11px;margin:2px 3px 2px 0;font-weight:500;">' + a + '</span>').join('')}</div>
+                    <div class="ordem-item">${ordem.item} (${ordem.quantidade}x €${ordem.precoUnitario.toFixed(2)})</div>
+                    <div class="ordem-amigos">${ordem.amigos.join(', ')}</div>
                     <div class="ordem-hora">${ordem.hora || ''}</div>
                 </div>
                 <div class="ordem-preco">€${ordem.precoTotal.toFixed(2)}</div>
@@ -1276,6 +1429,7 @@ function salvarHistoricoLocal() {
 }
 
 function renderHistoricoDropdown() {
+    // Update the hidden select (keep for compatibility)
     const sel = document.getElementById('historico-select');
     sel.innerHTML = '<option value="">📚 Histórico (' + historico.length + ' eventos)</option>';
     [...historico].reverse().forEach(ev => {
@@ -1285,13 +1439,91 @@ function renderHistoricoDropdown() {
         opt.textContent = (ev.descricao || 'Sem nome') + ' — ' + ev.data + marker;
         sel.appendChild(opt);
     });
+
+    // Update toggle button label
+    const label = document.getElementById('historico-toggle-label');
+    if (label) label.textContent = '📚 Histórico (' + historico.length + ' evento' + (historico.length !== 1 ? 's' : '') + ')';
+
+    // Update card panel
+    const panel = document.getElementById('historico-panel');
+    if (!panel) return;
+    if (historico.length === 0) {
+        panel.innerHTML = '<div class="historico-empty">Nenhum evento guardado</div>';
+        return;
+    }
+    panel.innerHTML = [...historico].reverse().map(ev => {
+        const isAtual = ev.id === eventoAtualId;
+        const isFechado = !!ev.totalFatura;
+        let badge = '';
+        if (isAtual) badge = '<span class="historico-card-badge atual">Atual</span>';
+        else if (isFechado) badge = '<span class="historico-card-badge fechado">Fechado</span>';
+        else badge = '<span class="historico-card-badge aberto">Aberto</span>';
+        return `
+            <div class="historico-card${isAtual ? ' ativo' : ''}" onclick="${isAtual ? '' : 'navegarHistorico(' + ev.id + ')'}">
+                <div class="historico-card-info">
+                    <div class="historico-card-nome">${ev.descricao || 'Sem nome'}</div>
+                    <div class="historico-card-data">${ev.data || '—'}</div>
+                </div>
+                ${badge}
+            </div>`;
+    }).join('');
 }
 
-function navegarHistorico(id) {
+function toggleHistoricoPanel() {
+    const panel = document.getElementById('historico-panel');
+    const arrow = document.getElementById('historico-toggle-arrow');
+    panel.classList.toggle('open');
+    if (arrow) arrow.style.transform = panel.classList.contains('open') ? 'rotate(180deg)' : '';
+}
+
+/* ── Custom confirm modal ── */
+let _modalResolve = null;
+
+function mostrarModal(opts) {
+    return new Promise(resolve => {
+        _modalResolve = resolve;
+        document.getElementById('modal-icon').textContent = opts.icon || '⚠️';
+        document.getElementById('modal-title').textContent = opts.title || '';
+        document.getElementById('modal-msg').innerHTML = opts.msg || '';
+        const actions = document.getElementById('modal-actions');
+        actions.innerHTML = '';
+        const cancelBtn = document.createElement('button');
+        cancelBtn.className = 'modal-cancel';
+        cancelBtn.textContent = opts.cancelText || 'Cancelar';
+        cancelBtn.onclick = () => { fecharModalComResultado(false); };
+        actions.appendChild(cancelBtn);
+        const confirmBtn = document.createElement('button');
+        confirmBtn.className = opts.danger ? 'modal-danger' : 'modal-confirm';
+        confirmBtn.textContent = opts.confirmText || 'Confirmar';
+        confirmBtn.onclick = () => { fecharModalComResultado(true); };
+        actions.appendChild(confirmBtn);
+        document.getElementById('modal-overlay').classList.add('show');
+    });
+}
+
+function fecharModalComResultado(result) {
+    document.getElementById('modal-overlay').classList.remove('show');
+    if (_modalResolve) { _modalResolve(result); _modalResolve = null; }
+}
+
+function fecharModal(event) {
+    if (event.target === document.getElementById('modal-overlay')) {
+        fecharModalComResultado(false);
+    }
+}
+
+async function navegarHistorico(id) {
     if (!id) return;
     const ev = historico.find(e => e.id == id);
     if (!ev) return;
-    if (!confirm('Carregar "' + (ev.descricao || 'Sem nome') + '"? Os dados actuais não guardados serão perdidos.')) {
+    const ok = await mostrarModal({
+        icon: '📚',
+        title: ev.descricao || 'Sem nome',
+        msg: 'Carregar este evento? Dados não guardados serão perdidos.',
+        confirmText: 'Carregar',
+        cancelText: 'Cancelar'
+    });
+    if (!ok) {
         document.getElementById('historico-select').value = '';
         return;
     }
@@ -1317,12 +1549,24 @@ function navegarHistorico(id) {
     renderOfertaAmigos();
     atualizarUI();
     renderHistoricoDropdown();
+    // Close the panel after navigating
+    const panel = document.getElementById('historico-panel');
+    const arrow = document.getElementById('historico-toggle-arrow');
+    if (panel) { panel.classList.remove('open'); }
+    if (arrow) { arrow.style.transform = ''; }
     mostrarMensagem('✓ Evento carregado: ' + (ev.descricao || 'Sem nome'), true);
 }
 
-function novoEvento() {
+async function novoEvento() {
     if (estado.ordens.length > 0) {
-        if (!confirm('Criar novo evento? Os dados actuais não guardados serão perdidos.')) return;
+        const ok = await mostrarModal({
+            icon: '✨',
+            title: 'Novo evento',
+            msg: 'Criar novo evento? Dados não guardados serão perdidos.',
+            confirmText: 'Criar novo',
+            cancelText: 'Cancelar'
+        });
+        if (!ok) return;
     }
     eventoAtualId = null;
     modoReadOnly = false;
@@ -1336,7 +1580,6 @@ function novoEvento() {
     document.getElementById('ajuste-info').style.display = 'none';
     estado.amigosSelecionados.clear();
     estado.ofertaAmigos.clear();
-    // Clonar amigos/menu do evento anterior, se houver
     if (historico.length > 0) {
         const ultimo = historico[historico.length - 1];
         amigos = ultimo.amigos ? JSON.parse(JSON.stringify(ultimo.amigos)) : amigos;
@@ -1351,6 +1594,11 @@ function novoEvento() {
     renderOfertaDropdowns();
     renderOfertaAmigos();
     atualizarUI();
+    // Close the panel
+    const panel = document.getElementById('historico-panel');
+    const arrow = document.getElementById('historico-toggle-arrow');
+    if (panel) { panel.classList.remove('open'); }
+    if (arrow) { arrow.style.transform = ''; }
     mostrarMensagem('✓ Novo evento criado', true);
 }
 
@@ -1479,8 +1727,16 @@ function importarJSON() {
 }
 
 
-function limparTudo() {
-    if (confirm('Tem certeza que quer limpar TUDO? Isto não pode ser desfeito!')) {
+async function limparTudo() {
+    const ok = await mostrarModal({
+        icon: '🗑️',
+        title: 'Limpar tudo',
+        msg: 'Tem certeza? Isto não pode ser desfeito!',
+        confirmText: 'Limpar',
+        cancelText: 'Cancelar',
+        danger: true
+    });
+    if (ok) {
         eventoAtualId = null;
         modoReadOnly = false;
         estado.ordens = [];
@@ -1495,7 +1751,6 @@ function limparTudo() {
         salvarNoLocalStorage();
         atualizarReadOnly();
         atualizarUI();
-        // Forçar reset dos botões de editar/eliminar nas configs
         renderConfigAmigos();
         renderConfigMenu();
         mostrarMensagem('✓ Tudo limpo', true);
@@ -1830,8 +2085,15 @@ function atualizarReadOnly() {
     }
 }
 
-function desbloquearEvento() {
-    if (!confirm('Desbloquear este evento para edição? Alterações serão gravadas no histórico ao guardar.')) return;
+async function desbloquearEvento() {
+    const ok = await mostrarModal({
+        icon: '🔓',
+        title: 'Desbloquear evento',
+        msg: 'Alterações serão gravadas no histórico ao guardar.',
+        confirmText: 'Desbloquear',
+        cancelText: 'Cancelar'
+    });
+    if (!ok) return;
     modoReadOnly = false;
     atualizarUI();
     mostrarMensagem('🔓 Evento desbloqueado para edição', true);
@@ -1957,8 +2219,16 @@ function guardarConfigs() {
     localStorage.setItem('config_menu', JSON.stringify(menu));
 }
 
-function limparConfigs() {
-    if (!confirm('Limpar todos os amigos e itens do menu?')) return;
+async function limparConfigs() {
+    const ok = await mostrarModal({
+        icon: '🗑️',
+        title: 'Limpar configurações',
+        msg: 'Remover todos os amigos e itens do menu?',
+        confirmText: 'Limpar',
+        cancelText: 'Cancelar',
+        danger: true
+    });
+    if (!ok) return;
     amigos = [];
     menu = {};
     guardarConfigs();
@@ -2039,8 +2309,16 @@ function adicionarAmigo() {
     input.value = '';
 }
 
-function removerAmigo(idx) {
-    if (!confirm(`Remover "${amigos[idx]}"?`)) return;
+async function removerAmigo(idx) {
+    const ok = await mostrarModal({
+        icon: '👤',
+        title: 'Remover amigo',
+        msg: `Remover "${amigos[idx]}"?`,
+        confirmText: 'Remover',
+        cancelText: 'Cancelar',
+        danger: true
+    });
+    if (!ok) return;
     amigos.splice(idx, 1);
     guardarConfigs();
     renderConfigAmigos();
@@ -2109,9 +2387,17 @@ function guardarEdicaoMenu(i) {
     mostrarMensagem('✓ Menu atualizado', true);
 }
 
-function removerItemMenu(i) {
+async function removerItemMenu(i) {
     const nome = Object.keys(menu).sort()[i];
-    if (!confirm('Remover "' + nome + '" do menu?')) return;
+    const ok = await mostrarModal({
+        icon: '🍽️',
+        title: 'Remover item',
+        msg: `Remover "${nome}" do menu?`,
+        confirmText: 'Remover',
+        cancelText: 'Cancelar',
+        danger: true
+    });
+    if (!ok) return;
     delete menu[nome];
     guardarConfigs();
     renderConfigMenu();
@@ -2286,7 +2572,15 @@ async function ghPush() {
 async function ghPull() {
     const {token, owner, repo, path, branch} = ghGetCfg();
     if (!owner || !repo) { mostrarMensagem('Preenche Utilizador e Repositório!', false); return; }
-    if (!confirm(`Importar dados de ${owner}/${repo}/${path}?\nIsto irá SUBSTITUIR todos os dados locais atuais (histórico e evento em curso).`)) return;
+    const ok = await mostrarModal({
+        icon: '⬇️',
+        title: 'Importar do GitHub',
+        msg: `Importar de ${owner}/${repo}/${path}?<br>Isto irá <strong>substituir</strong> todos os dados locais.`,
+        confirmText: 'Importar',
+        cancelText: 'Cancelar',
+        danger: true
+    });
+    if (!ok) return;
     ghStatus('A importar do GitHub…');
     try {
         let text;
@@ -2340,8 +2634,15 @@ async function ghPull() {
 async function ghReset() {
     const {token, owner, repo, path, branch} = ghGetCfg();
     if (!owner || !repo) { mostrarMensagem('Configura o GitHub primeiro (secção 4)', false); return; }
-    if (!confirm('⚠️ RESET: Isto vai substituir TODOS os dados locais (histórico e evento em curso) pelos dados do GitHub.\n\nTens a certeza?')) return;
-    if (!confirm('Última confirmação — todos os dados locais não guardados no GitHub serão perdidos. Continuar?')) return;
+    const ok = await mostrarModal({
+        icon: '🔄',
+        title: 'Sincronizar com GitHub',
+        msg: 'Isto vai <strong>substituir todos os dados locais</strong> pelos dados do GitHub. Dados não guardados serão perdidos.',
+        confirmText: 'Sincronizar',
+        cancelText: 'Cancelar',
+        danger: true
+    });
+    if (!ok) return;
 
     const btn = document.getElementById('btn-gh-reset');
     const origText = btn.textContent;
@@ -2564,9 +2865,17 @@ if (document.readyState === 'loading') {
 </body>
 <script>
 // Apagar evento selecionado
-function apagarEventoAtual() {
+async function apagarEventoAtual() {
     if (!eventoAtualId) { mostrarMensagem('Nenhum evento selecionado.', false); return; }
-    if (!confirm('Eliminar este evento do histórico?')) return;
+    const ok = await mostrarModal({
+        icon: '🗑️',
+        title: 'Eliminar evento',
+        msg: 'Eliminar este evento do histórico?',
+        confirmText: 'Eliminar',
+        cancelText: 'Cancelar',
+        danger: true
+    });
+    if (!ok) return;
     historico = historico.filter(ev => ev.id !== eventoAtualId);
     salvarHistoricoLocal();
     renderHistoricoDropdown();
