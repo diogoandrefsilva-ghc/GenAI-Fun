@@ -1,0 +1,461 @@
+[
+  {
+    "id": 1776722419660,
+    "descricao": "Sporting vs Benfica",
+    "data": "19/04/2026",
+    "ordens": [
+      {
+        "id": 1776678394700.3408,
+        "item": "Caneca",
+        "quantidade": 6,
+        "precoUnitario": 3.5,
+        "precoTotal": 21,
+        "amigos": [
+          "Diogo",
+          "Barrona",
+          "Rogélio",
+          "João Paulo",
+          "João Hélder"
+        ],
+        "hora": "19/04 14:56"
+      },
+      {
+        "id": 1776678394700.911,
+        "item": "Croquete",
+        "quantidade": 5,
+        "precoUnitario": 2,
+        "precoTotal": 10,
+        "amigos": [
+          "Diogo",
+          "Barrona",
+          "Rogélio",
+          "João Hélder",
+          "João Paulo"
+        ],
+        "hora": "19/04 14:57"
+      },
+      {
+        "id": 1776678394700.6177,
+        "item": "Caneca",
+        "quantidade": 1,
+        "precoUnitario": 3.5,
+        "precoTotal": 3.5,
+        "amigos": [
+          "Filipe"
+        ],
+        "hora": "19/04 15:03"
+      },
+      {
+        "id": 1776678394700.707,
+        "item": "Lagartinhos",
+        "quantidade": 2,
+        "precoUnitario": 12.9,
+        "precoTotal": 25.8,
+        "amigos": [
+          "Diogo",
+          "Barrona",
+          "Rogélio",
+          "João Hélder",
+          "João Paulo"
+        ],
+        "hora": "19/04 15:13"
+      },
+      {
+        "id": 1776678394700.702,
+        "item": "Bitoque",
+        "quantidade": 1,
+        "precoUnitario": 13.9,
+        "precoTotal": 13.9,
+        "amigos": [
+          "Luís Pedro"
+        ],
+        "hora": "19/04 15:13"
+      },
+      {
+        "id": 1776678394700.1765,
+        "item": "Caneca",
+        "quantidade": 5,
+        "precoUnitario": 3.5,
+        "precoTotal": 17.5,
+        "amigos": [
+          "Diogo",
+          "Barrona",
+          "João Paulo",
+          "Luís Pedro",
+          "Rogélio"
+        ],
+        "hora": "19/04 15:14"
+      },
+      {
+        "id": 1776678394700.5737,
+        "item": "Costeletão",
+        "quantidade": 2,
+        "precoUnitario": 17.9,
+        "precoTotal": 35.8,
+        "amigos": [
+          "Diogo",
+          "Barrona",
+          "Rogélio",
+          "João Hélder",
+          "João Paulo"
+        ],
+        "hora": "19/04 15:26"
+      },
+      {
+        "id": 1776678394700.8494,
+        "item": "Caneca",
+        "quantidade": 6,
+        "precoUnitario": 3.5,
+        "precoTotal": 21,
+        "amigos": [
+          "Diogo",
+          "Barrona",
+          "Rogélio",
+          "Filipe",
+          "João Hélder",
+          "João Paulo"
+        ],
+        "hora": "19/04 15:39"
+      },
+      {
+        "id": 1776678394700.394,
+        "item": "Pão",
+        "quantidade": 1,
+        "precoUnitario": 1.5,
+        "precoTotal": 1.5,
+        "amigos": [
+          "Luís Pedro"
+        ],
+        "hora": "19/04 15:46"
+      },
+      {
+        "id": 1776678394700.959,
+        "item": "Caneca",
+        "quantidade": 1,
+        "precoUnitario": 3.5,
+        "precoTotal": 3.5,
+        "amigos": [
+          "Barrona"
+        ],
+        "hora": "19/04 16:04"
+      },
+      {
+        "id": 1776678394700.862,
+        "item": "Costeletão",
+        "quantidade": 1,
+        "precoUnitario": 17.9,
+        "precoTotal": 17.9,
+        "amigos": [
+          "Diogo",
+          "Barrona",
+          "Rogélio",
+          "João Hélder",
+          "João Paulo"
+        ],
+        "hora": "19/04 16:15"
+      },
+      {
+        "id": 1776678394700.1846,
+        "item": "Caneca",
+        "quantidade": 4,
+        "precoUnitario": 3.5,
+        "precoTotal": 14,
+        "amigos": [
+          "Diogo",
+          "Rogélio",
+          "João Paulo",
+          "Luís Pedro"
+        ],
+        "hora": "19/04 16:24"
+      },
+      {
+        "id": 1776678394700.6987,
+        "item": "Caneca",
+        "quantidade": 2,
+        "precoUnitario": 3.5,
+        "precoTotal": 7,
+        "amigos": [
+          "Mestre",
+          "Barrona"
+        ],
+        "hora": "19/04 16:43"
+      },
+      {
+        "id": 1776678394700.9727,
+        "item": "Chamuça",
+        "quantidade": 1,
+        "precoUnitario": 2,
+        "precoTotal": 2,
+        "amigos": [
+          "Mestre"
+        ],
+        "hora": "19/04 16:44"
+      },
+      {
+        "id": 1776678394700.0283,
+        "item": "Croquete",
+        "quantidade": 1,
+        "precoUnitario": 2,
+        "precoTotal": 2,
+        "amigos": [
+          "Filipe"
+        ],
+        "hora": "19/04 16:44"
+      },
+      {
+        "id": 1776678394700.3977,
+        "item": "Imperial",
+        "quantidade": 1,
+        "precoUnitario": 1.5,
+        "precoTotal": 1.5,
+        "amigos": [
+          "Filipe"
+        ],
+        "hora": "19/04 16:44"
+      },
+      {
+        "id": 1776678394700.225,
+        "item": "Café",
+        "quantidade": 3,
+        "precoUnitario": 0.9,
+        "precoTotal": 2.7,
+        "amigos": [
+          "Diogo",
+          "João Hélder",
+          "Rogélio"
+        ],
+        "hora": "19/04 17:01"
+      }
+    ],
+    "ofertas": [],
+    "totalFatura": 202.6,
+    "amigos": [],
+    "menu": {}
+  },
+  {
+    "id": 1778887690888,
+    "descricao": "Sporting vs Vitória",
+    "data": "04/05/2026",
+    "ordens": [
+      {
+        "id": 1777919369811,
+        "item": "Caneca",
+        "quantidade": 4,
+        "precoUnitario": 3.5,
+        "precoTotal": 14,
+        "amigos": [
+          "Diogo",
+          "Barrona",
+          "João Hélder",
+          "João Paulo"
+        ],
+        "hora": "04/05, 19:29"
+      },
+      {
+        "id": 1777919381215,
+        "item": "Croquete",
+        "quantidade": 3,
+        "precoUnitario": 2,
+        "precoTotal": 6,
+        "amigos": [
+          "Diogo",
+          "João Hélder",
+          "João Paulo"
+        ],
+        "hora": "04/05, 19:29"
+      },
+      {
+        "id": 1777919384896,
+        "item": "Chamuça",
+        "quantidade": 1,
+        "precoUnitario": 2,
+        "precoTotal": 2,
+        "amigos": [
+          "Barrona"
+        ],
+        "hora": "04/05, 19:29"
+      },
+      {
+        "id": 1777919397164,
+        "item": "Bifana",
+        "quantidade": 4,
+        "precoUnitario": 4.5,
+        "precoTotal": 18,
+        "amigos": [
+          "Diogo",
+          "Barrona",
+          "João Hélder",
+          "João Paulo"
+        ],
+        "hora": "04/05, 19:29"
+      },
+      {
+        "id": 1777920081311,
+        "item": "Croquete",
+        "quantidade": 1,
+        "precoUnitario": 2,
+        "precoTotal": 2,
+        "amigos": [
+          "Barrona"
+        ],
+        "hora": "04/05, 19:41"
+      }
+    ],
+    "ofertas": [],
+    "totalFatura": null,
+    "amigos": [
+      "Diogo",
+      "Barrona",
+      "Mestre",
+      "João Hélder",
+      "Rogélio",
+      "João Paulo",
+      "Luís Pedro",
+      "Filipe",
+      "Samuel",
+      "João Matias"
+    ],
+    "menu": {
+      "Bandida": 3.5,
+      "Batatas": 3,
+      "Bifana": 4.5,
+      "Bitoque": 13.9,
+      "Café": 0.9,
+      "Caneca": 3.5,
+      "Chamuça": 2,
+      "Coca-Cola": 1.8,
+      "Copo Reutilizável": 1,
+      "Costeletão": 17.9,
+      "Croquete": 2,
+      "Imperial": 1.5,
+      "Lagartinhos": 12.9,
+      "Ovo Extra": 1.5,
+      "Ovos Rotos": 11.9,
+      "Panaché": 2,
+      "Pão": 1.5,
+      "Pica-pau Vazia": 12.9,
+      "Prego": 6.9,
+      "Queijo": 4.5
+    }
+  },
+  {
+    "id": 1778956908479,
+    "descricao": "Sporting vs Gil Vicente",
+    "data": "16/05/2026",
+    "ordens": [
+      {
+        "id": 1778953640131,
+        "item": "Caneca",
+        "quantidade": 5,
+        "precoUnitario": 3.5,
+        "precoTotal": 17.5,
+        "amigos": [
+          "Barrona",
+          "João Hélder",
+          "João Paulo",
+          "Luís Pedro",
+          "Samuel"
+        ],
+        "hora": "16/05, 18:47"
+      },
+      {
+        "id": 1778953653512,
+        "item": "Croquete",
+        "quantidade": 4,
+        "precoUnitario": 2,
+        "precoTotal": 8,
+        "amigos": [
+          "Barrona",
+          "João Paulo",
+          "Samuel",
+          "João Hélder"
+        ],
+        "hora": "16/05, 18:47"
+      },
+      {
+        "id": 1778955641714,
+        "item": "Caneca",
+        "quantidade": 6,
+        "precoUnitario": 3.5,
+        "precoTotal": 21,
+        "amigos": [
+          "João Hélder",
+          "Barrona",
+          "João Paulo",
+          "Samuel",
+          "Filipe",
+          "Luís Pedro"
+        ],
+        "hora": "16/05, 19:20"
+      },
+      {
+        "id": 1778955700453,
+        "item": "Bifana",
+        "quantidade": 10,
+        "precoUnitario": 4.5,
+        "precoTotal": 45,
+        "amigos": [
+          "Barrona",
+          "João Hélder",
+          "João Paulo",
+          "Filipe",
+          "Samuel"
+        ],
+        "hora": "16/05, 19:21"
+      }
+    ],
+    "ofertas": [
+      {
+        "id": 1778955629281,
+        "quem": "João Hélder",
+        "item": "Caneca",
+        "quantidade": 5,
+        "precoUnitario": 3.5,
+        "precoTotal": 17.5,
+        "para": [
+          "Barrona",
+          "João Paulo",
+          "Filipe",
+          "Luís Pedro",
+          "Samuel"
+        ],
+        "hora": "16/05, 19:20"
+      }
+    ],
+    "totalFatura": null,
+    "amigos": [
+      "Diogo",
+      "Barrona",
+      "Mestre",
+      "João Hélder",
+      "Rogélio",
+      "João Paulo",
+      "Luís Pedro",
+      "Filipe",
+      "Samuel",
+      "João Matias"
+    ],
+    "menu": {
+      "Bandida": 3.5,
+      "Batatas": 3,
+      "Bifana": 4.5,
+      "Bitoque": 13.9,
+      "Café": 0.9,
+      "Caneca": 3.5,
+      "Chamuça": 2,
+      "Coca-Cola": 1.8,
+      "Copo Reutilizável": 1,
+      "Costeletão": 17.9,
+      "Croquete": 2,
+      "Imperial": 1.5,
+      "Lagartinhos": 12.9,
+      "Ovo Extra": 1.5,
+      "Ovos Rotos": 11.9,
+      "Panaché": 2,
+      "Pão": 1.5,
+      "Pica-pau Vazia": 12.9,
+      "Prego": 6.9,
+      "Queijo": 4.5
+    }
+  }
+]
