@@ -426,7 +426,6 @@
             background: rgba(46,204,113,0.2);
             border-color: rgba(46,204,113,0.5);
         }
-        .historico-card-info { flex: 1; min-width: 0; }
         .historico-card-nome {
             font-size: 13px;
             font-weight: 600;
@@ -437,36 +436,11 @@
             flex: 1;
             min-width: 0;
         }
-        .historico-card-right {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-shrink: 0;
-            margin-left: 10px;
-        }
         .historico-card-data {
             font-size: 11px;
             color: rgba(255,255,255,0.55);
-        }
-        .historico-card-badge {
-            font-size: 10px;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-weight: 600;
-            margin-left: 10px;
             flex-shrink: 0;
-        }
-        .historico-card-badge.fechado {
-            background: rgba(241,196,15,0.25);
-            color: #f1c40f;
-        }
-        .historico-card-badge.aberto {
-            background: rgba(46,204,113,0.25);
-            color: #2ecc71;
-        }
-        .historico-card-badge.atual {
-            background: rgba(52,152,219,0.3);
-            color: #5dade2;
+            margin-left: 10px;
         }
         .historico-empty {
             text-align: center;
@@ -803,13 +777,13 @@
         <div id="total-itens"></div>
     </div>
 
-    <div style="margin-top: 16px; background: #fff8e1; border: 1px solid #ffe082; border-radius: 6px; padding: 12px;">
-        <label style="font-size: 13px; color: #7f8c8d; margin-bottom: 8px; display: block;">🧾 Ajuste pela fatura do restaurante:</label>
+    <div id="fatura-section" style="margin-top: 16px; background: #fff8e1; border: 1px solid #ffe082; border-radius: 6px; padding: 12px;">
+        <label style="font-size: 13px; color: #7f8c8d; margin-bottom: 8px; display: block;">🧾 Fatura do Restaurante</label>
         <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 10px;">
-            <input type="number" id="total-fatura" placeholder="Total da fatura (€)" min="0" step="0.01"
-                style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
-            <button onclick="confirmarFatura()" style="padding: 10px 14px; font-size: 16px; background:#27ae60;">✓</button>
-            <button class="secondary" onclick="limparFatura()" style="padding: 10px 12px; font-size: 12px;">✕</button>
+            <input type="number" id="total-fatura" placeholder="Total (€)" min="0" step="0.01"
+                style="width: 120px; flex: none; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+            <button id="btn-fechar-evento" onclick="fecharComFatura()" style="flex: 1; padding: 10px 14px; font-size: 13px; background:#27ae60;">🔒 Fechar</button>
+            <button id="btn-reabrir-evento" onclick="reabrirEvento()" style="flex: 1; padding: 10px 14px; font-size: 13px; display:none;" class="secondary">🔓 Reabrir</button>
         </div>
         <div id="ajuste-info" style="display:none;">
             <div id="ajuste-racio" style="font-size: 13px; color: #555; margin-bottom: 8px;"></div>
@@ -1461,18 +1435,10 @@ function renderHistoricoDropdown() {
     }
     panel.innerHTML = [...historico].reverse().map(ev => {
         const isAtual = ev.id === eventoAtualId;
-        const isFechado = !!ev.totalFatura;
-        let badge = '';
-        if (isAtual && !isFechado) badge = '<span class="historico-card-badge atual">Atual</span>';
-        else if (isFechado) badge = '<span class="historico-card-badge fechado">Fechado</span>';
-        else badge = '<span class="historico-card-badge fechado">Guardado</span>';
         return `
             <div class="historico-card${isAtual ? ' ativo' : ''}" onclick="${isAtual ? '' : 'navegarHistorico(' + ev.id + ')'}">
                 <div class="historico-card-nome">${ev.descricao || 'Sem nome'}</div>
-                <div class="historico-card-right">
-                    <span class="historico-card-data">${ev.data || '—'}</span>
-                    ${badge}
-                </div>
+                <span class="historico-card-data">${ev.data || '—'}</span>
             </div>`;
     }).join('');
 }
@@ -1977,18 +1943,35 @@ function exportarPDFDivisao() {
     abrirJanelaPDF(html, 'divisao_contas.pdf');
 }
 
-function confirmarFatura() {
+function fecharComFatura() {
+    const fatura = parseFloat(document.getElementById('total-fatura').value);
+    if (!fatura || fatura <= 0) { mostrarMensagem('⚠️ Introduz o valor da fatura', false); return; }
+    estado.totalFatura = fatura;
+    modoReadOnly = true;
+    document.getElementById('total-fatura').disabled = true;
+    document.getElementById('btn-fechar-evento').style.display = 'none';
+    document.getElementById('btn-reabrir-evento').style.display = '';
     atualizarAjuste();
-    if (estado.totalFatura) {
-        guardarEvento();
-        mostrarMensagem('✓ Fatura guardada', true);
-    }
+    guardarEvento();
+    atualizarReadOnly();
+    mostrarMensagem('✓ Evento fechado com fatura de €' + fatura.toFixed(2), true);
 }
 
-function limparFatura() {
-    document.getElementById('total-fatura').value = '';
-    atualizarAjuste();
+function reabrirEvento() {
+    modoReadOnly = false;
+    estado.totalFatura = null;
+    document.getElementById('total-fatura').disabled = false;
+    document.getElementById('btn-fechar-evento').style.display = '';
+    document.getElementById('btn-reabrir-evento').style.display = 'none';
+    document.getElementById('ajuste-info').style.display = 'none';
+    salvarNoLocalStorage();
+    atualizarReadOnly();
+    atualizarUI();
+    mostrarMensagem('🔓 Evento reaberto', true);
 }
+
+function confirmarFatura() { fecharComFatura(); }
+function limparFatura() { reabrirEvento(); }
 
 function atualizarAjuste() {
     const fatura = parseFloat(document.getElementById('total-fatura').value);
@@ -1997,19 +1980,29 @@ function atualizarAjuste() {
     const racioDiv = document.getElementById('ajuste-racio');
     const ajusteDiv = document.getElementById('conta-pessoas-ajustada');
 
-    // Não bloquear o campo automaticamente!
     if (!fatura || fatura <= 0 || totalMesa === 0) {
         infoDiv.style.display = 'none';
         return;
     }
 
     infoDiv.style.display = 'block';
-    const racio = fatura / totalMesa;
     const diff = fatura - totalMesa;
+    const isMatch = Math.abs(diff) < 0.01;
+
+    if (isMatch) {
+        // Fatura bate certo — visto verde, sem lista de ajustes
+        racioDiv.innerHTML = '<span style="color:#27ae60;font-weight:600;">✅ Fatura confere com o total das ordens (€' + totalMesa.toFixed(2) + ')</span>';
+        ajusteDiv.innerHTML = '';
+        return;
+    }
+
+    // Fatura diferente — mostrar aviso e lista ajustada
+    const racio = fatura / totalMesa;
     const pct = ((racio - 1) * 100).toFixed(1);
     const sinal = diff >= 0 ? '+' : '';
     const cor = diff >= 0 ? '#e74c3c' : '#27ae60';
-    racioDiv.innerHTML = `Fatura: <strong>€${fatura.toFixed(2)}</strong> · Calculado: <strong>€${totalMesa.toFixed(2)}</strong> · Ajuste: <strong style=\"color:${cor}\">${sinal}${pct}%</strong>`;
+    racioDiv.innerHTML = '<span style="color:#e67e22;font-weight:600;">⚠️ Diferença na fatura</span><br>' +
+        'Fatura: <strong>€' + fatura.toFixed(2) + '</strong> · Calculado: <strong>€' + totalMesa.toFixed(2) + '</strong> · Ajuste: <strong style="color:' + cor + '">' + sinal + pct + '%</strong>';
 
     // Consumo bruto (antes de ofertas)
     const setPessoas = new Set();
@@ -2026,29 +2019,21 @@ function atualizarAjuste() {
     const consumoLiquido = {};
     setPessoas.forEach(p => consumoLiquido[p] = consumoBruto[p] + (saldoOfertas[p] || 0));
 
-    // Ajuste: se excedente, repartir pelo consumo bruto; se desconto, repartir pelo consumo líquido
+    // Ajuste proporcional
     let base = consumoBruto;
     if (diff < 0) base = consumoLiquido;
     const totalBase = Object.values(base).reduce((a, b) => a + b, 0);
     const pessoas = Array.from(setPessoas).sort();
-    // Usar nomes atuais dos amigos se possível
-    const nomeAtual = (nomeAntigo => {
-        // Se o nomeAntigo existir em amigos, retorna ele mesmo, senão tenta mapear pelo índice
-        if (amigos.includes(nomeAntigo)) return nomeAntigo;
-        // fallback: retorna o nome original
-        return nomeAntigo;
-    });
     ajusteDiv.innerHTML = pessoas.map(p => {
-        const nome = nomeAtual(p);
         const original = consumoLiquido[p];
         const part = totalBase > 0 ? (base[p] / totalBase) : 0;
         const ajuste = part * diff;
         const ajustado = original + ajuste;
         return `
-        <div class=\"pessoa-ajuste\">
-            <span class=\"pessoa-nome\">${nome}</span>
-            <span class=\"valor-original\">€${original.toFixed(2)}</span>
-            <span class=\"valor-ajustado\">€${ajustado.toFixed(2)}</span>
+        <div class="pessoa-ajuste">
+            <span class="pessoa-nome">${p}</span>
+            <span class="valor-original">€${original.toFixed(2)}</span>
+            <span class="valor-ajustado">€${ajustado.toFixed(2)}</span>
         </div>
         `;
     }).join('');
@@ -2060,25 +2045,26 @@ function atualizarReadOnly() {
     const banner = document.getElementById('readonly-banner');
     const sections = ['section-adicionar', 'section-ofertas', 'section-config'];
 
+    // Sync fatura buttons
+    const hasFatura = !!estado.totalFatura;
+    document.getElementById('total-fatura').disabled = hasFatura;
+    document.getElementById('btn-fechar-evento').style.display = hasFatura ? 'none' : '';
+    document.getElementById('btn-reabrir-evento').style.display = hasFatura ? '' : 'none';
+
     if (modoReadOnly) {
         banner.style.display = 'flex';
         sections.forEach(id => {
             const el = document.getElementById(id);
             if (el) el.classList.add('readonly-overlay');
         });
-        // Disable inputs and buttons in those sections
         sections.forEach(id => {
             const el = document.getElementById(id);
             if (!el) return;
             el.querySelectorAll('button, input, select').forEach(el => {
-                // Não bloquear o campo da fatura
                 if (el.id !== 'total-fatura') el.disabled = true;
             });
         });
-        // Also disable descricao input
         document.getElementById('descricao-evento').disabled = true;
-        // NÃO bloquear o campo da fatura
-        // document.getElementById('total-fatura').disabled = true;
     } else {
         banner.style.display = 'none';
         sections.forEach(id => {
@@ -2103,6 +2089,11 @@ async function desbloquearEvento() {
     });
     if (!ok) return;
     modoReadOnly = false;
+    estado.totalFatura = null;
+    document.getElementById('total-fatura').disabled = false;
+    document.getElementById('ajuste-info').style.display = 'none';
+    salvarNoLocalStorage();
+    atualizarReadOnly();
     atualizarUI();
     mostrarMensagem('🔓 Evento desbloqueado para edição', true);
 }
