@@ -434,11 +434,19 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            flex: 1;
+            min-width: 0;
+        }
+        .historico-card-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+            margin-left: 10px;
         }
         .historico-card-data {
             font-size: 11px;
             color: rgba(255,255,255,0.55);
-            margin-top: 2px;
         }
         .historico-card-badge {
             font-size: 10px;
@@ -1455,16 +1463,16 @@ function renderHistoricoDropdown() {
         const isAtual = ev.id === eventoAtualId;
         const isFechado = !!ev.totalFatura;
         let badge = '';
-        if (isAtual) badge = '<span class="historico-card-badge atual">Atual</span>';
+        if (isAtual && !isFechado) badge = '<span class="historico-card-badge atual">Atual</span>';
         else if (isFechado) badge = '<span class="historico-card-badge fechado">Fechado</span>';
-        else badge = '<span class="historico-card-badge aberto">Aberto</span>';
+        else badge = '<span class="historico-card-badge fechado">Guardado</span>';
         return `
             <div class="historico-card${isAtual ? ' ativo' : ''}" onclick="${isAtual ? '' : 'navegarHistorico(' + ev.id + ')'}">
-                <div class="historico-card-info">
-                    <div class="historico-card-nome">${ev.descricao || 'Sem nome'}</div>
-                    <div class="historico-card-data">${ev.data || '—'}</div>
+                <div class="historico-card-nome">${ev.descricao || 'Sem nome'}</div>
+                <div class="historico-card-right">
+                    <span class="historico-card-data">${ev.data || '—'}</span>
+                    ${badge}
                 </div>
-                ${badge}
             </div>`;
     }).join('');
 }
