@@ -781,9 +781,9 @@
         <label style="font-size: 13px; color: #7f8c8d; margin-bottom: 8px; display: block;">🧾 Fatura do Restaurante</label>
         <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 10px;">
             <input type="number" id="total-fatura" placeholder="Total (€)" min="0" step="0.01"
-                style="width: 120px; flex: none; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
-            <button id="btn-fechar-evento" onclick="fecharComFatura()" style="flex: 1; padding: 10px 14px; font-size: 13px; background:#27ae60;">🔒 Fechar</button>
-            <button id="btn-reabrir-evento" onclick="reabrirEvento()" style="flex: 1; padding: 10px 14px; font-size: 13px; display:none;" class="secondary">🔓 Reabrir</button>
+                style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+            <button id="btn-fechar-evento" onclick="fecharComFatura()" style="flex: 1; padding: 10px 14px; font-size: 13px; background:#27ae60;">🔒 Fechar Conta</button>
+            <button id="btn-reabrir-evento" onclick="reabrirEvento()" style="flex: 1; padding: 10px 14px; font-size: 13px; display:none;" class="secondary">🔓 Reabrir Conta</button>
         </div>
         <div id="ajuste-info" style="display:none;">
             <div id="ajuste-racio" style="font-size: 13px; color: #555; margin-bottom: 8px;"></div>
@@ -1621,7 +1621,6 @@ function guardarEvento() {
     salvarHistoricoLocal();
     salvarNoLocalStorage();
     renderHistoricoDropdown();
-    exportarJSON();
     mostrarMensagem('✓ Evento guardado', true);
 }
 
@@ -1943,7 +1942,7 @@ function exportarPDFDivisao() {
     abrirJanelaPDF(html, 'divisao_contas.pdf');
 }
 
-function fecharComFatura() {
+async function fecharComFatura() {
     const fatura = parseFloat(document.getElementById('total-fatura').value);
     if (!fatura || fatura <= 0) { mostrarMensagem('⚠️ Introduz o valor da fatura', false); return; }
     estado.totalFatura = fatura;
@@ -1954,7 +1953,40 @@ function fecharComFatura() {
     atualizarAjuste();
     guardarEvento();
     atualizarReadOnly();
-    mostrarMensagem('✓ Evento fechado com fatura de €' + fatura.toFixed(2), true);
+    mostrarMensagem('✓ Conta fechada — €' + fatura.toFixed(2), true);
+
+    // Push to GitHub if token exists
+    const {token, owner, repo, path, branch} = ghGetCfg();
+    if (token && owner && repo) {
+        const fab = document.getElementById('gh-fab');
+        fab.className = 'saving';
+        fab.innerHTML = '<svg viewBox="0 0 24 24" style="animation:spin 1s linear infinite"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" opacity=".3"/><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg>';
+        try {
+            const content = btoa(unescape(encodeURIComponent(JSON.stringify(historico, null, 2))));
+            let sha = null;
+            const check = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`, {
+                headers: {'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json'}
+            });
+            if (check.ok) { const j = await check.json(); sha = j.sha; }
+            const body = {message: `SplitBill fechar conta ${new Date().toLocaleString('pt-PT')}`, content, branch};
+            if (sha) body.sha = sha;
+            const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+                method: 'PUT',
+                headers: {'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json'},
+                body: JSON.stringify(body)
+            });
+            if (!res.ok) throw new Error(res.status);
+            fab.className = 'saved';
+            fab.innerHTML = '<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>';
+            mostrarMensagem('✓ Conta fechada e guardada no GitHub', true);
+            setTimeout(() => { fab.className = ''; fab.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49.99.1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/></svg>'; ghUpdateFab(); }, 3000);
+        } catch(e) {
+            fab.className = 'error';
+            fab.innerHTML = '<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
+            mostrarMensagem('Conta fechada, mas erro ao guardar no GitHub', false);
+            setTimeout(() => { fab.className = ''; fab.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49.99.1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/></svg>'; ghUpdateFab(); }, 2500);
+        }
+    }
 }
 
 function reabrirEvento() {
