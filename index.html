@@ -630,33 +630,6 @@
             }
         }
     </style>
-    <style>
-        /* Floating GitHub save button */
-        #gh-fab {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: #24292e;
-            color: #fff;
-            border: none;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.3);
-            cursor: pointer;
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
-        }
-        #gh-fab:active { transform: scale(0.92); }
-        #gh-fab.saving { background: #f39c12; pointer-events: none; }
-        #gh-fab.saved  { background: #27ae60; }
-        #gh-fab.error  { background: #e74c3c; }
-        #gh-fab svg { width: 22px; height: 22px; fill: currentColor; }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    </style>
 </head>
 <body>
 
@@ -837,19 +810,19 @@
         <span id="ajuda-arrow" style="font-size:18px;color:#95a5a6;">▼</span>
     </div>
     <div id="ajuda-body" style="display:none;margin-top:14px;font-size:13px;color:#555;line-height:1.7;">
-        <p><strong>⚙️ Configurações</strong> — Importa o ficheiro Excel com os amigos e o menu do restaurante. Podes editar, adicionar ou remover entradas diretamente na app. Tudo fica guardado por evento — amigos e menu são específicos de cada jantar.</p>
-        <p style="margin-top:8px;"><strong>📚 Histórico</strong> — Dropdown no topo para navegar entre eventos anteriores. Os eventos fechados ficam em modo leitura; usa <strong>🔓 Desbloquear</strong> para editar. Ao carregar um evento histórico, os amigos e menu desse evento são restaurados.</p>
-        <p style="margin-top:8px;"><strong>＋ Novo</strong> — Cria um novo evento em branco, herdando os amigos e menu do evento mais recente como ponto de partida.</p>
+        <p><strong>⚙️ Configurações</strong> — Importa o ficheiro Excel com os amigos e o menu do restaurante. Podes editar, adicionar ou remover entradas diretamente na app. Tudo fica guardado por evento — amigos e menu são específicos de cada jogo.</p>
+        <p style="margin-top:8px;"><strong>📚 Histórico</strong> — Painel no topo para navegar entre eventos. Os eventos com fatura ficam em modo leitura; usa <strong>🔓 Desbloquear</strong> para editar. Todas as alterações são guardadas automaticamente.</p>
+        <p style="margin-top:8px;"><strong>＋ Novo</strong> — Cria um novo evento, herdando os amigos e menu do evento mais recente como ponto de partida.</p>
         <p style="margin-top:8px;"><strong>1. Adicionar Ordem</strong> — Seleciona o item, a quantidade e quem comeu/bebeu. A data do evento é definida automaticamente pela hora da primeira ordem registada.</p>
         <p style="margin-top:8px;"><strong>2. Ordens Registadas</strong> — Lista de tudo o que foi pedido. O ✏️ edita a ordem no lugar sem perder a posição; o × apaga.</p>
         <p style="margin-top:8px;"><strong>2b. 🎁 Ofertas</strong> — Quando alguém quer pagar uma rodada a outros. O custo sobe na conta de quem oferece e desce proporcionalmente na de quem recebe.</p>
         <p style="margin-top:8px;"><strong>3. Resumo</strong> — Total por pessoa com detalhe do consumo e saldo de ofertas. Introduz a fatura do restaurante e confirma com ✓ — o ajuste é calculado proporcionalmente considerando ordens e ofertas, e o evento fica automaticamente bloqueado.</p>
         <p style="margin-top:8px;"><strong>📋 PDF Conta</strong> — Ordens detalhadas + total por item, ideal para confrontar com a fatura do restaurante.<br>
         <strong>💸 PDF Divisão</strong> — Conta final por pessoa com detalhe de consumo e ajustes.</p>
-        <p style="margin-top:8px;"><strong>💾 Guardar</strong> — Grava o evento no histórico (localStorage) e descarrega o JSON de backup. Se não houver descrição, o nome fica "Sem Descrição · data · hora".<br>
+        <p style="margin-top:8px;"><strong>💾 Exportar JSON</strong> — Descarrega o histórico completo como ficheiro JSON de backup.<br>
         <strong>📤 Importar</strong> — Restaura o histórico completo a partir do ficheiro JSON.<br>
         <strong>🗑️ Apagar Evento</strong> — Remove o evento atual do histórico permanentemente.<br>
-        <strong>🗑️ Limpar Tudo</strong> — Descarta o evento atual sem gravar.</p>
+        <strong>🗑️ Limpar Evento</strong> — Limpa todas as ordens e ofertas do evento atual.</p>
     </div>
 </div>
 
@@ -862,9 +835,9 @@
     <div id="guardar-body" style="display:none;margin-top:12px;">
     <div class="botoes-dados">
         <button class="secondary" onclick="document.getElementById('input-json').click()">📤 Importar JSON</button>
-        <button onclick="guardarEvento()">💾 Guardar</button>
+        <button onclick="guardarEvento()">💾 Exportar JSON</button>
         <button id="btn-apagar-evento" class="danger" onclick="apagarEventoAtual()">🗑️ Apagar Evento</button>
-        <button class="danger" onclick="limparTudo()">🗑️ Limpar Tudo</button>
+        <button class="danger" onclick="limparTudo()">🗑️ Limpar Evento</button>
     </div>
     <input type="file" id="input-json" accept=".json" style="display:none;" onchange="importarJSON()">
 
@@ -937,24 +910,19 @@ let estado = {
 
 // Inicializar
 function init() {
-    carregarConfigs();
     carregarHistoricoLocal();
-    carregarDoLocalStorage();
+    carregarDoLocalStorage(); // cleans up legacy keys
     ghLoadCfg();
-    ghUpdateFab();
+    ghUpdateSyncBtn();
 
-    // Smart load: if localStorage empty, load latest history event
-    if (estado.ordens.length === 0 && historico.length > 0) {
+    // Load the most recent event, or start fresh
+    if (historico.length > 0) {
         const ultimo = historico[historico.length - 1];
-        eventoAtualId = ultimo.id;
-        estado.ordens = ultimo.ordens || [];
-        estado.ofertas = ultimo.ofertas || [];
-        estado.totalFatura = ultimo.totalFatura || null;
-        estado.descricaoEvento = ultimo.descricao || '';
-        modoReadOnly = true;
+        carregarEvento(ultimo);
     } else {
-        // Lock if fatura is set
-        if (estado.totalFatura) modoReadOnly = true;
+        // No history at all — blank state, no event created yet
+        amigos = [];
+        menu = {};
     }
 
     if (estado.descricaoEvento) document.getElementById('descricao-evento').value = estado.descricaoEvento;
@@ -976,6 +944,22 @@ function init() {
 
     // Prompt to sync from GitHub on load
     ghPromptSync();
+}
+
+// Helper: load an event's data into the working state
+function carregarEvento(ev) {
+    eventoAtualId = ev.id;
+    estado.ordens = ev.ordens ? JSON.parse(JSON.stringify(ev.ordens)) : [];
+    estado.ofertas = ev.ofertas ? JSON.parse(JSON.stringify(ev.ofertas)) : [];
+    estado.totalFatura = ev.totalFatura || null;
+    estado.descricaoEvento = ev.descricao || '';
+    amigos = ev.amigos ? JSON.parse(JSON.stringify(ev.amigos)) : [];
+    menu = ev.menu ? JSON.parse(JSON.stringify(ev.menu)) : {};
+    modoReadOnly = !!ev.totalFatura;
+    document.getElementById('descricao-evento').value = estado.descricaoEvento;
+    document.getElementById('total-fatura').value = estado.totalFatura || '';
+    if (estado.totalFatura) atualizarAjuste();
+    else { document.getElementById('ajuste-info').style.display = 'none'; }
 }
 
 function renderDropdownItens() {
@@ -1375,27 +1359,31 @@ function calcularSaldoOfertas() {
 }
 
 function salvarNoLocalStorage() {
-    localStorage.setItem('conta_refeicao', JSON.stringify({ordens: estado.ordens, ofertas: estado.ofertas, totalFatura: estado.totalFatura, descricaoEvento: estado.descricaoEvento, eventoAtualId}));
+    // Auto-save current state into historico
+    if (eventoAtualId) {
+        const idx = historico.findIndex(e => e.id === eventoAtualId);
+        if (idx >= 0) {
+            historico[idx].ordens = JSON.parse(JSON.stringify(estado.ordens));
+            historico[idx].ofertas = JSON.parse(JSON.stringify(estado.ofertas));
+            historico[idx].totalFatura = estado.totalFatura;
+            historico[idx].descricao = estado.descricaoEvento;
+            historico[idx].amigos = JSON.parse(JSON.stringify(amigos));
+            historico[idx].menu = JSON.parse(JSON.stringify(menu));
+            // Update data field from first order
+            const dataEvento = dataDoEvento();
+            historico[idx].data = dataEvento.toLocaleDateString('pt-PT', {day:'2-digit', month:'2-digit', year:'numeric'});
+        }
+    }
+    salvarHistoricoLocal();
+    ghScheduleAutoSave();
 }
 
 function carregarDoLocalStorage() {
-    const dados = localStorage.getItem('conta_refeicao');
-    if (dados) {
-        try {
-            const parsed = JSON.parse(dados);
-            if (Array.isArray(parsed)) {
-                estado.ordens = parsed; // backwards compat
-            } else {
-                estado.ordens = parsed.ordens || [];
-                estado.ofertas = parsed.ofertas || [];
-                estado.totalFatura = parsed.totalFatura || null;
-                estado.descricaoEvento = parsed.descricaoEvento || '';
-                eventoAtualId = parsed.eventoAtualId || null;
-            }
-        } catch (e) {
-            console.error('Erro ao carregar dados:', e);
-        }
-    }
+    // Legacy — data now lives in historico_eventos only.
+    // Clean up old keys on first run.
+    localStorage.removeItem('conta_refeicao');
+    localStorage.removeItem('config_amigos');
+    localStorage.removeItem('config_menu');
 }
 
 
@@ -1490,30 +1478,7 @@ async function navegarHistorico(id) {
     if (!id) return;
     const ev = historico.find(e => e.id == id);
     if (!ev) return;
-    const ok = await mostrarModal({
-        icon: '📚',
-        title: ev.descricao || 'Sem nome',
-        msg: 'Carregar este evento? Dados não guardados serão perdidos.',
-        confirmText: 'Carregar',
-        cancelText: 'Cancelar'
-    });
-    if (!ok) {
-        document.getElementById('historico-select').value = '';
-        return;
-    }
-    eventoAtualId = ev.id;
-    modoReadOnly = true;
-    estado.ordens = ev.ordens || [];
-    estado.ofertas = ev.ofertas || [];
-    estado.totalFatura = ev.totalFatura || null;
-    estado.descricaoEvento = ev.descricao || '';
-    amigos = ev.amigos ? JSON.parse(JSON.stringify(ev.amigos)) : [];
-    menu = ev.menu ? JSON.parse(JSON.stringify(ev.menu)) : {};
-    document.getElementById('descricao-evento').value = estado.descricaoEvento;
-    document.getElementById('total-fatura').value = estado.totalFatura || '';
-    if (estado.totalFatura) atualizarAjuste();
-    else { document.getElementById('ajuste-info').style.display = 'none'; }
-    salvarNoLocalStorage();
+    carregarEvento(ev);
     atualizarReadOnly();
     renderConfigAmigos();
     renderConfigMenu();
@@ -1532,34 +1497,35 @@ async function navegarHistorico(id) {
 }
 
 async function novoEvento() {
-    if (estado.ordens.length > 0) {
-        const ok = await mostrarModal({
-            icon: '✨',
-            title: 'Novo evento',
-            msg: 'Criar novo evento? Dados não guardados serão perdidos.',
-            confirmText: 'Criar novo',
-            cancelText: 'Cancelar'
-        });
-        if (!ok) return;
-    }
-    eventoAtualId = null;
-    modoReadOnly = false;
-    estado.ordens = [];
-    estado.ofertas = [];
-    estado.totalFatura = null;
-    estado.descricaoEvento = '';
-    document.getElementById('descricao-evento').value = '';
-    document.getElementById('total-fatura').value = '';
-    document.getElementById('historico-select').value = '';
-    document.getElementById('ajuste-info').style.display = 'none';
-    estado.amigosSelecionados.clear();
-    estado.ofertaAmigos.clear();
+    // Inherit amigos and menu from most recent event
+    let novosAmigos = [];
+    let novoMenu = {};
     if (historico.length > 0) {
         const ultimo = historico[historico.length - 1];
-        amigos = ultimo.amigos ? JSON.parse(JSON.stringify(ultimo.amigos)) : amigos;
-        menu = ultimo.menu ? JSON.parse(JSON.stringify(ultimo.menu)) : menu;
+        novosAmigos = ultimo.amigos ? JSON.parse(JSON.stringify(ultimo.amigos)) : [];
+        novoMenu = ultimo.menu ? JSON.parse(JSON.stringify(ultimo.menu)) : {};
     }
-    salvarNoLocalStorage();
+
+    const novoId = Date.now();
+    const novoEvt = {
+        id: novoId,
+        descricao: '',
+        data: new Date().toLocaleDateString('pt-PT', {day:'2-digit', month:'2-digit', year:'numeric'}),
+        ordens: [],
+        ofertas: [],
+        totalFatura: null,
+        amigos: novosAmigos,
+        menu: novoMenu
+    };
+    historico.push(novoEvt);
+    salvarHistoricoLocal();
+
+    // Load it
+    carregarEvento(novoEvt);
+    modoReadOnly = false;
+    document.getElementById('historico-select').value = '';
+    estado.amigosSelecionados.clear();
+    estado.ofertaAmigos.clear();
     atualizarReadOnly();
     renderConfigAmigos();
     renderConfigMenu();
@@ -1568,6 +1534,7 @@ async function novoEvento() {
     renderOfertaDropdowns();
     renderOfertaAmigos();
     atualizarUI();
+    renderHistoricoDropdown();
     // Close the panel
     const panel = document.getElementById('historico-panel');
     const arrow = document.getElementById('historico-toggle-arrow');
@@ -1612,39 +1579,15 @@ function snaphotEstado() {
 }
 
 function guardarEvento() {
-    if (estado.ordens.length === 0) { mostrarMensagem('⚠️ Sem ordens para guardar', false); return; }
-    const snap = snaphotEstado();
-    eventoAtualId = snap.id;
-    const idx = historico.findIndex(e => e.id === snap.id);
-    if (idx >= 0) historico[idx] = snap;
-    else historico.push(snap);
-    salvarHistoricoLocal();
-    salvarNoLocalStorage();
-    renderHistoricoDropdown();
-    mostrarMensagem('✓ Evento guardado', true);
+    // Data is already auto-saved in historico. This button now exports JSON.
+    if (historico.length === 0) { mostrarMensagem('⚠️ Sem eventos para exportar', false); return; }
+    exportarJSON();
+    mostrarMensagem('✓ JSON exportado', true);
 }
 
 function guardarEFechar() {
-    if (estado.ordens.length === 0) { mostrarMensagem('⚠️ Sem ordens para guardar', false); return; }
+    // Legacy — no longer needed, but keep for compat
     guardarEvento();
-    setTimeout(() => {
-        eventoAtualId = null;
-        modoReadOnly = false;
-        estado.ordens = [];
-        estado.ofertas = [];
-        estado.totalFatura = null;
-        estado.descricaoEvento = '';
-        document.getElementById('descricao-evento').value = '';
-        document.getElementById('total-fatura').value = '';
-        document.getElementById('ajuste-info').style.display = 'none';
-        estado.amigosSelecionados.clear();
-        estado.ofertaAmigos.clear();
-        salvarNoLocalStorage();
-        atualizarReadOnly();
-        atualizarUI();
-        renderHistoricoDropdown();
-        mostrarMensagem('✓ Guardado e pronto para novo evento', true);
-    }, 400);
 }
 
 function exportarJSON() {
@@ -1667,23 +1610,15 @@ function importarJSON() {
             const data = JSON.parse(text);
             if (!Array.isArray(data)) { mostrarMensagem('❌ Ficheiro inválido', false); return; }
             historico = data;
-            // Carregar último evento para a sessão
+            salvarHistoricoLocal();
             if (historico.length > 0) {
                 const ultimo = historico[historico.length - 1];
-                amigos = ultimo.amigos ? JSON.parse(JSON.stringify(ultimo.amigos)) : amigos;
-                menu = ultimo.menu ? JSON.parse(JSON.stringify(ultimo.menu)) : menu;
-                eventoAtualId = ultimo.id;
-                estado.ordens = ultimo.ordens || [];
-                estado.ofertas = ultimo.ofertas || [];
-                estado.totalFatura = ultimo.totalFatura || null;
-                estado.descricaoEvento = ultimo.descricao || '';
-                modoReadOnly = !!ultimo.totalFatura;
-                document.getElementById('descricao-evento').value = estado.descricaoEvento;
-                document.getElementById('total-fatura').value = estado.totalFatura || '';
+                carregarEvento(ultimo);
             }
-            salvarHistoricoLocal();
-            salvarNoLocalStorage();
+            atualizarReadOnly();
             renderHistoricoDropdown();
+            renderConfigAmigos();
+            renderConfigMenu();
             renderDropdownItens();
             renderAmigosBotoes();
             renderOfertaDropdowns();
@@ -1703,14 +1638,13 @@ function importarJSON() {
 async function limparTudo() {
     const ok = await mostrarModal({
         icon: '🗑️',
-        title: 'Limpar tudo',
-        msg: 'Tem certeza? Isto não pode ser desfeito!',
+        title: 'Limpar evento atual',
+        msg: 'Isto remove todas as ordens e ofertas deste evento. Não pode ser desfeito!',
         confirmText: 'Limpar',
         cancelText: 'Cancelar',
         danger: true
     });
     if (ok) {
-        eventoAtualId = null;
         modoReadOnly = false;
         estado.ordens = [];
         estado.ofertas = [];
@@ -1726,7 +1660,8 @@ async function limparTudo() {
         atualizarUI();
         renderConfigAmigos();
         renderConfigMenu();
-        mostrarMensagem('✓ Tudo limpo', true);
+        renderHistoricoDropdown();
+        mostrarMensagem('✓ Evento limpo', true);
     }
 }
 
@@ -1951,42 +1886,9 @@ async function fecharComFatura() {
     document.getElementById('btn-fechar-evento').style.display = 'none';
     document.getElementById('btn-reabrir-evento').style.display = '';
     atualizarAjuste();
-    guardarEvento();
+    salvarNoLocalStorage();
     atualizarReadOnly();
     mostrarMensagem('✓ Conta fechada — €' + fatura.toFixed(2), true);
-
-    // Push to GitHub if token exists
-    const {token, owner, repo, path, branch} = ghGetCfg();
-    if (token && owner && repo) {
-        const fab = document.getElementById('gh-fab');
-        fab.className = 'saving';
-        fab.innerHTML = '<svg viewBox="0 0 24 24" style="animation:spin 1s linear infinite"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" opacity=".3"/><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg>';
-        try {
-            const content = btoa(unescape(encodeURIComponent(JSON.stringify(historico, null, 2))));
-            let sha = null;
-            const check = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`, {
-                headers: {'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json'}
-            });
-            if (check.ok) { const j = await check.json(); sha = j.sha; }
-            const body = {message: `SplitBill fechar conta ${new Date().toLocaleString('pt-PT')}`, content, branch};
-            if (sha) body.sha = sha;
-            const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
-                method: 'PUT',
-                headers: {'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json'},
-                body: JSON.stringify(body)
-            });
-            if (!res.ok) throw new Error(res.status);
-            fab.className = 'saved';
-            fab.innerHTML = '<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>';
-            mostrarMensagem('✓ Conta fechada e guardada no GitHub', true);
-            setTimeout(() => { fab.className = ''; fab.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49.99.1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/></svg>'; ghUpdateFab(); }, 3000);
-        } catch(e) {
-            fab.className = 'error';
-            fab.innerHTML = '<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
-            mostrarMensagem('Conta fechada, mas erro ao guardar no GitHub', false);
-            setTimeout(() => { fab.className = ''; fab.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49.99.1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/></svg>'; ghUpdateFab(); }, 2500);
-        }
-    }
 }
 
 function reabrirEvento() {
@@ -2115,7 +2017,7 @@ async function desbloquearEvento() {
     const ok = await mostrarModal({
         icon: '🔓',
         title: 'Desbloquear evento',
-        msg: 'Alterações serão gravadas no histórico ao guardar.',
+        msg: 'O evento será reaberto para edição. A fatura será removida.',
         confirmText: 'Desbloquear',
         cancelText: 'Cancelar'
     });
@@ -2239,15 +2141,13 @@ function toggleGuardar() {
 }
 
 function carregarConfigs() {
-    const savedAmigos = localStorage.getItem('config_amigos');
-    const savedMenu = localStorage.getItem('config_menu');
-    if (savedAmigos) amigos = JSON.parse(savedAmigos);
-    if (savedMenu) menu = JSON.parse(savedMenu);
+    // Legacy — configs now live per-event in historico.
+    // Nothing to do here; amigos and menu are loaded via carregarEvento().
 }
 
 function guardarConfigs() {
-    localStorage.setItem('config_amigos', JSON.stringify(amigos));
-    localStorage.setItem('config_menu', JSON.stringify(menu));
+    // Save amigos and menu into current event in historico
+    salvarNoLocalStorage();
 }
 
 async function limparConfigs() {
@@ -2536,7 +2436,7 @@ function ghSaveCfg() {
         branch: document.getElementById('gh-branch').value.trim() || 'main'
     };
     localStorage.setItem(GH_KEY, JSON.stringify(cfg));
-    ghUpdateFab();
+    ghUpdateSyncBtn();
 }
 
 function ghGetCfg() {
@@ -2630,32 +2530,10 @@ async function ghPull() {
         }
         const data = JSON.parse(text);
         if (!Array.isArray(data)) { throw new Error('Ficheiro JSON inválido (esperado array de eventos)'); }
-        historico = data;
-        if (historico.length > 0) {
-            const ultimo = historico[historico.length - 1];
-            amigos = ultimo.amigos ? JSON.parse(JSON.stringify(ultimo.amigos)) : amigos;
-            menu = ultimo.menu ? JSON.parse(JSON.stringify(ultimo.menu)) : menu;
-            eventoAtualId = ultimo.id;
-            estado.ordens = ultimo.ordens || [];
-            estado.ofertas = ultimo.ofertas || [];
-            estado.totalFatura = ultimo.totalFatura || null;
-            estado.descricaoEvento = ultimo.descricao || '';
-            modoReadOnly = !!ultimo.totalFatura;
-            document.getElementById('descricao-evento').value = estado.descricaoEvento;
-            document.getElementById('total-fatura').value = estado.totalFatura || '';
-        }
-        salvarHistoricoLocal();
-        salvarNoLocalStorage();
-        guardarConfigs();
-        renderHistoricoDropdown();
-        renderDropdownItens();
-        renderAmigosBotoes();
-        renderOfertaDropdowns();
-        renderOfertaAmigos();
-        atualizarUI();
+        ghApplyData(data);
         ghSaveCfg();
         ghStatus(`✓ Dados importados de ${owner}/${repo}/${path} (branch: ${branch})`);
-        mostrarMensagem('✓ ' + historico.length + ' evento(s) importado(s) do GitHub', true);
+        mostrarMensagem('✓ ' + data.length + ' evento(s) importado(s) do GitHub', true);
     } catch(e) {
         ghStatus(`✗ Erro: ${e.message}`, true);
         mostrarMensagem('Erro ao importar do GitHub!', false);
@@ -2698,40 +2576,8 @@ async function ghReset() {
         const data = JSON.parse(text);
         if (!Array.isArray(data)) { throw new Error('Ficheiro JSON inválido (esperado array de eventos)'); }
 
-        // Limpar tudo e substituir
-        historico = data;
-        if (historico.length > 0) {
-            const ultimo = historico[historico.length - 1];
-            amigos = ultimo.amigos ? JSON.parse(JSON.stringify(ultimo.amigos)) : amigos;
-            menu = ultimo.menu ? JSON.parse(JSON.stringify(ultimo.menu)) : menu;
-            eventoAtualId = ultimo.id;
-            estado.ordens = ultimo.ordens || [];
-            estado.ofertas = ultimo.ofertas || [];
-            estado.totalFatura = ultimo.totalFatura || null;
-            estado.descricaoEvento = ultimo.descricao || '';
-            modoReadOnly = !!ultimo.totalFatura;
-            document.getElementById('descricao-evento').value = estado.descricaoEvento;
-            document.getElementById('total-fatura').value = estado.totalFatura || '';
-        } else {
-            eventoAtualId = null;
-            estado.ordens = [];
-            estado.ofertas = [];
-            estado.totalFatura = null;
-            estado.descricaoEvento = '';
-            modoReadOnly = false;
-            document.getElementById('descricao-evento').value = '';
-            document.getElementById('total-fatura').value = '';
-        }
-        salvarHistoricoLocal();
-        salvarNoLocalStorage();
-        guardarConfigs();
-        renderHistoricoDropdown();
-        renderDropdownItens();
-        renderAmigosBotoes();
-        renderOfertaDropdowns();
-        renderOfertaAmigos();
-        atualizarUI();
-        mostrarMensagem('🔄 Sync completo — ' + historico.length + ' evento(s) importado(s) do GitHub', true);
+        ghApplyData(data);
+        mostrarMensagem('🔄 Sync completo — ' + data.length + ' evento(s) importado(s) do GitHub', true);
     } catch(e) {
         mostrarMensagem('Erro no sync: ' + e.message, false);
     }
@@ -2740,119 +2586,128 @@ async function ghReset() {
 }
 
 async function ghPromptSync() {
-    const {owner, repo, path, branch} = ghGetCfg();
+    const {owner, repo, path, branch, token} = ghGetCfg();
     if (!owner || !repo) return; // No config, skip
 
-    // Show a non-blocking banner instead of confirm()
-    const banner = document.createElement('div');
-    banner.id = 'sync-banner';
-    banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:2000;background:#2c3e50;color:#fff;padding:14px 15px;text-align:center;font-size:13px;box-shadow:0 2px 12px rgba(0,0,0,0.3);display:flex;flex-direction:column;gap:10px;align-items:center;';
-    banner.innerHTML = `
-        <span>Atualizar dados a partir do GitHub?</span>
-        <div style="display:flex;gap:10px;">
-            <button id="sync-yes" style="background:#27ae60;color:#fff;border:none;padding:8px 20px;border-radius:5px;font-size:13px;cursor:pointer;">✓ Sim, atualizar</button>
-            <button id="sync-no" style="background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.3);padding:8px 20px;border-radius:5px;font-size:13px;cursor:pointer;">✗ Manter locais</button>
-        </div>
-    `;
-    document.body.prepend(banner);
-
-    banner.querySelector('#sync-no').onclick = () => banner.remove();
-    banner.querySelector('#sync-yes').onclick = async () => {
-        const btns = banner.querySelectorAll('button');
-        btns.forEach(b => b.disabled = true);
-        banner.querySelector('span').textContent = '⏳ A sincronizar com o GitHub…';
-        banner.querySelector('div').style.display = 'none';
-        try {
-            const {token} = ghGetCfg();
-            let text;
-            if (token) {
-                const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`, {
-                    headers: {'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json'}
-                });
-                if (!res.ok) throw new Error(res.status);
-                const j = await res.json();
-                text = decodeURIComponent(escape(atob(j.content.replace(/\n/g, ''))));
-            } else {
-                const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}?t=${Date.now()}`;
-                const res = await fetch(rawUrl);
-                if (!res.ok) throw new Error(`Erro ${res.status}`);
-                text = await res.text();
-            }
-            const data = JSON.parse(text);
-            if (!Array.isArray(data)) throw new Error('JSON inválido');
-
-            historico = data;
-            if (historico.length > 0) {
-                const ultimo = historico[historico.length - 1];
-                amigos = ultimo.amigos ? JSON.parse(JSON.stringify(ultimo.amigos)) : amigos;
-                menu = ultimo.menu ? JSON.parse(JSON.stringify(ultimo.menu)) : menu;
-                eventoAtualId = ultimo.id;
-                estado.ordens = ultimo.ordens || [];
-                estado.ofertas = ultimo.ofertas || [];
-                estado.totalFatura = ultimo.totalFatura || null;
-                estado.descricaoEvento = ultimo.descricao || '';
-                modoReadOnly = !!ultimo.totalFatura;
-                document.getElementById('descricao-evento').value = estado.descricaoEvento;
-                document.getElementById('total-fatura').value = estado.totalFatura || '';
-            } else {
-                eventoAtualId = null;
-                estado.ordens = []; estado.ofertas = [];
-                estado.totalFatura = null; estado.descricaoEvento = '';
-                modoReadOnly = false;
-                document.getElementById('descricao-evento').value = '';
-                document.getElementById('total-fatura').value = '';
-            }
-            salvarHistoricoLocal();
-            salvarNoLocalStorage();
-            guardarConfigs();
-            renderHistoricoDropdown();
-            renderDropdownItens();
-            renderAmigosBotoes();
-            renderOfertaDropdowns();
-            renderOfertaAmigos();
-            atualizarUI();
-            mostrarMensagem('✓ Dados atualizados do GitHub (' + historico.length + ' eventos)', true);
-        } catch(e) {
-            mostrarMensagem('Erro ao sincronizar: ' + e.message, false);
+    try {
+        // 1. Pull from GitHub
+        let text;
+        if (token) {
+            const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`, {
+                headers: {'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json'}
+            });
+            if (!res.ok) return; // silently fail
+            const j = await res.json();
+            text = decodeURIComponent(escape(atob(j.content.replace(/\n/g, ''))));
+        } else {
+            const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}?t=${Date.now()}`;
+            const res = await fetch(rawUrl);
+            if (!res.ok) return;
+            text = await res.text();
         }
-        banner.remove();
-    };
+        const ghData = JSON.parse(text);
+        if (!Array.isArray(ghData)) return;
+
+        // 2. Compare local vs GitHub
+        const ghMap = new Map(ghData.map(ev => [ev.id, JSON.stringify(ev)]));
+        let temConflito = false;
+        for (const evLocal of historico) {
+            const ghJson = ghMap.get(evLocal.id);
+            if (!ghJson) {
+                // Evento local não existe no GitHub → conflito
+                temConflito = true;
+                break;
+            }
+            if (JSON.stringify(evLocal) !== ghJson) {
+                // Evento local difere do GitHub → conflito
+                temConflito = true;
+                break;
+            }
+        }
+
+        // 3. Sem conflito → sync silencioso
+        if (!temConflito) {
+            ghApplyData(ghData);
+            if (ghData.length > historico.length) {
+                mostrarMensagem('✓ Dados atualizados do GitHub (' + ghData.length + ' eventos)', true);
+            }
+            return;
+        }
+
+        // 4. Com conflito → perguntar ao utilizador
+        const ok = await mostrarModal({
+            icon: '🔄',
+            title: 'Dados locais diferem do GitHub',
+            msg: 'Tens alterações locais que não estão no GitHub. Queres substituir pelos dados do GitHub ou manter os locais?',
+            confirmText: '⬇ Usar GitHub',
+            cancelText: '💾 Manter locais'
+        });
+        if (ok) {
+            ghApplyData(ghData);
+            mostrarMensagem('✓ Dados atualizados do GitHub (' + ghData.length + ' eventos)', true);
+        }
+    } catch(e) {
+        console.error('Erro no sync inicial:', e);
+    }
+}
+
+function ghApplyData(data) {
+    historico = data;
+    salvarHistoricoLocal();
+    if (historico.length > 0) {
+        const ultimo = historico[historico.length - 1];
+        carregarEvento(ultimo);
+    } else {
+        eventoAtualId = null;
+        estado.ordens = []; estado.ofertas = [];
+        estado.totalFatura = null; estado.descricaoEvento = '';
+        amigos = []; menu = {};
+        modoReadOnly = false;
+        document.getElementById('descricao-evento').value = '';
+        document.getElementById('total-fatura').value = '';
+    }
+    atualizarReadOnly();
+    renderHistoricoDropdown();
+    renderConfigAmigos();
+    renderConfigMenu();
+    renderDropdownItens();
+    renderAmigosBotoes();
+    renderOfertaDropdowns();
+    renderOfertaAmigos();
+    atualizarUI();
 }
 /* ── END GITHUB SYNC ──────────────────────── */
 
-/* ── GITHUB FAB (floating quick-save) ─────── */
-function ghUpdateFab() {
-    const fab = document.getElementById('gh-fab');
+/* ── GITHUB AUTO-SAVE (debounced push for token users) ── */
+let _ghAutoSaveTimer = null;
+let _ghAutoSaving = false;
+
+function ghUpdateSyncBtn() {
     const resetBtn = document.getElementById('btn-gh-reset');
     const s = localStorage.getItem(GH_KEY);
-    let hasToken = false;
     let hasConfig = false;
-    if (s) { try { const c = JSON.parse(s); hasToken = !!c.token; hasConfig = !!(c.owner && c.repo); } catch(e) {} }
-    // Also check if the field is currently filled (before first save of config)
-    const field = document.getElementById('gh-token');
-    if (field && field.value.trim()) hasToken = true;
-    fab.style.display = hasToken ? 'flex' : 'none';
+    if (s) { try { const c = JSON.parse(s); hasConfig = !!(c.owner && c.repo); } catch(e) {} }
     if (resetBtn) resetBtn.style.display = hasConfig ? '' : 'none';
 }
 
-async function ghFabSave() {
-    const fab = document.getElementById('gh-fab');
-    // First do a local save
-    if (estado.ordens.length > 0) {
-        const snap = snaphotEstado();
-        eventoAtualId = snap.id;
-        const idx = historico.findIndex(e => e.id === snap.id);
-        if (idx >= 0) historico[idx] = snap;
-        else historico.push(snap);
-        salvarHistoricoLocal();
-        salvarNoLocalStorage();
-        renderHistoricoDropdown();
-    }
-    // Then push to GitHub
+function ghHasToken() {
+    const s = localStorage.getItem(GH_KEY);
+    if (s) { try { const c = JSON.parse(s); if (c.token) return true; } catch(e) {} }
+    const field = document.getElementById('gh-token');
+    return field && field.value.trim().length > 0;
+}
+
+function ghScheduleAutoSave() {
+    if (!ghHasToken()) return;
+    if (_ghAutoSaveTimer) clearTimeout(_ghAutoSaveTimer);
+    _ghAutoSaveTimer = setTimeout(() => ghAutoSave(), 3000);
+}
+
+async function ghAutoSave() {
+    if (_ghAutoSaving) return;
     const {token, owner, repo, path, branch} = ghGetCfg();
-    if (!token || !owner || !repo) { mostrarMensagem('Configura o GitHub primeiro (secção 4)', false); return; }
-    fab.className = 'saving';
-    fab.innerHTML = '<svg viewBox="0 0 24 24" style="animation:spin 1s linear infinite"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" opacity=".3"/><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg>';
+    if (!token || !owner || !repo) return;
+    _ghAutoSaving = true;
     try {
         const content = btoa(unescape(encodeURIComponent(JSON.stringify(historico, null, 2))));
         let sha = null;
@@ -2861,7 +2716,7 @@ async function ghFabSave() {
         });
         if (check.ok) { const j = await check.json(); sha = j.sha; }
         else if (check.status !== 404) { throw new Error(check.status); }
-        const body = {message: `SplitBill backup ${new Date().toLocaleString('pt-PT')}`, content, branch};
+        const body = {message: `SplitBill auto-save ${new Date().toLocaleString('pt-PT')}`, content, branch};
         if (sha) body.sha = sha;
         const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
             method: 'PUT',
@@ -2869,21 +2724,12 @@ async function ghFabSave() {
             body: JSON.stringify(body)
         });
         if (!res.ok) throw new Error(res.status);
-        fab.className = 'saved';
-        fab.innerHTML = '<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>';
-        mostrarMensagem('✓ Guardado no GitHub', true);
     } catch(e) {
-        fab.className = 'error';
-        fab.innerHTML = '<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
-        mostrarMensagem('Erro ao guardar no GitHub!', false);
+        console.error('GitHub auto-save error:', e);
     }
-    setTimeout(() => {
-        fab.className = '';
-        fab.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49.99.1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/></svg>';
-        ghUpdateFab();
-    }, 2500);
+    _ghAutoSaving = false;
 }
-/* ── END GITHUB FAB ───────────────────────── */
+/* ── END GITHUB AUTO-SAVE ────────────────────── */
 
 // Iniciar na página (compatível com todos os browsers)
 if (document.readyState === 'loading') {
@@ -2893,7 +2739,6 @@ if (document.readyState === 'loading') {
 }
 </script>
 
-</body>
 <script>
 // Apagar evento selecionado
 async function apagarEventoAtual() {
@@ -2919,13 +2764,7 @@ async function apagarEventoAtual() {
     }
     mostrarMensagem('Evento eliminado!', true);
 }
-// Adiciona botão de apagar evento na interface principal
-    // Botão de apagar evento já está no HTML, não precisa ser criado dinamicamente
 </script>
 
-<!-- Floating GitHub Save Button -->
-<button id="gh-fab" onclick="ghFabSave()" title="Guardar no GitHub">
-  <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49.99.1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/></svg>
-</button>
-
 </body>
+</html>
