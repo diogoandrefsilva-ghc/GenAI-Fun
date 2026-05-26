@@ -728,24 +728,6 @@
             background: #e74c3c;
             color: white;
         }
-        .contas-divida-item.expanded .contas-divida-detalhe {
-            max-height: 200px !important;
-            opacity: 1 !important;
-            padding-top: 2px;
-        }
-        .contas-divida-item.expanded .saldo-expand-icon {
-            display: inline-block;
-            transform: rotate(90deg);
-        }
-        .pgto-hist-item.expanded .contas-divida-detalhe {
-            max-height: 200px !important;
-            opacity: 1 !important;
-            padding-top: 2px;
-        }
-        .pgto-hist-item.expanded .saldo-expand-icon {
-            display: inline-block;
-            transform: rotate(90deg);
-        }
         .contas-resumo-total {
             display: flex;
             justify-content: space-between;
@@ -1306,9 +1288,9 @@ function init() {
                 if (pessoa !== ev.pagador && contaFinal[pessoa] > 0.005) {
                     const val = Math.round(contaFinal[pessoa] * 100) / 100;
                     ev.dividas[pessoa] = { valor: val };
-                    // Create a payment entry so legacy events appear as paid (only if not already existing)
-                    const existing = pagamentos.find(pg => pg.eventoId === ev.id && pg.pessoa === pessoa);
-                    if (!existing) {
+                    // Create a payment entry so legacy events appear as paid
+                    const existingPgto = pagamentos.find(pg => pg.eventoId === ev.id && pg.pessoa === pessoa);
+                    if (!existingPgto) {
                         pagamentos.push({
                             id: Date.now() + Math.random() * 1000 | 0,
                             pessoa, valor: val, tipo: 'evento', eventoId: ev.id,
@@ -2793,8 +2775,11 @@ function renderContasSaldos(lista, resumo) {
         const isLiquidado = s.saldo < 0.01;
         const eventosComDivida = s.eventos.filter(e => e.valor > 0);
         const detalheEventos = eventosComDivida.map(e => {
-            const st = e.restante < 0.01 ? '✅' : '⏳';
-            return `<div style="display:flex;justify-content:space-between;align-items:center;padding:3px 0;"><span>${st} ${e.descricao}</span><span style="font-weight:600;min-width:55px;text-align:right;">€${e.valor.toFixed(2)}</span></div>`;
+            const st = e.restante < 0.01 ? '\u2705' : '\u23f3';
+            return '<div style="display:flex;justify-content:space-between;align-items:center;padding:3px 0;">'
+                + '<span>' + st + ' ' + e.descricao + '</span>'
+                + '<span style="font-weight:600;min-width:55px;text-align:right;">\u20ac' + e.valor.toFixed(2) + '</span>'
+                + '</div>';
         }).join('');
         const hasDetail = eventosComDivida.length > 0 || (s.pago > 0.005 && s.divida > 0.005);
 
@@ -2845,8 +2830,6 @@ function renderContasEventos(lista, resumo) {
             const evInfo = pessoaSaldo ? pessoaSaldo.eventos.find(e => e.eventoId === ev.id) : null;
             const restante = evInfo ? evInfo.restante : d.valor;
             const isPago = restante < 0.01;
-
-            // Build consumption detail for this person in this event
             const consumos = {};
             (ev.ordens || []).forEach(o => {
                 if (o.amigos.includes(p)) {
@@ -2857,16 +2840,13 @@ function renderContasEventos(lista, resumo) {
             const consumoStr = Object.keys(consumos).sort().map(item => {
                 const qtd = consumos[item];
                 const qtdStr = Number.isInteger(qtd) ? qtd : qtd.toFixed(1);
-                return `${qtdStr}× ${item}`;
+                return qtdStr + '\u00d7 ' + item;
             }).join(', ');
-
-            return `
-            <div class="contas-divida-item" style="flex-wrap:wrap;">
-                <span class="nome">${p}</span>
-                <span class="valor ${isPago ? 'pago' : 'pendente'}">€${d.valor.toFixed(2)}${!isPago && restante < d.valor - 0.005 ? ' (resta €' + restante.toFixed(2) + ')' : ''} <span style="margin-left:8px;">${isPago ? '✅' : '⏳'}</span></span>
-                ${consumoStr ? `<div style="width:100%;font-size:11px;color:#95a5a6;margin-top:2px;">${consumoStr}</div>` : ''}
-            </div>`;
-        }).join('');
+            return '<div class="contas-divida-item" style="flex-wrap:wrap;">'
+                + '<span class="nome">' + p + '</span>'
+                + '<span class="valor ' + (isPago ? 'pago' : 'pendente') + '">\u20ac' + d.valor.toFixed(2) + (!isPago && restante < d.valor - 0.005 ? ' (resta \u20ac' + restante.toFixed(2) + ')' : '') + ' <span style="margin-left:10px;">' + (isPago ? '\u2705' : '\u23f3') + '</span></span>'
+                + (consumoStr ? '<div style="width:100%;font-size:11px;color:#95a5a6;margin-top:2px;">' + consumoStr + '</div>' : '')
+                + '</div>';
         }).join('');
 
         const totalEvento = pessoas.reduce((sum, p) => sum + dividas[p].valor, 0);
@@ -2887,33 +2867,35 @@ function renderContasEventos(lista, resumo) {
 
 function renderContasPagamentos(lista, resumo) {
     // Build filter combo options
-    const allPessoas = [...new Set(pagamentos.map(p => p.pessoa))].sort();
-    const allEventos = [];
-    const eventoMap = {};
-    pagamentos.forEach(p => {
-        if (p.tipo === 'evento' && p.eventoId) {
-            if (!eventoMap[p.eventoId]) {
-                const ev = historico.find(e => e.id === p.eventoId);
-                const desc = ev ? (ev.descricao || 'Sem nome') : 'Evento removido';
-                eventoMap[p.eventoId] = desc;
-                allEventos.push({ id: p.eventoId, desc });
-            }
+    var allPessoas = [];
+    var allEventosMap = {};
+    var allEventos = [];
+    var _seen = {};
+    pagamentos.forEach(function(p) {
+        if (!_seen[p.pessoa]) { allPessoas.push(p.pessoa); _seen[p.pessoa] = true; }
+        if (p.tipo === 'evento' && p.eventoId && !allEventosMap[p.eventoId]) {
+            var ev = historico.find(function(e) { return e.id === p.eventoId; });
+            var desc = ev ? (ev.descricao || 'Sem nome') : 'Evento removido';
+            allEventosMap[p.eventoId] = desc;
+            allEventos.push({ id: p.eventoId, desc: desc });
         }
     });
+    allPessoas.sort();
 
-    const pessoaOptions = allPessoas.map(p => `<option value="${p}" ${_pgtoFilterPessoa === p ? 'selected' : ''}>${p}</option>`).join('');
-    const eventoOptions = allEventos.map(e => `<option value="${e.id}" ${_pgtoFilterEvento === String(e.id) ? 'selected' : ''}>${e.desc}</option>`).join('');
+    var pessoaOpts = allPessoas.map(function(p) {
+        return '<option value="' + p + '"' + (_pgtoFilterPessoa === p ? ' selected' : '') + '>' + p + '</option>';
+    }).join('');
+    var eventoOpts = allEventos.map(function(e) {
+        return '<option value="' + e.id + '"' + (_pgtoFilterEvento === String(e.id) ? ' selected' : '') + '>' + e.desc + '</option>';
+    }).join('');
 
-    const filtersHtml = `<div style="display:flex;gap:6px;margin-bottom:10px;">
-        <select class="pgto-search" style="flex:1;" onchange="_pgtoFilterPessoa=this.value;renderContasPagamentos(document.getElementById('contas-lista'),document.getElementById('contas-resumo'))">
-            <option value="">👤 Todos</option>${pessoaOptions}
-        </select>
-        <select class="pgto-search" style="flex:1;" onchange="_pgtoFilterEvento=this.value;renderContasPagamentos(document.getElementById('contas-lista'),document.getElementById('contas-resumo'))">
-            <option value="">⚽ Todos os jogos</option>
-            <option value="livre" ${_pgtoFilterEvento === 'livre' ? 'selected' : ''}>💸 Livres</option>
-            ${eventoOptions}
-        </select>
-    </div>`;
+    var filtersHtml = '<div style="display:flex;gap:6px;margin-bottom:10px;">'
+        + '<select class="pgto-search" style="flex:1;" onchange="_pgtoFilterPessoa=this.value;renderContasPagamentos(document.getElementById(\'contas-lista\'),document.getElementById(\'contas-resumo\'))">'
+        + '<option value="">\uD83D\uDC64 Todos</option>' + pessoaOpts + '</select>'
+        + '<select class="pgto-search" style="flex:1;" onchange="_pgtoFilterEvento=this.value;renderContasPagamentos(document.getElementById(\'contas-lista\'),document.getElementById(\'contas-resumo\'))">'
+        + '<option value="">\u26BD Todos os jogos</option>'
+        + '<option value="livre"' + (_pgtoFilterEvento === 'livre' ? ' selected' : '') + '>\uD83D\uDCB8 Livres</option>'
+        + eventoOpts + '</select></div>';
 
     if (pagamentos.length === 0) {
         lista.innerHTML = filtersHtml + '<div class="contas-vazio">Nenhum pagamento registado</div>';
@@ -2921,68 +2903,64 @@ function renderContasPagamentos(lista, resumo) {
         return;
     }
 
-    const hasToken = ghHasToken();
+    var hasToken = ghHasToken();
 
-    const filtrados = [...pagamentos].reverse().filter(p => {
+    var filtrados = pagamentos.slice().reverse().filter(function(p) {
         if (_pgtoFilterPessoa && p.pessoa !== _pgtoFilterPessoa) return false;
         if (_pgtoFilterEvento) {
-            if (_pgtoFilterEvento === 'livre') {
-                if (p.tipo !== 'livre') return false;
-            } else {
-                if (String(p.eventoId) !== _pgtoFilterEvento) return false;
-            }
+            if (_pgtoFilterEvento === 'livre') { if (p.tipo !== 'livre') return false; }
+            else { if (String(p.eventoId) !== _pgtoFilterEvento) return false; }
         }
         return true;
     });
 
-    const itemsHtml = filtrados.map(p => {
-        const eventoDesc = p.tipo === 'evento'
-            ? (() => { const ev = historico.find(e => e.id === p.eventoId); return ev ? (ev.descricao || 'Sem nome') : 'Evento removido'; })()
+    var itemsHtml = filtrados.map(function(p) {
+        var eventoDesc = p.tipo === 'evento'
+            ? (function() { var ev = historico.find(function(e) { return e.id === p.eventoId; }); return ev ? (ev.descricao || 'Sem nome') : 'Evento removido'; })()
             : 'Pagamento livre (FIFO)';
 
-        // Get consumption detail for this person in this event
-        let consumoStr = '';
+        // Consumption detail
+        var consumoStr = '';
         if (p.tipo === 'evento' && p.eventoId) {
-            const ev = historico.find(e => e.id === p.eventoId);
+            var ev = historico.find(function(e) { return e.id === p.eventoId; });
             if (ev && ev.ordens) {
-                const consumos = {};
-                ev.ordens.forEach(o => {
+                var consumos = {};
+                ev.ordens.forEach(function(o) {
                     if (o.amigos.includes(p.pessoa)) {
-                        const share = o.quantidade / o.amigos.length;
+                        var share = o.quantidade / o.amigos.length;
                         consumos[o.item] = (consumos[o.item] || 0) + share;
                     }
                 });
-                consumoStr = Object.keys(consumos).sort().map(item => {
-                    const qtd = consumos[item];
-                    const qtdStr = Number.isInteger(qtd) ? qtd : qtd.toFixed(1);
-                    return `${qtdStr}× ${item}`;
+                consumoStr = Object.keys(consumos).sort().map(function(item) {
+                    var qtd = consumos[item];
+                    var qtdStr = Number.isInteger(qtd) ? qtd : qtd.toFixed(1);
+                    return qtdStr + '\u00d7 ' + item;
                 }).join(', ');
             }
         }
 
-        const acoes = hasToken ? `
-            <button class="pgto-edit" onclick="event.stopPropagation();editarPagamento(${p.id})" title="Editar data">✎</button>
-            <button class="pgto-delete" onclick="event.stopPropagation();removerPagamento(${p.id})" title="Remover">×</button>` : '';
-        return `
-        <div class="pgto-hist-item" id="pgto-item-${p.id}" style="flex-wrap:wrap;">
-            <div class="pgto-info-col">
-                <div class="pgto-nome">${p.pessoa}</div>
-                <div class="pgto-detalhe">${eventoDesc} · ${p.data}</div>
-                ${consumoStr ? `<div style="font-size:11px;color:#95a5a6;margin-top:2px;">${consumoStr}</div>` : ''}
-            </div>
-            <span class="pgto-valor">€${p.valor.toFixed(2)}</span>
-            ${acoes}
-        </div>`;
+        var acoes = hasToken ? '<button class="pgto-edit" onclick="editarPagamento(' + p.id + ')" title="Editar data">\u270e</button><button class="pgto-delete" onclick="removerPagamento(' + p.id + ')" title="Remover">\u00d7</button>' : '';
+        return '<div class="pgto-hist-item" id="pgto-item-' + p.id + '" style="flex-wrap:wrap;">'
+            + '<div class="pgto-info-col">'
+            + '<div class="pgto-nome">' + p.pessoa + '</div>'
+            + '<div class="pgto-detalhe">' + eventoDesc + ' \u00b7 ' + p.data + '</div>'
+            + (consumoStr ? '<div style="font-size:11px;color:#95a5a6;margin-top:2px;">' + consumoStr + '</div>' : '')
+            + '</div>'
+            + '<span class="pgto-valor">\u20ac' + p.valor.toFixed(2) + '</span>'
+            + acoes
+            + '</div>';
     }).join('');
 
     lista.innerHTML = filtersHtml + (filtrados.length === 0
         ? '<div class="contas-vazio">Nenhum resultado encontrado</div>'
         : itemsHtml);
 
-    const totalFiltrado = filtrados.reduce((s, p) => s + p.valor, 0);
-    const totalGeral = pagamentos.reduce((s, p) => s + p.valor, 0);
-    const isFiltered = _pgtoFilterPessoa || _pgtoFilterEvento;
-    resumo.innerHTML = `<div style="text-align:right;font-size:13px;color:#27ae60;padding:8px 0;font-weight:600;">Total${isFiltered ? ' filtrado' : ' recebido'}: €${(isFiltered ? totalFiltrado : totalGeral).toFixed(2)} (${isFiltered ? filtrados.length : pagamentos.length} pagamento${(isFiltered ? filtrados.length : pagamentos.length) !== 1 ? 's' : ''})</div>`;
+    var totalFiltrado = filtrados.reduce(function(s, p) { return s + p.valor; }, 0);
+    var totalGeral = pagamentos.reduce(function(s, p) { return s + p.valor; }, 0);
+    var isFiltered = _pgtoFilterPessoa || _pgtoFilterEvento;
+    var showTotal = isFiltered ? totalFiltrado : totalGeral;
+    var showCount = isFiltered ? filtrados.length : pagamentos.length;
+    resumo.innerHTML = '<div style="text-align:right;font-size:13px;color:#27ae60;padding:8px 0;font-weight:600;">Total' + (isFiltered ? ' filtrado' : ' recebido') + ': \u20ac' + showTotal.toFixed(2) + ' (' + showCount + ' pagamento' + (showCount !== 1 ? 's' : '') + ')</div>';
 }
 
 function editarPagamento(id) {
