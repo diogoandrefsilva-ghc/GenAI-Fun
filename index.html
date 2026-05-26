@@ -601,6 +601,168 @@
             margin: 14px 0 6px;
         }
 
+        /* ── Contas / Dívidas ── */
+        .contas-tab-bar {
+            display: flex;
+            gap: 0;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+        .contas-tab {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            background: #f5f5f5;
+            color: #7f8c8d;
+            border: none;
+            transition: all 0.2s;
+        }
+        .contas-tab.active {
+            background: #2c3e50;
+            color: white;
+        }
+        .contas-tab:not(.active):hover {
+            background: #e8e8e8;
+        }
+        .contas-evento {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #eee;
+        }
+        .contas-evento-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+        .contas-evento-titulo {
+            font-weight: 700;
+            font-size: 14px;
+            color: #2c3e50;
+        }
+        .contas-evento-data {
+            font-size: 11px;
+            color: #95a5a6;
+        }
+        .contas-evento-pagador {
+            font-size: 12px;
+            color: #3498db;
+            margin-bottom: 8px;
+        }
+        .contas-divida-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 10px;
+            background: white;
+            border-radius: 5px;
+            margin-bottom: 4px;
+            font-size: 13px;
+            border: 1px solid #eee;
+        }
+        .contas-divida-item .nome { font-weight: 600; flex: 1; }
+        .contas-divida-item .valor { font-weight: 700; min-width: 60px; text-align: right; margin-right: 10px; }
+        .contas-divida-item .valor.pendente { color: #e74c3c; }
+        .contas-divida-item .valor.pago { color: #27ae60; }
+        .contas-divida-item .btn-toggle-pago {
+            padding: 4px 10px;
+            font-size: 11px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .contas-divida-item .btn-toggle-pago.marcar-pago {
+            background: #27ae60;
+            color: white;
+        }
+        .contas-divida-item .btn-toggle-pago.marcar-pendente {
+            background: #e74c3c;
+            color: white;
+        }
+        .contas-resumo-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 12px;
+            background: #fff3cd;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 14px;
+            margin-top: 12px;
+            border: 1px solid #ffe082;
+        }
+        .contas-resumo-total .label { color: #856404; }
+        .contas-resumo-total .valor { color: #e74c3c; }
+        .contas-vazio {
+            text-align: center;
+            color: #95a5a6;
+            font-size: 13px;
+            padding: 20px 0;
+        }
+        .saldo-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            background: white;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            border: 1px solid #eee;
+            font-size: 14px;
+        }
+        .saldo-card .nome { font-weight: 600; flex: 1; }
+        .saldo-card .saldo-valor { font-weight: 800; font-size: 15px; }
+        .saldo-card .saldo-valor.devedor { color: #e74c3c; }
+        .saldo-card .saldo-valor.liquidado { color: #27ae60; }
+        .saldo-detalhe { font-size: 11px; color: #95a5a6; margin-top: 2px; }
+        .pgto-hist-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 6px;
+            margin-bottom: 5px;
+            border: 1px solid #eee;
+            font-size: 13px;
+        }
+        .pgto-hist-item .pgto-info-col { flex: 1; }
+        .pgto-hist-item .pgto-nome { font-weight: 600; }
+        .pgto-hist-item .pgto-detalhe { font-size: 11px; color: #95a5a6; margin-top: 2px; }
+        .pgto-hist-item .pgto-valor { font-weight: 700; color: #27ae60; min-width: 60px; text-align: right; margin-right: 8px; }
+        .pgto-hist-item .pgto-delete {
+            background: #e74c3c; color: white; border: none;
+            width: 24px; height: 24px; border-radius: 50%;
+            cursor: pointer; font-size: 13px; padding: 0;
+        }
+        .pagador-selector {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .pagador-selector label {
+            font-size: 13px;
+            color: #7f8c8d;
+            white-space: nowrap;
+        }
+        .pagador-selector select {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
         @media (max-width: 480px) {
             body {
                 padding: 8px;
@@ -752,6 +914,12 @@
 
     <div id="fatura-section" style="margin-top: 16px; background: #fff8e1; border: 1px solid #ffe082; border-radius: 6px; padding: 12px;">
         <label style="font-size: 13px; color: #7f8c8d; margin-bottom: 8px; display: block;">🧾 Fatura do Restaurante</label>
+        <div class="pagador-selector">
+            <label>💳 Quem pagou:</label>
+            <select id="pagador-select" onchange="atualizarPagador()">
+                <option value="">-- Seleciona --</option>
+            </select>
+        </div>
         <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 10px;">
             <input type="number" id="total-fatura" placeholder="Total (€)" min="0" step="0.01"
                 style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
@@ -772,6 +940,51 @@
 </div>
 
 
+
+<!-- CONTAS / DÍVIDAS -->
+<div class="section">
+    <div class="config-toggle" onclick="toggleContas()">
+        <h2 style="border-bottom:none;margin-bottom:0;">💰 Contas</h2>
+        <span id="contas-badge" style="background:#e74c3c;color:white;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:8px;display:none;"></span>
+        <span id="contas-arrow" style="font-size:18px;color:#95a5a6;">▼</span>
+    </div>
+    <div id="contas-body" style="display:none;margin-top:14px;">
+
+        <!-- Registar pagamento -->
+        <div style="background:#eafaf1;border:1px solid #a3d9a5;border-radius:8px;padding:12px;margin-bottom:14px;">
+            <div style="font-size:13px;font-weight:700;color:#27ae60;margin-bottom:10px;">💸 Registar Pagamento</div>
+            <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+                <select id="pgto-pessoa" style="flex:1;min-width:100px;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:13px;" onchange="atualizarPgtoForm()">
+                    <option value="">Quem pagou?</option>
+                </select>
+                <select id="pgto-tipo" style="flex:1;min-width:120px;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:13px;" onchange="atualizarPgtoForm()">
+                    <option value="evento">Pagar evento</option>
+                    <option value="livre">Pagamento livre</option>
+                </select>
+            </div>
+            <div id="pgto-evento-row" style="display:flex;gap:8px;margin-bottom:8px;">
+                <select id="pgto-evento" style="flex:1;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:13px;" onchange="atualizarPgtoValorEvento()">
+                    <option value="">-- Seleciona evento --</option>
+                </select>
+            </div>
+            <div id="pgto-livre-row" style="display:none;gap:8px;margin-bottom:8px;">
+                <input type="number" id="pgto-valor-livre" placeholder="Valor (€)" min="0" step="0.01" style="flex:1;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:13px;">
+            </div>
+            <div id="pgto-info" style="font-size:12px;color:#555;margin-bottom:8px;display:none;"></div>
+            <button onclick="registarPagamento()" style="width:100%;background:#27ae60;padding:10px;font-size:13px;">✓ Registar Pagamento</button>
+            <div id="pgto-msg" style="margin-top:6px;"></div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="contas-tab-bar">
+            <button class="contas-tab active" id="tab-saldos" onclick="mudarTabContas('saldos')">👥 Saldos</button>
+            <button class="contas-tab" id="tab-eventos" onclick="mudarTabContas('eventos')">📋 Eventos</button>
+            <button class="contas-tab" id="tab-pagamentos" onclick="mudarTabContas('pagamentos')">💸 Histórico</button>
+        </div>
+        <div id="contas-lista"></div>
+        <div id="contas-resumo"></div>
+    </div>
+</div>
 
 <!-- CONFIGURAÇÕES -->
 <div class="section" id="section-config">
@@ -816,7 +1029,8 @@
         <p style="margin-top:8px;"><strong>1. Adicionar Ordem</strong> — Seleciona o item, a quantidade e quem comeu/bebeu. A data do evento é definida automaticamente pela hora da primeira ordem registada.</p>
         <p style="margin-top:8px;"><strong>2. Ordens Registadas</strong> — Lista de tudo o que foi pedido. O ✏️ edita a ordem no lugar sem perder a posição; o × apaga.</p>
         <p style="margin-top:8px;"><strong>2b. 🎁 Ofertas</strong> — Quando alguém quer pagar uma rodada a outros. O custo sobe na conta de quem oferece e desce proporcionalmente na de quem recebe.</p>
-        <p style="margin-top:8px;"><strong>3. Resumo</strong> — Total por pessoa com detalhe do consumo e saldo de ofertas. Introduz a fatura do restaurante e confirma com ✓ — o ajuste é calculado proporcionalmente considerando ordens e ofertas, e o evento fica automaticamente bloqueado.</p>
+        <p style="margin-top:8px;"><strong>3. Resumo</strong> — Total por pessoa com detalhe do consumo e saldo de ofertas. Seleciona <strong>quem pagou</strong> a conta, introduz a fatura do restaurante e confirma com 🔒 — o ajuste é calculado proporcionalmente considerando ordens e ofertas, e o evento fica automaticamente bloqueado. As dívidas de cada amigo ficam registadas.</p>
+        <p style="margin-top:8px;"><strong>💰 Contas</strong> — Gestão de dívidas e pagamentos. Nos <strong>Saldos</strong> vês quanto cada amigo deve no total, com detalhe por evento. Nos <strong>Eventos</strong> consultas as dívidas de cada evento fechado. No <strong>Histórico</strong> vês todos os pagamentos registados. Para registar um pagamento, escolhe o amigo, se é pagamento de um evento específico ou livre (abate por ordem cronológica aos eventos mais antigos).</p>
         <p style="margin-top:8px;"><strong>📋 PDF Conta</strong> — Ordens detalhadas + total por item, ideal para confrontar com a fatura do restaurante.<br>
         <strong>💸 PDF Divisão</strong> — Conta final por pessoa com detalhe de consumo e ajustes.</p>
         <p style="margin-top:8px;"><strong>💾 Exportar JSON</strong> — Descarrega o histórico completo como ficheiro JSON de backup.<br>
@@ -904,6 +1118,8 @@ let estado = {
     ofertas: [],
     totalFatura: null,
     descricaoEvento: '',
+    pagador: '',
+    dividas: {},
     amigosSelecionados: new Set(),
     ofertaAmigos: new Set()
 };
@@ -911,7 +1127,61 @@ let estado = {
 // Inicializar
 function init() {
     carregarHistoricoLocal();
+    carregarPagamentos();
     carregarDoLocalStorage(); // cleans up legacy keys
+
+    // Migrate legacy events: add pagador and dividas for closed events
+    let migrated = false;
+    historico.forEach(ev => {
+        if (ev.totalFatura && !ev.pagador) {
+            ev.pagador = (ev.amigos && ev.amigos.length > 0) ? ev.amigos[0] : '';
+            migrated = true;
+        }
+        if (ev.totalFatura && ev.pagador && (!ev.dividas || Object.keys(ev.dividas).length === 0)) {
+            ev.dividas = {};
+            const contaFinal = calcularContaFinalEvento(ev);
+            Object.keys(contaFinal).forEach(pessoa => {
+                if (pessoa !== ev.pagador && contaFinal[pessoa] > 0.005) {
+                    const val = Math.round(contaFinal[pessoa] * 100) / 100;
+                    ev.dividas[pessoa] = { valor: val };
+                    // Create a payment entry so legacy events appear as paid
+                    pagamentos.push({
+                        id: Date.now() + Math.random() * 1000 | 0,
+                        pessoa, valor: val, tipo: 'evento', eventoId: ev.id,
+                        data: ev.data || 'migrado'
+                    });
+                }
+            });
+            migrated = true;
+        }
+        // Clean up old 'pago' field from dividas if present
+        if (ev.dividas) {
+            let hadPago = false;
+            Object.keys(ev.dividas).forEach(p => {
+                if (ev.dividas[p].pago !== undefined) {
+                    // If was marked pago and no payment exists yet, create one
+                    if (ev.dividas[p].pago) {
+                        const existing = pagamentos.find(pg => pg.eventoId === ev.id && pg.pessoa === p);
+                        if (!existing) {
+                            pagamentos.push({
+                                id: Date.now() + Math.random() * 1000 | 0,
+                                pessoa: p, valor: ev.dividas[p].valor, tipo: 'evento', eventoId: ev.id,
+                                data: ev.data || 'migrado'
+                            });
+                        }
+                    }
+                    delete ev.dividas[p].pago;
+                    hadPago = true;
+                }
+            });
+            if (hadPago) migrated = true;
+        }
+    });
+    if (migrated) {
+        salvarHistoricoLocal();
+        salvarPagamentos();
+    }
+
     ghLoadCfg();
     ghUpdateSyncBtn();
 
@@ -937,6 +1207,7 @@ function init() {
     renderOfertaAmigos();
     renderConfigAmigos();
     renderConfigMenu();
+    renderPagadorSelect();
     atualizarUI();
 
     document.getElementById('item').addEventListener('change', atualizarPreco);
@@ -953,11 +1224,14 @@ function carregarEvento(ev) {
     estado.ofertas = ev.ofertas ? JSON.parse(JSON.stringify(ev.ofertas)) : [];
     estado.totalFatura = ev.totalFatura || null;
     estado.descricaoEvento = ev.descricao || '';
+    estado.pagador = ev.pagador || '';
+    estado.dividas = ev.dividas ? JSON.parse(JSON.stringify(ev.dividas)) : {};
     amigos = ev.amigos ? JSON.parse(JSON.stringify(ev.amigos)) : [];
     menu = ev.menu ? JSON.parse(JSON.stringify(ev.menu)) : {};
     modoReadOnly = !!ev.totalFatura;
     document.getElementById('descricao-evento').value = estado.descricaoEvento;
     document.getElementById('total-fatura').value = estado.totalFatura || '';
+    renderPagadorSelect();
     if (estado.totalFatura) atualizarAjuste();
     else { document.getElementById('ajuste-info').style.display = 'none'; }
 }
@@ -1367,6 +1641,8 @@ function salvarNoLocalStorage() {
             historico[idx].ofertas = JSON.parse(JSON.stringify(estado.ofertas));
             historico[idx].totalFatura = estado.totalFatura;
             historico[idx].descricao = estado.descricaoEvento;
+            historico[idx].pagador = estado.pagador;
+            historico[idx].dividas = JSON.parse(JSON.stringify(estado.dividas));
             historico[idx].amigos = JSON.parse(JSON.stringify(amigos));
             historico[idx].menu = JSON.parse(JSON.stringify(menu));
             // Update data field from first order
@@ -1421,11 +1697,25 @@ function renderHistoricoDropdown() {
         panel.innerHTML = '<div class="historico-empty">Nenhum evento guardado</div>';
         return;
     }
+    const saldosForCards = calcularSaldos();
     panel.innerHTML = [...historico].reverse().map(ev => {
         const isAtual = ev.id === eventoAtualId;
+        let temPendentes = false;
+        if (ev.totalFatura && ev.dividas) {
+            Object.keys(ev.dividas).forEach(p => {
+                const pessoaSaldo = saldosForCards[p];
+                if (pessoaSaldo) {
+                    const evInfo = pessoaSaldo.eventos.find(e => e.eventoId === ev.id);
+                    if (evInfo && evInfo.restante > 0.005) temPendentes = true;
+                }
+            });
+        }
+        const indicador = ev.totalFatura
+            ? (temPendentes ? '<span style="font-size:10px;color:#e74c3c;margin-left:6px;">⏳</span>' : '<span style="font-size:10px;color:#27ae60;margin-left:6px;">✅</span>')
+            : '<span style="font-size:10px;color:#95a5a6;margin-left:6px;">📝</span>';
         return `
             <div class="historico-card${isAtual ? ' ativo' : ''}" onclick="${isAtual ? '' : 'navegarHistorico(' + ev.id + ')'}">
-                <div class="historico-card-nome">${ev.descricao || 'Sem nome'}</div>
+                <div class="historico-card-nome">${ev.descricao || 'Sem nome'}${indicador}</div>
                 <span class="historico-card-data">${ev.data || '—'}</span>
             </div>`;
     }).join('');
@@ -1486,8 +1776,10 @@ async function navegarHistorico(id) {
     renderAmigosBotoes();
     renderOfertaDropdowns();
     renderOfertaAmigos();
+    renderPagadorSelect();
     atualizarUI();
     renderHistoricoDropdown();
+    renderContas();
     // Close the panel after navigating
     const panel = document.getElementById('historico-panel');
     const arrow = document.getElementById('historico-toggle-arrow');
@@ -1514,6 +1806,8 @@ async function novoEvento() {
         ordens: [],
         ofertas: [],
         totalFatura: null,
+        pagador: '',
+        dividas: {},
         amigos: novosAmigos,
         menu: novoMenu
     };
@@ -1533,8 +1827,10 @@ async function novoEvento() {
     renderAmigosBotoes();
     renderOfertaDropdowns();
     renderOfertaAmigos();
+    renderPagadorSelect();
     atualizarUI();
     renderHistoricoDropdown();
+    renderContas();
     // Close the panel
     const panel = document.getElementById('historico-panel');
     const arrow = document.getElementById('historico-toggle-arrow');
@@ -1573,6 +1869,8 @@ function snaphotEstado() {
         ordens: JSON.parse(JSON.stringify(estado.ordens)),
         ofertas: JSON.parse(JSON.stringify(estado.ofertas)),
         totalFatura: estado.totalFatura,
+        pagador: estado.pagador,
+        dividas: JSON.parse(JSON.stringify(estado.dividas)),
         amigos: JSON.parse(JSON.stringify(amigos)),
         menu: JSON.parse(JSON.stringify(menu))
     };
@@ -1591,7 +1889,8 @@ function guardarEFechar() {
 }
 
 function exportarJSON() {
-    const blob = new Blob([JSON.stringify(historico, null, 2)], {type: 'application/json;charset=utf-8'});
+    const exportData = { historico, pagamentos };
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], {type: 'application/json;charset=utf-8'});
     const link = document.createElement('a');
     const ts = new Date().toISOString().slice(0,10);
     link.href = URL.createObjectURL(blob);
@@ -1608,8 +1907,18 @@ function importarJSON() {
         try {
             const text = e.target.result;
             const data = JSON.parse(text);
-            if (!Array.isArray(data)) { mostrarMensagem('❌ Ficheiro inválido', false); return; }
-            historico = data;
+            // Support old format (array of events) and new format ({historico, pagamentos})
+            if (Array.isArray(data)) {
+                historico = data;
+            } else if (data && Array.isArray(data.historico)) {
+                historico = data.historico;
+                if (Array.isArray(data.pagamentos)) {
+                    pagamentos = data.pagamentos;
+                    salvarPagamentos();
+                }
+            } else {
+                mostrarMensagem('❌ Ficheiro inválido', false); return;
+            }
             salvarHistoricoLocal();
             if (historico.length > 0) {
                 const ultimo = historico[historico.length - 1];
@@ -1623,7 +1932,9 @@ function importarJSON() {
             renderAmigosBotoes();
             renderOfertaDropdowns();
             renderOfertaAmigos();
+            renderPagadorSelect();
             atualizarUI();
+            renderContas();
             mostrarMensagem('✓ ' + historico.length + ' evento(s) importado(s)', true);
         } catch(err) {
             console.error(err);
@@ -1650,8 +1961,12 @@ async function limparTudo() {
         estado.ofertas = [];
         estado.totalFatura = null;
         estado.descricaoEvento = '';
+        estado.pagador = '';
+        estado.dividas = {};
         document.getElementById('descricao-evento').value = '';
         document.getElementById('total-fatura').value = '';
+        document.getElementById('pagador-select').value = '';
+        document.getElementById('pagador-select').disabled = false;
         document.getElementById('ajuste-info').style.display = 'none';
         estado.amigosSelecionados.clear();
         estado.ofertaAmigos.clear();
@@ -1661,6 +1976,7 @@ async function limparTudo() {
         renderConfigAmigos();
         renderConfigMenu();
         renderHistoricoDropdown();
+        renderContas();
         mostrarMensagem('✓ Evento limpo', true);
     }
 }
@@ -1880,27 +2196,89 @@ function exportarPDFDivisao() {
 async function fecharComFatura() {
     const fatura = parseFloat(document.getElementById('total-fatura').value);
     if (!fatura || fatura <= 0) { mostrarMensagem('⚠️ Introduz o valor da fatura', false); return; }
+    const pagador = document.getElementById('pagador-select').value;
+    if (!pagador) { mostrarMensagem('⚠️ Seleciona quem pagou a conta', false); return; }
     estado.totalFatura = fatura;
+    estado.pagador = pagador;
     modoReadOnly = true;
+
+    // Calcular dívidas — quanto cada pessoa deve ao pagador
+    const contaFinal = calcularContaFinalPorPessoa();
+    estado.dividas = {};
+    Object.keys(contaFinal).forEach(pessoa => {
+        if (pessoa !== pagador && contaFinal[pessoa] > 0.005) {
+            estado.dividas[pessoa] = { valor: Math.round(contaFinal[pessoa] * 100) / 100 };
+        }
+    });
+
     document.getElementById('total-fatura').disabled = true;
+    document.getElementById('pagador-select').disabled = true;
     document.getElementById('btn-fechar-evento').style.display = 'none';
     document.getElementById('btn-reabrir-evento').style.display = '';
     atualizarAjuste();
     salvarNoLocalStorage();
     atualizarReadOnly();
-    mostrarMensagem('✓ Conta fechada — €' + fatura.toFixed(2), true);
+    renderContas();
+    mostrarMensagem('✓ Conta fechada — €' + fatura.toFixed(2) + ' (paga por ' + pagador + ')', true);
+}
+
+// Calculate final amount per person considering ordens, ofertas, and fatura ratio
+function calcularContaFinalPorPessoa() {
+    const totalMesa = estado.ordens.reduce((sum, o) => sum + o.precoTotal, 0);
+    const fatura = estado.totalFatura || totalMesa;
+    const racio = totalMesa > 0 ? fatura / totalMesa : 1;
+
+    const setPessoas = new Set();
+    estado.ordens.forEach(o => o.amigos.forEach(a => setPessoas.add(a)));
+    estado.ofertas.forEach(o => { setPessoas.add(o.quem); o.para.forEach(p => setPessoas.add(p)); });
+
+    const contaBruta = {};
+    setPessoas.forEach(p => contaBruta[p] = 0);
+    estado.ordens.forEach(o => {
+        const share = o.precoTotal / o.amigos.length;
+        o.amigos.forEach(a => { contaBruta[a] = (contaBruta[a] || 0) + share; });
+    });
+
+    const saldoOfertas = calcularSaldoOfertas();
+    const contaLiquida = {};
+    setPessoas.forEach(p => {
+        contaLiquida[p] = (contaBruta[p] || 0) + (saldoOfertas[p] || 0);
+    });
+
+    // Se fatura difere do total calculado, aplicar rácio proporcional
+    const isMatch = Math.abs(fatura - totalMesa) < 0.01;
+    if (isMatch || totalMesa === 0) return contaLiquida;
+
+    const diff = fatura - totalMesa;
+    const base = diff < 0 ? contaLiquida : contaBruta;
+    const totalBase = Object.values(base).reduce((a, b) => a + b, 0);
+    const contaFinal = {};
+    setPessoas.forEach(p => {
+        const part = totalBase > 0 ? (base[p] / totalBase) : 0;
+        const ajuste = part * diff;
+        contaFinal[p] = contaLiquida[p] + ajuste;
+    });
+    return contaFinal;
 }
 
 function reabrirEvento() {
     modoReadOnly = false;
+    // Remove pagamentos associated with this event
+    pagamentos = pagamentos.filter(p => p.eventoId !== eventoAtualId);
+    salvarPagamentos();
     estado.totalFatura = null;
+    estado.pagador = '';
+    estado.dividas = {};
     document.getElementById('total-fatura').disabled = false;
+    document.getElementById('pagador-select').disabled = false;
+    document.getElementById('pagador-select').value = '';
     document.getElementById('btn-fechar-evento').style.display = '';
     document.getElementById('btn-reabrir-evento').style.display = 'none';
     document.getElementById('ajuste-info').style.display = 'none';
     salvarNoLocalStorage();
     atualizarReadOnly();
     atualizarUI();
+    renderContas();
     mostrarMensagem('🔓 Evento reaberto', true);
 }
 
@@ -1982,6 +2360,7 @@ function atualizarReadOnly() {
     // Sync fatura buttons
     const hasFatura = !!estado.totalFatura;
     document.getElementById('total-fatura').disabled = hasFatura;
+    document.getElementById('pagador-select').disabled = hasFatura;
     document.getElementById('btn-fechar-evento').style.display = hasFatura ? 'none' : '';
     document.getElementById('btn-reabrir-evento').style.display = hasFatura ? '' : 'none';
 
@@ -2024,12 +2403,454 @@ async function desbloquearEvento() {
     if (!ok) return;
     modoReadOnly = false;
     estado.totalFatura = null;
+    estado.pagador = '';
+    estado.dividas = {};
     document.getElementById('total-fatura').disabled = false;
+    document.getElementById('pagador-select').disabled = false;
+    document.getElementById('pagador-select').value = '';
     document.getElementById('ajuste-info').style.display = 'none';
     salvarNoLocalStorage();
     atualizarReadOnly();
     atualizarUI();
+    renderContas();
     mostrarMensagem('🔓 Evento desbloqueado para edição', true);
+}
+
+// ── PAGADOR & CONTAS (DÍVIDAS) ──────────────────────────────────────────────
+
+function renderPagadorSelect() {
+    const sel = document.getElementById('pagador-select');
+    const current = estado.pagador || '';
+    sel.innerHTML = '<option value="">-- Seleciona --</option>';
+    amigos.forEach(a => {
+        const opt = document.createElement('option');
+        opt.value = a; opt.textContent = a;
+        if (a === current) opt.selected = true;
+        sel.appendChild(opt);
+    });
+}
+
+function atualizarPagador() {
+    estado.pagador = document.getElementById('pagador-select').value;
+    salvarNoLocalStorage();
+}
+
+let _contasTabAtual = 'saldos';
+let pagamentos = [];
+
+function carregarPagamentos() {
+    const saved = localStorage.getItem('splitbill_pagamentos');
+    if (saved) { try { pagamentos = JSON.parse(saved); } catch(e) { pagamentos = []; } }
+}
+
+function salvarPagamentos() {
+    localStorage.setItem('splitbill_pagamentos', JSON.stringify(pagamentos));
+    ghScheduleAutoSave();
+}
+
+function toggleContas() {
+    const body = document.getElementById('contas-body');
+    const arrow = document.getElementById('contas-arrow');
+    const visible = body.style.display !== 'none';
+    body.style.display = visible ? 'none' : 'block';
+    arrow.textContent = visible ? '▼' : '▲';
+    if (!visible) renderContas();
+}
+
+function mudarTabContas(tab) {
+    _contasTabAtual = tab;
+    document.querySelectorAll('.contas-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    renderContas();
+}
+
+// ── Core: calculate saldos considering dividas + pagamentos ──
+
+function getDividasPorPessoaPorEvento() {
+    const result = {};
+    historico.forEach(ev => {
+        if (!ev.totalFatura || !ev.pagador) return;
+        const dividas = ev.dividas || {};
+        Object.keys(dividas).forEach(pessoa => {
+            if (!result[pessoa]) result[pessoa] = [];
+            result[pessoa].push({
+                eventoId: ev.id,
+                descricao: ev.descricao || 'Sem nome',
+                data: ev.data || '—',
+                valor: dividas[pessoa].valor,
+                pagador: ev.pagador
+            });
+        });
+    });
+    return result;
+}
+
+function calcularSaldos() {
+    const dividasPE = getDividasPorPessoaPorEvento();
+    const pgtosPP = {};
+    pagamentos.forEach(p => {
+        if (!pgtosPP[p.pessoa]) pgtosPP[p.pessoa] = [];
+        pgtosPP[p.pessoa].push(p);
+    });
+    const saldos = {};
+    const todasPessoas = new Set([...Object.keys(dividasPE), ...Object.keys(pgtosPP)]);
+
+    todasPessoas.forEach(pessoa => {
+        const eventos = (dividasPE[pessoa] || []).map(e => ({...e, restante: e.valor}));
+        const pgtos = pgtosPP[pessoa] || [];
+        let totalDivida = eventos.reduce((s, e) => s + e.valor, 0);
+        let totalPago = 0;
+
+        // Event-specific payments first
+        pgtos.filter(p => p.tipo === 'evento').forEach(p => {
+            const ev = eventos.find(e => e.eventoId === p.eventoId);
+            if (ev) {
+                const abate = Math.min(ev.restante, p.valor);
+                ev.restante -= abate;
+            }
+            totalPago += p.valor;
+        });
+
+        // Free payments FIFO
+        pgtos.filter(p => p.tipo === 'livre').forEach(p => {
+            let restante = p.valor;
+            totalPago += p.valor;
+            for (const ev of eventos) {
+                if (restante <= 0.005) break;
+                if (ev.restante <= 0.005) continue;
+                const abate = Math.min(ev.restante, restante);
+                ev.restante -= abate;
+                restante -= abate;
+            }
+        });
+
+        saldos[pessoa] = {
+            divida: totalDivida,
+            pago: totalPago,
+            saldo: Math.max(0, Math.round((totalDivida - totalPago) * 100) / 100),
+            eventos
+        };
+    });
+    return saldos;
+}
+
+// ── Render ──
+
+function renderContas() {
+    const lista = document.getElementById('contas-lista');
+    const resumo = document.getElementById('contas-resumo');
+    if (!lista) return;
+
+    renderPgtoForm();
+
+    if (_contasTabAtual === 'saldos') renderContasSaldos(lista, resumo);
+    else if (_contasTabAtual === 'eventos') renderContasEventos(lista, resumo);
+    else if (_contasTabAtual === 'pagamentos') renderContasPagamentos(lista, resumo);
+
+    // Badge
+    const saldos = calcularSaldos();
+    let totalPendente = 0;
+    Object.values(saldos).forEach(s => totalPendente += s.saldo);
+    const badge = document.getElementById('contas-badge');
+    if (badge) {
+        if (totalPendente > 0.005) {
+            badge.textContent = '€' + totalPendente.toFixed(2);
+            badge.style.display = 'inline';
+        } else {
+            badge.style.display = 'none';
+        }
+    }
+}
+
+function renderContasSaldos(lista, resumo) {
+    const saldos = calcularSaldos();
+    const pessoas = Object.keys(saldos).sort((a, b) => saldos[b].saldo - saldos[a].saldo);
+
+    if (pessoas.length === 0) {
+        lista.innerHTML = '<div class="contas-vazio">Nenhuma conta fechada ainda</div>';
+        resumo.innerHTML = '';
+        return;
+    }
+
+    lista.innerHTML = pessoas.map(pessoa => {
+        const s = saldos[pessoa];
+        const isLiquidado = s.saldo < 0.01;
+        const eventosComDivida = s.eventos.filter(e => e.valor > 0);
+        const detalheEventos = eventosComDivida.map(e => {
+            const estado = e.restante < 0.01 ? '✅' : '⏳';
+            return `${estado} ${e.descricao}: €${e.valor.toFixed(2)}${e.restante > 0.005 && e.restante < e.valor - 0.005 ? ' (resta €' + e.restante.toFixed(2) + ')' : ''}`;
+        }).join('<br>');
+
+        return `
+        <div class="saldo-card">
+            <div>
+                <div class="nome">${pessoa}</div>
+                ${eventosComDivida.length > 0 ? `<div class="saldo-detalhe">${detalheEventos}</div>` : ''}
+                ${s.pago > 0.005 ? `<div class="saldo-detalhe" style="color:#27ae60;">💸 Já pagou: €${s.pago.toFixed(2)} de €${s.divida.toFixed(2)}</div>` : ''}
+            </div>
+            <span class="saldo-valor ${isLiquidado ? 'liquidado' : 'devedor'}">${isLiquidado ? '✅ €0.00' : '⏳ €' + s.saldo.toFixed(2)}</span>
+        </div>`;
+    }).join('');
+
+    let totalPendente = 0;
+    Object.values(saldos).forEach(s => totalPendente += s.saldo);
+    if (totalPendente > 0.005) {
+        resumo.innerHTML = `
+        <div class="contas-resumo-total">
+            <span class="label">💰 Total pendente</span>
+            <span class="valor">€${totalPendente.toFixed(2)}</span>
+        </div>`;
+    } else {
+        resumo.innerHTML = '<div style="text-align:center;font-size:13px;color:#27ae60;padding:10px;font-weight:600;">✅ Tudo liquidado!</div>';
+    }
+}
+
+function renderContasEventos(lista, resumo) {
+    const eventosFechados = historico.filter(ev => ev.totalFatura && ev.pagador);
+    if (eventosFechados.length === 0) {
+        lista.innerHTML = '<div class="contas-vazio">Nenhuma conta fechada ainda</div>';
+        resumo.innerHTML = '';
+        return;
+    }
+
+    const saldos = calcularSaldos();
+
+    lista.innerHTML = [...eventosFechados].reverse().map(ev => {
+        const dividas = ev.dividas || {};
+        const pessoas = Object.keys(dividas).sort();
+        if (pessoas.length === 0) return '';
+
+        const dividasHtml = pessoas.map(p => {
+            const d = dividas[p];
+            const pessoaSaldo = saldos[p];
+            const evInfo = pessoaSaldo ? pessoaSaldo.eventos.find(e => e.eventoId === ev.id) : null;
+            const restante = evInfo ? evInfo.restante : d.valor;
+            const isPago = restante < 0.01;
+            return `
+            <div class="contas-divida-item">
+                <span class="nome">${p}</span>
+                <span class="valor ${isPago ? 'pago' : 'pendente'}">${isPago ? '✅' : '⏳'} €${d.valor.toFixed(2)}${!isPago && restante < d.valor - 0.005 ? ' (resta €' + restante.toFixed(2) + ')' : ''}</span>
+            </div>`;
+        }).join('');
+
+        const totalEvento = pessoas.reduce((sum, p) => sum + dividas[p].valor, 0);
+
+        return `
+        <div class="contas-evento">
+            <div class="contas-evento-header" onclick="navegarHistorico(${ev.id})">
+                <span class="contas-evento-titulo">${ev.descricao || 'Sem nome'}</span>
+                <span class="contas-evento-data">${ev.data || '—'}</span>
+            </div>
+            <div class="contas-evento-pagador">💳 Pago por: <strong>${ev.pagador}</strong> · Fatura: €${ev.totalFatura.toFixed(2)} · Dívidas: €${totalEvento.toFixed(2)}</div>
+            ${dividasHtml}
+        </div>`;
+    }).join('');
+
+    resumo.innerHTML = '';
+}
+
+function renderContasPagamentos(lista, resumo) {
+    if (pagamentos.length === 0) {
+        lista.innerHTML = '<div class="contas-vazio">Nenhum pagamento registado</div>';
+        resumo.innerHTML = '';
+        return;
+    }
+
+    lista.innerHTML = [...pagamentos].reverse().map(p => {
+        const eventoDesc = p.tipo === 'evento'
+            ? (() => { const ev = historico.find(e => e.id === p.eventoId); return ev ? (ev.descricao || 'Sem nome') : 'Evento removido'; })()
+            : 'Pagamento livre (FIFO)';
+        return `
+        <div class="pgto-hist-item">
+            <div class="pgto-info-col">
+                <div class="pgto-nome">${p.pessoa}</div>
+                <div class="pgto-detalhe">${eventoDesc} · ${p.data}</div>
+            </div>
+            <span class="pgto-valor">€${p.valor.toFixed(2)}</span>
+            <button class="pgto-delete" onclick="removerPagamento(${p.id})">×</button>
+        </div>`;
+    }).join('');
+
+    const totalPagamentos = pagamentos.reduce((s, p) => s + p.valor, 0);
+    resumo.innerHTML = `<div style="text-align:right;font-size:13px;color:#27ae60;padding:8px 0;font-weight:600;">Total recebido: €${totalPagamentos.toFixed(2)}</div>`;
+}
+
+// ── Payment form ──
+
+function renderPgtoForm() {
+    const sel = document.getElementById('pgto-pessoa');
+    if (!sel) return;
+    const current = sel.value;
+    sel.innerHTML = '<option value="">Quem pagou?</option>';
+    const saldos = calcularSaldos();
+    const pessoas = Object.keys(saldos).sort();
+    pessoas.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p;
+        opt.textContent = p + (saldos[p].saldo > 0.005 ? ' (deve €' + saldos[p].saldo.toFixed(2) + ')' : ' ✅');
+        sel.appendChild(opt);
+    });
+    if (current && sel.querySelector(`option[value="${CSS.escape(current)}"]`)) sel.value = current;
+    atualizarPgtoForm();
+}
+
+function atualizarPgtoForm() {
+    const tipo = document.getElementById('pgto-tipo');
+    if (!tipo) return;
+    const eventoRow = document.getElementById('pgto-evento-row');
+    const livreRow = document.getElementById('pgto-livre-row');
+    const info = document.getElementById('pgto-info');
+
+    if (tipo.value === 'evento') {
+        eventoRow.style.display = 'flex';
+        livreRow.style.display = 'none';
+        renderPgtoEventoSelect();
+    } else {
+        eventoRow.style.display = 'none';
+        livreRow.style.display = 'flex';
+    }
+    if (info) info.style.display = 'none';
+}
+
+function renderPgtoEventoSelect() {
+    const pessoa = document.getElementById('pgto-pessoa').value;
+    const sel = document.getElementById('pgto-evento');
+    sel.innerHTML = '<option value="">-- Seleciona evento --</option>';
+    if (!pessoa) return;
+
+    const saldos = calcularSaldos();
+    const pessoaSaldo = saldos[pessoa];
+    if (!pessoaSaldo) return;
+
+    pessoaSaldo.eventos.filter(e => e.restante > 0.005).forEach(e => {
+        const opt = document.createElement('option');
+        opt.value = e.eventoId;
+        opt.textContent = `${e.descricao} — €${e.restante.toFixed(2)}`;
+        opt.dataset.valor = e.restante.toFixed(2);
+        sel.appendChild(opt);
+    });
+}
+
+function atualizarPgtoValorEvento() {
+    const sel = document.getElementById('pgto-evento');
+    const opt = sel.selectedOptions[0];
+    const info = document.getElementById('pgto-info');
+    if (opt && opt.dataset.valor) {
+        info.textContent = '💰 Valor: €' + parseFloat(opt.dataset.valor).toFixed(2);
+        info.style.display = 'block';
+    } else {
+        info.style.display = 'none';
+    }
+}
+
+async function registarPagamento() {
+    const pessoa = document.getElementById('pgto-pessoa').value;
+    const tipo = document.getElementById('pgto-tipo').value;
+
+    if (!pessoa) { mostrarPgtoMsg('⚠️ Seleciona quem pagou', false); return; }
+
+    let valor, eventoId;
+
+    if (tipo === 'evento') {
+        const selEvento = document.getElementById('pgto-evento');
+        eventoId = selEvento.value;
+        if (!eventoId) { mostrarPgtoMsg('⚠️ Seleciona o evento', false); return; }
+        valor = parseFloat(selEvento.selectedOptions[0].dataset.valor);
+    } else {
+        valor = parseFloat(document.getElementById('pgto-valor-livre').value);
+        if (!valor || valor <= 0) { mostrarPgtoMsg('⚠️ Introduz um valor válido', false); return; }
+    }
+
+    pagamentos.push({
+        id: Date.now(),
+        pessoa,
+        valor,
+        tipo,
+        eventoId: tipo === 'evento' ? parseInt(eventoId) : null,
+        data: new Date().toLocaleDateString('pt-PT', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'})
+    });
+    salvarPagamentos();
+
+    document.getElementById('pgto-evento').value = '';
+    document.getElementById('pgto-valor-livre').value = '';
+    document.getElementById('pgto-info').style.display = 'none';
+
+    renderContas();
+    renderHistoricoDropdown();
+    mostrarPgtoMsg('✅ Pagamento de €' + valor.toFixed(2) + ' registado para ' + pessoa, true);
+}
+
+async function removerPagamento(id) {
+    const ok = await mostrarModal({
+        icon: '💸',
+        title: 'Remover pagamento',
+        msg: 'Tens a certeza que queres remover este pagamento?',
+        confirmText: 'Remover',
+        cancelText: 'Cancelar',
+        danger: true
+    });
+    if (!ok) return;
+    pagamentos = pagamentos.filter(p => p.id !== id);
+    salvarPagamentos();
+    renderContas();
+    renderHistoricoDropdown();
+}
+
+function mostrarPgtoMsg(msg, ok) {
+    const div = document.getElementById('pgto-msg');
+    if (!div) return;
+    div.className = ok ? 'sucesso' : 'aviso';
+    div.textContent = msg;
+    setTimeout(() => { div.textContent = ''; div.className = ''; }, 3000);
+}
+
+// Calculate final amounts for any event
+function calcularContaFinalEvento(ev) {
+    const totalMesa = (ev.ordens || []).reduce((sum, o) => sum + o.precoTotal, 0);
+    const fatura = ev.totalFatura || totalMesa;
+    const racio = totalMesa > 0 ? fatura / totalMesa : 1;
+
+    const setPessoas = new Set();
+    (ev.ordens || []).forEach(o => o.amigos.forEach(a => setPessoas.add(a)));
+    (ev.ofertas || []).forEach(o => { setPessoas.add(o.quem); o.para.forEach(p => setPessoas.add(p)); });
+
+    const contaBruta = {};
+    setPessoas.forEach(p => contaBruta[p] = 0);
+    (ev.ordens || []).forEach(o => {
+        const share = o.precoTotal / o.amigos.length;
+        o.amigos.forEach(a => { contaBruta[a] = (contaBruta[a] || 0) + share; });
+    });
+
+    // Saldo ofertas
+    const saldo = {};
+    (ev.ofertas || []).forEach(oferta => {
+        if (!saldo[oferta.quem]) saldo[oferta.quem] = 0;
+        saldo[oferta.quem] += oferta.precoTotal;
+        const share = oferta.precoTotal / oferta.para.length;
+        oferta.para.forEach(p => {
+            if (!saldo[p]) saldo[p] = 0;
+            saldo[p] -= share;
+        });
+    });
+
+    const contaLiquida = {};
+    setPessoas.forEach(p => {
+        contaLiquida[p] = (contaBruta[p] || 0) + (saldo[p] || 0);
+    });
+
+    const isMatch = Math.abs(fatura - totalMesa) < 0.01;
+    if (isMatch || totalMesa === 0) return contaLiquida;
+
+    const diff = fatura - totalMesa;
+    const base = diff < 0 ? contaLiquida : contaBruta;
+    const totalBase = Object.values(base).reduce((a, b) => a + b, 0);
+    const contaFinal = {};
+    setPessoas.forEach(p => {
+        const part = totalBase > 0 ? (base[p] / totalBase) : 0;
+        const ajuste = part * diff;
+        contaFinal[p] = contaLiquida[p] + ajuste;
+    });
+    return contaFinal;
 }
 
 // ── EDIT ORDEM INLINE ──────────────────────────────────────────────────────
@@ -2169,6 +2990,7 @@ async function limparConfigs() {
     renderAmigosBotoes();
     renderOfertaDropdowns();
     renderOfertaAmigos();
+    renderPagadorSelect();
     mostrarMensagem('✓ Configurações limpas', true);
 }
 
@@ -2215,6 +3037,8 @@ function guardarEdicaoAmigo(i) {
         if (o.quem === nomeAntigo) o.quem = novoNome;
         o.para = o.para.map(a => a === nomeAntigo ? novoNome : a);
     });
+    // Update pagador if renamed
+    if (estado.pagador === nomeAntigo) estado.pagador = novoNome;
     amigos[i] = novoNome;
     guardarConfigs();
     salvarNoLocalStorage();
@@ -2222,6 +3046,7 @@ function guardarEdicaoAmigo(i) {
     renderAmigosBotoes();
     renderOfertaDropdowns();
     renderOfertaAmigos();
+    renderPagadorSelect();
     atualizarUI();
     mostrarMensagem(`✓ "${nomeAntigo}" renomeado para "${novoNome}"`, true);
 }
@@ -2237,6 +3062,7 @@ function adicionarAmigo() {
     renderAmigosBotoes();
     renderOfertaDropdowns();
     renderOfertaAmigos();
+    renderPagadorSelect();
     input.value = '';
 }
 
@@ -2256,6 +3082,7 @@ async function removerAmigo(idx) {
     renderAmigosBotoes();
     renderOfertaDropdowns();
     renderOfertaAmigos();
+    renderPagadorSelect();
 }
 
 function renderConfigMenu() {
@@ -2388,6 +3215,7 @@ function importarExcel() {
             renderAmigosBotoes();
             renderOfertaDropdowns();
             renderOfertaAmigos();
+            renderPagadorSelect();
             mostrarMensagem('✓ ' + amigos.length + ' amigos e ' + Object.keys(menu).length + ' itens importados', true);
         } catch(err) {
             mostrarMensagem('❌ Erro ao importar Excel', false);
@@ -2474,7 +3302,7 @@ async function ghPush() {
     if (!token || !owner || !repo) { mostrarMensagem('Preenche Token, Utilizador e Repositório!', false); return; }
     ghStatus('A guardar no GitHub…');
     try {
-        const content = btoa(unescape(encodeURIComponent(JSON.stringify(historico, null, 2))));
+        const content = btoa(unescape(encodeURIComponent(JSON.stringify({historico, pagamentos}, null, 2))));
         let sha = null;
         const check = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`, {
             headers: {'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json'}
@@ -2652,7 +3480,18 @@ async function ghPromptSync() {
 }
 
 function ghApplyData(data) {
-    historico = data;
+    // Support old format (array) and new format ({historico, pagamentos})
+    if (Array.isArray(data)) {
+        historico = data;
+    } else if (data && Array.isArray(data.historico)) {
+        historico = data.historico;
+        if (Array.isArray(data.pagamentos)) {
+            pagamentos = data.pagamentos;
+            salvarPagamentos();
+        }
+    } else {
+        historico = [];
+    }
     salvarHistoricoLocal();
     if (historico.length > 0) {
         const ultimo = historico[historico.length - 1];
@@ -2674,7 +3513,9 @@ function ghApplyData(data) {
     renderAmigosBotoes();
     renderOfertaDropdowns();
     renderOfertaAmigos();
+    renderPagadorSelect();
     atualizarUI();
+    renderContas();
 }
 /* ── END GITHUB SYNC ──────────────────────── */
 
@@ -2709,7 +3550,7 @@ async function ghAutoSave() {
     if (!token || !owner || !repo) return;
     _ghAutoSaving = true;
     try {
-        const content = btoa(unescape(encodeURIComponent(JSON.stringify(historico, null, 2))));
+        const content = btoa(unescape(encodeURIComponent(JSON.stringify({historico, pagamentos}, null, 2))));
         let sha = null;
         const check = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`, {
             headers: {'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json'}
