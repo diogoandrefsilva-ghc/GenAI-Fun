@@ -1697,6 +1697,7 @@ function renderHistoricoDropdown() {
         panel.innerHTML = '<div class="historico-empty">Nenhum evento guardado</div>';
         return;
     }
+    ensureDividasExist();
     const saldosForCards = calcularSaldos();
     panel.innerHTML = [...historico].reverse().map(ev => {
         const isAtual = ev.id === eventoAtualId;
@@ -2534,12 +2535,33 @@ function calcularSaldos() {
     return saldos;
 }
 
+// Ensure closed events always have dividas — runs on every render to handle sync gaps
+function ensureDividasExist() {
+    let changed = false;
+    historico.forEach(ev => {
+        if (!ev.totalFatura || !ev.pagador) return;
+        if (ev.dividas && Object.keys(ev.dividas).length > 0) return; // already has dividas
+        ev.dividas = {};
+        const contaFinal = calcularContaFinalEvento(ev);
+        Object.keys(contaFinal).forEach(pessoa => {
+            if (pessoa !== ev.pagador && contaFinal[pessoa] > 0.005) {
+                ev.dividas[pessoa] = { valor: Math.round(contaFinal[pessoa] * 100) / 100 };
+            }
+        });
+        changed = true;
+    });
+    if (changed) salvarHistoricoLocal();
+}
+
 // ── Render ──
 
 function renderContas() {
     const lista = document.getElementById('contas-lista');
     const resumo = document.getElementById('contas-resumo');
     if (!lista) return;
+
+    // Ensure all closed events have dividas generated
+    ensureDividasExist();
 
     renderPgtoForm();
 
@@ -2574,6 +2596,7 @@ function renderContasSaldos(lista, resumo) {
 
     lista.innerHTML = pessoas.map(pessoa => {
         const s = saldos[pessoa];
+        if (s.divida < 0.01 && s.pago < 0.01) return ''; // No activity at all
         const isLiquidado = s.saldo < 0.01;
         const eventosComDivida = s.eventos.filter(e => e.valor > 0);
         const detalheEventos = eventosComDivida.map(e => {
@@ -2586,7 +2609,7 @@ function renderContasSaldos(lista, resumo) {
             <div>
                 <div class="nome">${pessoa}</div>
                 ${eventosComDivida.length > 0 ? `<div class="saldo-detalhe">${detalheEventos}</div>` : ''}
-                ${s.pago > 0.005 ? `<div class="saldo-detalhe" style="color:#27ae60;">💸 Já pagou: €${s.pago.toFixed(2)} de €${s.divida.toFixed(2)}</div>` : ''}
+                ${s.pago > 0.005 && s.divida > 0.005 ? `<div class="saldo-detalhe" style="color:#27ae60;">💸 Já pagou: €${s.pago.toFixed(2)} de €${s.divida.toFixed(2)}</div>` : ''}
             </div>
             <span class="saldo-valor ${isLiquidado ? 'liquidado' : 'devedor'}">${isLiquidado ? '✅ €0.00' : '⏳ €' + s.saldo.toFixed(2)}</span>
         </div>`;
