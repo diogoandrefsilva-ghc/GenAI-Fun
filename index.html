@@ -23,9 +23,48 @@
             background: #2c3e50;
             color: white;
             padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 0;
             text-align: center;
+        }
+
+        .top-nav {
+            display: flex;
+            background: #34495e;
+            border-radius: 0 0 8px 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .top-nav-btn {
+            flex: 1;
+            padding: 12px 10px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.6);
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            transition: all 0.2s;
+            border-bottom: 3px solid transparent;
+        }
+        .top-nav-btn.active {
+            color: white;
+            border-bottom-color: #3498db;
+            background: rgba(255,255,255,0.05);
+        }
+        .top-nav-btn:not(.active):hover {
+            color: rgba(255,255,255,0.85);
+            background: rgba(255,255,255,0.03);
+        }
+        .top-nav-badge {
+            background: #e74c3c;
+            color: white;
+            font-size: 10px;
+            padding: 1px 6px;
+            border-radius: 8px;
+            margin-left: 4px;
+            vertical-align: middle;
         }
 
         .header h1 {
@@ -718,12 +757,34 @@
             margin-bottom: 6px;
             border: 1px solid #eee;
             font-size: 14px;
+            cursor: pointer;
         }
         .saldo-card .nome { font-weight: 600; flex: 1; }
         .saldo-card .saldo-valor { font-weight: 800; font-size: 15px; }
         .saldo-card .saldo-valor.devedor { color: #e74c3c; }
         .saldo-card .saldo-valor.liquidado { color: #27ae60; }
-        .saldo-detalhe { font-size: 11px; color: #95a5a6; margin-top: 2px; }
+        .saldo-detalhe {
+            font-size: 11px;
+            color: #95a5a6;
+            margin-top: 2px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+        .saldo-card.expanded .saldo-detalhe {
+            max-height: 500px;
+            opacity: 1;
+        }
+        .saldo-expand-icon {
+            font-size: 10px;
+            color: #bdc3c7;
+            margin-left: 8px;
+            transition: transform 0.2s;
+        }
+        .saldo-card.expanded .saldo-expand-icon {
+            transform: rotate(90deg);
+        }
         .pgto-hist-item {
             display: flex;
             justify-content: space-between;
@@ -743,6 +804,79 @@
             background: #e74c3c; color: white; border: none;
             width: 24px; height: 24px; border-radius: 50%;
             cursor: pointer; font-size: 13px; padding: 0;
+        }
+        .pgto-hist-item .pgto-edit {
+            background: #3498db; color: white; border: none;
+            width: 24px; height: 24px; border-radius: 50%;
+            cursor: pointer; font-size: 11px; padding: 0;
+            margin-right: 4px;
+        }
+        .fab {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #27ae60;
+            color: white;
+            font-size: 28px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            z-index: 100;
+            display: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .fab:active { transform: scale(0.92); }
+        .fab-backdrop {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 99;
+            display: none;
+        }
+        .fab-panel {
+            position: fixed;
+            bottom: 90px;
+            right: 16px;
+            left: 16px;
+            max-width: 560px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+            z-index: 101;
+            display: none;
+        }
+        .pgto-search {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+        .pgto-search:focus { outline: none; border-color: #3498db; }
+        .pgto-edit-row {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            margin-top: 6px;
+            padding: 6px 8px;
+            background: #f0f7ff;
+            border-radius: 4px;
+        }
+        .pgto-edit-row input {
+            padding: 6px 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .pgto-edit-row button {
+            padding: 6px 10px;
+            font-size: 11px;
+            border-radius: 4px;
         }
         .pagador-selector {
             display: flex;
@@ -817,6 +951,12 @@
     <div class="historico-panel" id="historico-panel"></div>
 </div>
 
+<!-- Top Navigation -->
+<div class="top-nav">
+    <button class="top-nav-btn active" id="nav-eventos" onclick="mudarPagina('eventos')">📋 Eventos</button>
+    <button class="top-nav-btn" id="nav-pagamentos" onclick="mudarPagina('pagamentos')">💰 Pagamentos <span id="nav-pgto-badge" class="top-nav-badge" style="display:none;"></span></button>
+</div>
+
 <!-- Custom confirm modal -->
 <div class="modal-overlay" id="modal-overlay" onclick="fecharModal(event)">
     <div class="modal-box">
@@ -833,6 +973,9 @@
     <span>👁️ Evento fechado — modo leitura</span>
     <button onclick="desbloquearEvento()">🔓 Desbloquear para editar</button>
 </div>
+
+<!-- ═══ PAGE: EVENTOS ═══ -->
+<div id="page-eventos">
 
 <!-- ADICIONAR ORDEM -->
 <div class="section" id="section-adicionar">
@@ -941,49 +1084,50 @@
 
 
 
-<!-- CONTAS / DÍVIDAS -->
+
+</div> <!-- end page-eventos -->
+
+<!-- ═══ PAGE: PAGAMENTOS ═══ -->
+<div id="page-pagamentos" style="display:none;">
+
 <div class="section">
-    <div class="config-toggle" onclick="toggleContas()">
-        <h2 style="border-bottom:none;margin-bottom:0;">💰 Contas</h2>
-        <span id="contas-badge" style="background:#e74c3c;color:white;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:8px;display:none;"></span>
-        <span id="contas-arrow" style="font-size:18px;color:#95a5a6;">▼</span>
+    <!-- Tabs -->
+    <div class="contas-tab-bar">
+        <button class="contas-tab active" id="tab-saldos" onclick="mudarTabContas('saldos')">👥 Saldos</button>
+        <button class="contas-tab" id="tab-eventos" onclick="mudarTabContas('eventos')">📋 Eventos</button>
+        <button class="contas-tab" id="tab-pagamentos" onclick="mudarTabContas('pagamentos')">💸 Histórico</button>
     </div>
-    <div id="contas-body" style="display:none;margin-top:14px;">
+    <div id="contas-lista"></div>
+    <div id="contas-resumo"></div>
+</div>
 
-        <!-- Registar pagamento -->
-        <div style="background:#eafaf1;border:1px solid #a3d9a5;border-radius:8px;padding:12px;margin-bottom:14px;">
-            <div style="font-size:13px;font-weight:700;color:#27ae60;margin-bottom:10px;">💸 Registar Pagamento</div>
-            <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
-                <select id="pgto-pessoa" style="flex:1;min-width:100px;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:13px;" onchange="atualizarPgtoForm()">
-                    <option value="">Quem pagou?</option>
-                </select>
-                <select id="pgto-tipo" style="flex:1;min-width:120px;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:13px;" onchange="atualizarPgtoForm()">
-                    <option value="evento">Pagar evento</option>
-                    <option value="livre">Pagamento livre</option>
-                </select>
-            </div>
-            <div id="pgto-evento-row" style="display:flex;gap:8px;margin-bottom:8px;">
-                <select id="pgto-evento" style="flex:1;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:13px;" onchange="atualizarPgtoValorEvento()">
-                    <option value="">-- Seleciona evento --</option>
-                </select>
-            </div>
-            <div id="pgto-livre-row" style="display:none;gap:8px;margin-bottom:8px;">
-                <input type="number" id="pgto-valor-livre" placeholder="Valor (€)" min="0" step="0.01" style="flex:1;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:13px;">
-            </div>
-            <div id="pgto-info" style="font-size:12px;color:#555;margin-bottom:8px;display:none;"></div>
-            <button onclick="registarPagamento()" style="width:100%;background:#27ae60;padding:10px;font-size:13px;">✓ Registar Pagamento</button>
-            <div id="pgto-msg" style="margin-top:6px;"></div>
-        </div>
+</div> <!-- end page-pagamentos -->
 
-        <!-- Tabs -->
-        <div class="contas-tab-bar">
-            <button class="contas-tab active" id="tab-saldos" onclick="mudarTabContas('saldos')">👥 Saldos</button>
-            <button class="contas-tab" id="tab-eventos" onclick="mudarTabContas('eventos')">📋 Eventos</button>
-            <button class="contas-tab" id="tab-pagamentos" onclick="mudarTabContas('pagamentos')">💸 Histórico</button>
-        </div>
-        <div id="contas-lista"></div>
-        <div id="contas-resumo"></div>
+<!-- FAB: Registar Pagamento (só com token) -->
+<div class="fab-backdrop" id="fab-backdrop" onclick="fecharFabPanel()"></div>
+<button class="fab" id="fab-pgto" onclick="abrirFabPanel()">＋</button>
+<div class="fab-panel" id="fab-panel">
+    <div style="font-size:14px;font-weight:700;color:#2c3e50;margin-bottom:12px;">💸 Registar Pagamento</div>
+    <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+        <select id="pgto-pessoa" style="flex:1;min-width:100px;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:13px;" onchange="atualizarPgtoForm()">
+            <option value="">Quem pagou?</option>
+        </select>
+        <select id="pgto-tipo" style="flex:1;min-width:120px;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:13px;" onchange="atualizarPgtoForm()">
+            <option value="evento">Pagar evento</option>
+            <option value="livre">Pagamento livre</option>
+        </select>
     </div>
+    <div id="pgto-evento-row" style="display:flex;gap:8px;margin-bottom:8px;">
+        <select id="pgto-evento" style="flex:1;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:13px;" onchange="atualizarPgtoValorEvento()">
+            <option value="">-- Seleciona evento --</option>
+        </select>
+    </div>
+    <div id="pgto-livre-row" style="display:none;gap:8px;margin-bottom:8px;">
+        <input type="number" id="pgto-valor-livre" placeholder="Valor (€)" min="0" step="0.01" style="flex:1;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:13px;">
+    </div>
+    <div id="pgto-info" style="font-size:12px;color:#555;margin-bottom:8px;display:none;"></div>
+    <button onclick="registarPagamento()" style="width:100%;background:#27ae60;padding:10px;font-size:13px;">✓ Registar Pagamento</button>
+    <div id="pgto-msg" style="margin-top:6px;"></div>
 </div>
 
 <!-- CONFIGURAÇÕES -->
@@ -1209,6 +1353,7 @@ function init() {
     renderConfigMenu();
     renderPagadorSelect();
     atualizarUI();
+    atualizarNavBadge();
 
     document.getElementById('item').addEventListener('change', atualizarPreco);
     document.getElementById('quantidade').addEventListener('change', atualizarPreco);
@@ -1769,6 +1914,7 @@ async function navegarHistorico(id) {
     if (!id) return;
     const ev = historico.find(e => e.id == id);
     if (!ev) return;
+    mudarPagina('eventos');
     carregarEvento(ev);
     atualizarReadOnly();
     renderConfigAmigos();
@@ -2366,7 +2512,7 @@ function atualizarReadOnly() {
     document.getElementById('btn-reabrir-evento').style.display = hasFatura ? '' : 'none';
 
     if (modoReadOnly) {
-        banner.style.display = 'flex';
+        banner.style.display = _paginaAtual === 'eventos' ? 'flex' : 'none';
         sections.forEach(id => {
             const el = document.getElementById(id);
             if (el) el.classList.add('readonly-overlay');
@@ -2438,6 +2584,8 @@ function atualizarPagador() {
 
 let _contasTabAtual = 'saldos';
 let pagamentos = [];
+let _paginaAtual = 'eventos';
+let _pgtoSearchQuery = '';
 
 function carregarPagamentos() {
     const saved = localStorage.getItem('splitbill_pagamentos');
@@ -2449,13 +2597,49 @@ function salvarPagamentos() {
     ghScheduleAutoSave();
 }
 
-function toggleContas() {
-    const body = document.getElementById('contas-body');
-    const arrow = document.getElementById('contas-arrow');
-    const visible = body.style.display !== 'none';
-    body.style.display = visible ? 'none' : 'block';
-    arrow.textContent = visible ? '▼' : '▲';
-    if (!visible) renderContas();
+// ── Page switching ──
+
+function mudarPagina(pagina) {
+    _paginaAtual = pagina;
+    document.getElementById('page-eventos').style.display = pagina === 'eventos' ? '' : 'none';
+    document.getElementById('page-pagamentos').style.display = pagina === 'pagamentos' ? '' : 'none';
+    document.getElementById('readonly-banner').style.display = pagina === 'eventos' && modoReadOnly ? '' : 'none';
+    document.getElementById('nav-eventos').classList.toggle('active', pagina === 'eventos');
+    document.getElementById('nav-pagamentos').classList.toggle('active', pagina === 'pagamentos');
+    // FAB visibility: only on pagamentos page + token
+    const fab = document.getElementById('fab-pgto');
+    fab.style.display = (pagina === 'pagamentos' && ghHasToken()) ? 'block' : 'none';
+    if (pagina === 'pagamentos') renderContas();
+}
+
+function atualizarNavBadge() {
+    const saldos = calcularSaldos();
+    let total = 0;
+    Object.values(saldos).forEach(s => total += s.saldo);
+    const badge = document.getElementById('nav-pgto-badge');
+    if (total > 0.005) {
+        badge.textContent = '€' + total.toFixed(2);
+        badge.style.display = 'inline';
+    } else {
+        badge.style.display = 'none';
+    }
+}
+
+// ── FAB ──
+
+function abrirFabPanel() {
+    document.getElementById('fab-panel').style.display = 'block';
+    document.getElementById('fab-backdrop').style.display = 'block';
+    document.getElementById('fab-pgto').style.display = 'none';
+    renderPgtoForm();
+}
+
+function fecharFabPanel() {
+    document.getElementById('fab-panel').style.display = 'none';
+    document.getElementById('fab-backdrop').style.display = 'none';
+    if (_paginaAtual === 'pagamentos' && ghHasToken()) {
+        document.getElementById('fab-pgto').style.display = 'block';
+    }
 }
 
 function mudarTabContas(tab) {
@@ -2563,25 +2747,11 @@ function renderContas() {
     // Ensure all closed events have dividas generated
     ensureDividasExist();
 
-    renderPgtoForm();
-
     if (_contasTabAtual === 'saldos') renderContasSaldos(lista, resumo);
     else if (_contasTabAtual === 'eventos') renderContasEventos(lista, resumo);
     else if (_contasTabAtual === 'pagamentos') renderContasPagamentos(lista, resumo);
 
-    // Badge
-    const saldos = calcularSaldos();
-    let totalPendente = 0;
-    Object.values(saldos).forEach(s => totalPendente += s.saldo);
-    const badge = document.getElementById('contas-badge');
-    if (badge) {
-        if (totalPendente > 0.005) {
-            badge.textContent = '€' + totalPendente.toFixed(2);
-            badge.style.display = 'inline';
-        } else {
-            badge.style.display = 'none';
-        }
-    }
+    atualizarNavBadge();
 }
 
 function renderContasSaldos(lista, resumo) {
@@ -2596,22 +2766,25 @@ function renderContasSaldos(lista, resumo) {
 
     lista.innerHTML = pessoas.map(pessoa => {
         const s = saldos[pessoa];
-        if (s.divida < 0.01 && s.pago < 0.01) return ''; // No activity at all
+        if (s.divida < 0.01 && s.pago < 0.01) return '';
         const isLiquidado = s.saldo < 0.01;
         const eventosComDivida = s.eventos.filter(e => e.valor > 0);
         const detalheEventos = eventosComDivida.map(e => {
-            const estado = e.restante < 0.01 ? '✅' : '⏳';
-            return `${estado} ${e.descricao}: €${e.valor.toFixed(2)}${e.restante > 0.005 && e.restante < e.valor - 0.005 ? ' (resta €' + e.restante.toFixed(2) + ')' : ''}`;
+            const st = e.restante < 0.01 ? '✅' : '⏳';
+            return `${st} ${e.descricao}: €${e.valor.toFixed(2)}${e.restante > 0.005 && e.restante < e.valor - 0.005 ? ' (resta €' + e.restante.toFixed(2) + ')' : ''}`;
         }).join('<br>');
+        const hasDetail = eventosComDivida.length > 0 || (s.pago > 0.005 && s.divida > 0.005);
 
         return `
-        <div class="saldo-card">
-            <div>
-                <div class="nome">${pessoa}</div>
-                ${eventosComDivida.length > 0 ? `<div class="saldo-detalhe">${detalheEventos}</div>` : ''}
-                ${s.pago > 0.005 && s.divida > 0.005 ? `<div class="saldo-detalhe" style="color:#27ae60;">💸 Já pagou: €${s.pago.toFixed(2)} de €${s.divida.toFixed(2)}</div>` : ''}
+        <div class="saldo-card" onclick="this.classList.toggle('expanded')">
+            <div style="flex:1;">
+                <div class="nome">${pessoa}${hasDetail ? ' <span class=\'saldo-expand-icon\'>▶</span>' : ''}</div>
+                <div class="saldo-detalhe">
+                    ${eventosComDivida.length > 0 ? detalheEventos : ''}
+                    ${s.pago > 0.005 && s.divida > 0.005 ? '<div style="color:#27ae60;margin-top:3px;">💸 Já pagou: €' + s.pago.toFixed(2) + ' de €' + s.divida.toFixed(2) + '</div>' : ''}
+                </div>
             </div>
-            <span class="saldo-valor ${isLiquidado ? 'liquidado' : 'devedor'}">${isLiquidado ? '✅ €0.00' : '⏳ €' + s.saldo.toFixed(2)}</span>
+            <span class="saldo-valor ${isLiquidado ? 'liquidado' : 'devedor'}">${isLiquidado ? '✅' : '€' + s.saldo.toFixed(2)}</span>
         </div>`;
     }).join('');
 
@@ -2652,7 +2825,7 @@ function renderContasEventos(lista, resumo) {
             return `
             <div class="contas-divida-item">
                 <span class="nome">${p}</span>
-                <span class="valor ${isPago ? 'pago' : 'pendente'}">${isPago ? '✅' : '⏳'} €${d.valor.toFixed(2)}${!isPago && restante < d.valor - 0.005 ? ' (resta €' + restante.toFixed(2) + ')' : ''}</span>
+                <span class="valor ${isPago ? 'pago' : 'pendente'}">€${d.valor.toFixed(2)}${!isPago && restante < d.valor - 0.005 ? ' (resta €' + restante.toFixed(2) + ')' : ''} ${isPago ? '✅' : '⏳'}</span>
             </div>`;
         }).join('');
 
@@ -2673,29 +2846,69 @@ function renderContasEventos(lista, resumo) {
 }
 
 function renderContasPagamentos(lista, resumo) {
+    // Search bar
+    const searchHtml = `<input type="text" class="pgto-search" placeholder="🔍 Pesquisar por amigo ou evento..." value="${_pgtoSearchQuery}" oninput="_pgtoSearchQuery=this.value;renderContasPagamentos(document.getElementById('contas-lista'),document.getElementById('contas-resumo'))">`;
+
     if (pagamentos.length === 0) {
-        lista.innerHTML = '<div class="contas-vazio">Nenhum pagamento registado</div>';
+        lista.innerHTML = searchHtml + '<div class="contas-vazio">Nenhum pagamento registado</div>';
         resumo.innerHTML = '';
         return;
     }
 
-    lista.innerHTML = [...pagamentos].reverse().map(p => {
+    const hasToken = ghHasToken();
+    const query = _pgtoSearchQuery.toLowerCase().trim();
+
+    const filtrados = [...pagamentos].reverse().filter(p => {
+        if (!query) return true;
+        const eventoDesc = p.tipo === 'evento'
+            ? (() => { const ev = historico.find(e => e.id === p.eventoId); return ev ? (ev.descricao || '') : ''; })()
+            : 'livre';
+        return p.pessoa.toLowerCase().includes(query) || eventoDesc.toLowerCase().includes(query);
+    });
+
+    const itemsHtml = filtrados.map(p => {
         const eventoDesc = p.tipo === 'evento'
             ? (() => { const ev = historico.find(e => e.id === p.eventoId); return ev ? (ev.descricao || 'Sem nome') : 'Evento removido'; })()
             : 'Pagamento livre (FIFO)';
+        const acoes = hasToken ? `
+            <button class="pgto-edit" onclick="editarPagamento(${p.id})" title="Editar data">✎</button>
+            <button class="pgto-delete" onclick="removerPagamento(${p.id})" title="Remover">×</button>` : '';
         return `
-        <div class="pgto-hist-item">
+        <div class="pgto-hist-item" id="pgto-item-${p.id}">
             <div class="pgto-info-col">
                 <div class="pgto-nome">${p.pessoa}</div>
                 <div class="pgto-detalhe">${eventoDesc} · ${p.data}</div>
             </div>
             <span class="pgto-valor">€${p.valor.toFixed(2)}</span>
-            <button class="pgto-delete" onclick="removerPagamento(${p.id})">×</button>
+            ${acoes}
         </div>`;
     }).join('');
 
+    lista.innerHTML = searchHtml + (filtrados.length === 0
+        ? '<div class="contas-vazio">Nenhum resultado encontrado</div>'
+        : itemsHtml);
+
     const totalPagamentos = pagamentos.reduce((s, p) => s + p.valor, 0);
-    resumo.innerHTML = `<div style="text-align:right;font-size:13px;color:#27ae60;padding:8px 0;font-weight:600;">Total recebido: €${totalPagamentos.toFixed(2)}</div>`;
+    resumo.innerHTML = `<div style="text-align:right;font-size:13px;color:#27ae60;padding:8px 0;font-weight:600;">Total recebido: €${totalPagamentos.toFixed(2)} (${pagamentos.length} pagamento${pagamentos.length !== 1 ? 's' : ''})</div>`;
+}
+
+function editarPagamento(id) {
+    const p = pagamentos.find(pg => pg.id === id);
+    if (!p) return;
+    const container = document.getElementById('pgto-item-' + id);
+    if (!container) return;
+    // Toggle edit row
+    const existing = container.querySelector('.pgto-edit-row');
+    if (existing) { existing.remove(); return; }
+    const editRow = document.createElement('div');
+    editRow.className = 'pgto-edit-row';
+    editRow.innerHTML = `
+        <label style="font-size:12px;color:#555;white-space:nowrap;">Data:</label>
+        <input type="text" id="pgto-edit-data-${id}" value="${p.data}" style="flex:1;" placeholder="dd/mm/aaaa, hh:mm">
+        <button onclick="guardarEdicaoPgto(${id})" style="background:#27ae60;color:white;">✓</button>
+        <button onclick="this.closest('.pgto-edit-row').remove()" class="secondary" style="padding:6px 8px;">✕</button>
+    `;
+    container.appendChild(editRow);
 }
 
 // ── Payment form ──
@@ -2798,9 +3011,20 @@ async function registarPagamento() {
     document.getElementById('pgto-valor-livre').value = '';
     document.getElementById('pgto-info').style.display = 'none';
 
+    fecharFabPanel();
     renderContas();
     renderHistoricoDropdown();
     mostrarPgtoMsg('✅ Pagamento de €' + valor.toFixed(2) + ' registado para ' + pessoa, true);
+}
+
+function guardarEdicaoPgto(id) {
+    const input = document.getElementById('pgto-edit-data-' + id);
+    if (!input) return;
+    const p = pagamentos.find(pg => pg.id === id);
+    if (!p) return;
+    p.data = input.value.trim() || p.data;
+    salvarPagamentos();
+    renderContas();
 }
 
 async function removerPagamento(id) {
