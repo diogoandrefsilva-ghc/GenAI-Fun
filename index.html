@@ -708,7 +708,7 @@
             border: 1px solid #eee;
         }
         .contas-divida-item .nome { font-weight: 600; flex: 1; }
-        .contas-divida-item .valor { font-weight: 700; min-width: 60px; text-align: right; margin-right: 10px; }
+        .contas-divida-item .valor { font-weight: 700; min-width: 70px; text-align: right; margin-left: auto; padding-left: 10px; }
         .contas-divida-item .valor.pendente { color: #e74c3c; }
         .contas-divida-item .valor.pago { color: #27ae60; }
         .contas-divida-item .btn-toggle-pago {
@@ -2794,25 +2794,8 @@ function renderContasSaldos(lista, resumo) {
         const eventosComDivida = s.eventos.filter(e => e.valor > 0);
         const detalheEventos = eventosComDivida.map(e => {
             const st = e.restante < 0.01 ? '✅' : '⏳';
-            // Find the event in historico to get consumption detail
-            const ev = historico.find(h => h.id === e.eventoId);
-            let consumoStr = '';
-            if (ev && ev.ordens) {
-                const consumos = {};
-                ev.ordens.forEach(o => {
-                    if (o.amigos.includes(pessoa)) {
-                        const share = o.quantidade / o.amigos.length;
-                        consumos[o.item] = (consumos[o.item] || 0) + share;
-                    }
-                });
-                consumoStr = Object.keys(consumos).sort().map(item => {
-                    const qtd = consumos[item];
-                    const qtdStr = Number.isInteger(qtd) ? qtd : qtd.toFixed(1);
-                    return `${qtdStr}× ${item}`;
-                }).join(', ');
-            }
-            return `${st} ${e.descricao}: €${e.valor.toFixed(2)}${e.restante > 0.005 && e.restante < e.valor - 0.005 ? ' (resta €' + e.restante.toFixed(2) + ')' : ''}${consumoStr ? '<br><span style="color:#b0b0b0;font-size:10px;padding-left:18px;">' + consumoStr + '</span>' : ''}`;
-        }).join('<br>');
+            return `<div style="display:flex;justify-content:space-between;align-items:center;padding:3px 0;"><span>${st} ${e.descricao}</span><span style="font-weight:600;min-width:55px;text-align:right;">€${e.valor.toFixed(2)}</span></div>`;
+        }).join('');
         const hasDetail = eventosComDivida.length > 0 || (s.pago > 0.005 && s.divida > 0.005);
 
         return `
@@ -2821,7 +2804,7 @@ function renderContasSaldos(lista, resumo) {
                 <div class="nome">${pessoa}${hasDetail ? ' <span class=\'saldo-expand-icon\'>▶</span>' : ''}</div>
                 <div class="saldo-detalhe">
                     ${eventosComDivida.length > 0 ? detalheEventos : ''}
-                    ${s.pago > 0.005 && s.divida > 0.005 ? '<div style="color:#27ae60;margin-top:3px;">💸 Já pagou: €' + s.pago.toFixed(2) + ' de €' + s.divida.toFixed(2) + '</div>' : ''}
+                    ${s.pago > 0.005 && s.divida > 0.005 ? '<div style="color:#27ae60;margin-top:5px;font-weight:600;font-size:12px;">💸 Já pagou: €' + s.pago.toFixed(2) + ' de €' + s.divida.toFixed(2) + '</div>' : ''}
                 </div>
             </div>
             <span class="saldo-valor ${isLiquidado ? 'liquidado' : 'devedor'}">${isLiquidado ? '✅' : '€' + s.saldo.toFixed(2)}</span>
@@ -2878,11 +2861,12 @@ function renderContasEventos(lista, resumo) {
             }).join(', ');
 
             return `
-            <div class="contas-divida-item" style="flex-wrap:wrap;cursor:pointer;" onclick="this.classList.toggle('expanded')">
-                <span class="nome">${p} <span class="saldo-expand-icon" style="font-size:9px;color:#bdc3c7;">▶</span></span>
+            <div class="contas-divida-item" style="flex-wrap:wrap;">
+                <span class="nome">${p}</span>
                 <span class="valor ${isPago ? 'pago' : 'pendente'}">€${d.valor.toFixed(2)}${!isPago && restante < d.valor - 0.005 ? ' (resta €' + restante.toFixed(2) + ')' : ''} <span style="margin-left:8px;">${isPago ? '✅' : '⏳'}</span></span>
-                ${consumoStr ? `<div class="contas-divida-detalhe" style="width:100%;font-size:11px;color:#95a5a6;margin-top:4px;max-height:0;overflow:hidden;transition:max-height 0.3s ease,opacity 0.3s ease;opacity:0;">${consumoStr}</div>` : ''}
+                ${consumoStr ? `<div style="width:100%;font-size:11px;color:#95a5a6;margin-top:2px;">${consumoStr}</div>` : ''}
             </div>`;
+        }).join('');
         }).join('');
 
         const totalEvento = pessoas.reduce((sum, p) => sum + dividas[p].valor, 0);
@@ -2980,14 +2964,14 @@ function renderContasPagamentos(lista, resumo) {
             <button class="pgto-edit" onclick="event.stopPropagation();editarPagamento(${p.id})" title="Editar data">✎</button>
             <button class="pgto-delete" onclick="event.stopPropagation();removerPagamento(${p.id})" title="Remover">×</button>` : '';
         return `
-        <div class="pgto-hist-item" id="pgto-item-${p.id}" style="flex-wrap:wrap;${consumoStr ? 'cursor:pointer;' : ''}" ${consumoStr ? 'onclick="this.classList.toggle(\'expanded\')"' : ''}>
+        <div class="pgto-hist-item" id="pgto-item-${p.id}" style="flex-wrap:wrap;">
             <div class="pgto-info-col">
-                <div class="pgto-nome">${p.pessoa}${consumoStr ? ' <span class="saldo-expand-icon" style="font-size:9px;color:#bdc3c7;">▶</span>' : ''}</div>
+                <div class="pgto-nome">${p.pessoa}</div>
                 <div class="pgto-detalhe">${eventoDesc} · ${p.data}</div>
+                ${consumoStr ? `<div style="font-size:11px;color:#95a5a6;margin-top:2px;">${consumoStr}</div>` : ''}
             </div>
             <span class="pgto-valor">€${p.valor.toFixed(2)}</span>
             ${acoes}
-            ${consumoStr ? `<div class="contas-divida-detalhe" style="width:100%;font-size:11px;color:#95a5a6;margin-top:4px;max-height:0;overflow:hidden;transition:max-height 0.3s ease,opacity 0.3s ease;opacity:0;">${consumoStr}</div>` : ''}
         </div>`;
     }).join('');
 
