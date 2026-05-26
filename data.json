@@ -1,5 +1,2540 @@
 [
   {
+    "id": 1756512000000,
+    "descricao": "Sporting vs Porto",
+    "data": "30/08/2025",
+    "ordens": [
+      {
+        "id": 1756512000000,
+        "item": "Bifana",
+        "quantidade": 3,
+        "precoUnitario": 4.5,
+        "precoTotal": 13.5,
+        "amigos": [
+          "Filipe",
+          "João Paulo",
+          "Rogélio"
+        ],
+        "hora": "30/08, 15:00"
+      },
+      {
+        "id": 1756512000001,
+        "item": "Bitoque",
+        "quantidade": 4,
+        "precoUnitario": 13.9,
+        "precoTotal": 55.6,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "João Hélder",
+          "Mestre"
+        ],
+        "hora": "30/08, 15:01"
+      },
+      {
+        "id": 1756512000002,
+        "item": "Café",
+        "quantidade": 5,
+        "precoUnitario": 0.9,
+        "precoTotal": 4.5,
+        "amigos": [
+          "Diogo",
+          "João Hélder",
+          "João Paulo",
+          "Mestre",
+          "Rogélio"
+        ],
+        "hora": "30/08, 15:02"
+      },
+      {
+        "id": 1756512000003,
+        "item": "Caneca",
+        "quantidade": 4,
+        "precoUnitario": 3.5,
+        "precoTotal": 14.0,
+        "amigos": [
+          "Filipe",
+          "João Hélder",
+          "Luís Pedro",
+          "Rogélio"
+        ],
+        "hora": "30/08, 15:03"
+      },
+      {
+        "id": 1756512000004,
+        "item": "Caneca",
+        "quantidade": 2,
+        "precoUnitario": 3.5,
+        "precoTotal": 7.0,
+        "amigos": [
+          "João Paulo"
+        ],
+        "hora": "30/08, 15:04"
+      },
+      {
+        "id": 1756512000005,
+        "item": "Caneca",
+        "quantidade": 12,
+        "precoUnitario": 3.5,
+        "precoTotal": 42.0,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "Mestre"
+        ],
+        "hora": "30/08, 15:05"
+      },
+      {
+        "id": 1756512000006,
+        "item": "Chamuça",
+        "quantidade": 2,
+        "precoUnitario": 1.8,
+        "precoTotal": 3.6,
+        "amigos": [
+          "Filipe",
+          "João Paulo"
+        ],
+        "hora": "30/08, 15:06"
+      },
+      {
+        "id": 1756512000007,
+        "item": "Chamuça",
+        "quantidade": 2,
+        "precoUnitario": 1.8,
+        "precoTotal": 3.6,
+        "amigos": [
+          "Mestre"
+        ],
+        "hora": "30/08, 15:07"
+      },
+      {
+        "id": 1756512000008,
+        "item": "Croquete",
+        "quantidade": 3,
+        "precoUnitario": 1.8,
+        "precoTotal": 5.4,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "João Hélder"
+        ],
+        "hora": "30/08, 15:08"
+      },
+      {
+        "id": 1756512000009,
+        "item": "Lagartinhos",
+        "quantidade": 1,
+        "precoUnitario": 12.9,
+        "precoTotal": 12.9,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "João Hélder",
+          "Mestre"
+        ],
+        "hora": "30/08, 15:09"
+      },
+      {
+        "id": 1756512000010,
+        "item": "Panaché",
+        "quantidade": 1,
+        "precoUnitario": 2.0,
+        "precoTotal": 2.0,
+        "amigos": [
+          "João Hélder"
+        ],
+        "hora": "30/08, 15:10"
+      }
+    ],
+    "ofertas": [],
+    "totalFatura": 158.4,
+    "amigos": [
+      "Diogo",
+      "Barrona",
+      "Mestre",
+      "João Hélder",
+      "Rogélio",
+      "João Paulo",
+      "Luís Pedro",
+      "Filipe",
+      "Samuel",
+      "João Matias"
+    ],
+    "menu": {
+      "Bandida": 3.5,
+      "Batatas": 3,
+      "Bifana": 4.5,
+      "Bitoque": 13.9,
+      "Café": 0.9,
+      "Caneca": 3.5,
+      "Chamuça": 1.8,
+      "Coca-Cola": 1.8,
+      "Copo Reutilizável": 1,
+      "Costeletão": 17.9,
+      "Croquete": 1.8,
+      "Imperial": 1.5,
+      "Lagartinhos": 12.9,
+      "Ovo Extra": 1.5,
+      "Ovos Rotos": 11.9,
+      "Panaché": 2.0,
+      "Pica-pau Vazia": 12.9,
+      "Prego": 6.9,
+      "Pão": 1.5,
+      "Queijo": 4.5
+    }
+  },
+  {
+    "id": 1758153600000,
+    "descricao": "Sporting vs Kairat",
+    "data": "18/09/2025",
+    "ordens": [
+      {
+        "id": 1758153600000,
+        "item": "Bifana",
+        "quantidade": 2,
+        "precoUnitario": 4.5,
+        "precoTotal": 9.0,
+        "amigos": [
+          "Barrona",
+          "Rogélio"
+        ],
+        "hora": "18/09, 15:00"
+      },
+      {
+        "id": 1758153600001,
+        "item": "Bifana",
+        "quantidade": 3,
+        "precoUnitario": 4.5,
+        "precoTotal": 13.5,
+        "amigos": [
+          "Diogo",
+          "Filipe"
+        ],
+        "hora": "18/09, 15:01"
+      },
+      {
+        "id": 1758153600002,
+        "item": "Bifana",
+        "quantidade": 6,
+        "precoUnitario": 4.5,
+        "precoTotal": 27.0,
+        "amigos": [
+          "João Hélder",
+          "João Matias",
+          "Nuno"
+        ],
+        "hora": "18/09, 15:02"
+      },
+      {
+        "id": 1758153600003,
+        "item": "Caneca",
+        "quantidade": 4,
+        "precoUnitario": 3.5,
+        "precoTotal": 14.0,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "João Matias",
+          "Nuno"
+        ],
+        "hora": "18/09, 15:03"
+      },
+      {
+        "id": 1758153600004,
+        "item": "Imperial",
+        "quantidade": 3,
+        "precoUnitario": 1.5,
+        "precoTotal": 4.5,
+        "amigos": [
+          "Diogo",
+          "Filipe",
+          "Rogélio"
+        ],
+        "hora": "18/09, 15:04"
+      },
+      {
+        "id": 1758153600005,
+        "item": "Panaché",
+        "quantidade": 1,
+        "precoUnitario": 2.0,
+        "precoTotal": 2.0,
+        "amigos": [
+          "João Hélder"
+        ],
+        "hora": "18/09, 15:05"
+      }
+    ],
+    "ofertas": [],
+    "totalFatura": 71.5,
+    "amigos": [
+      "Diogo",
+      "Barrona",
+      "Mestre",
+      "João Hélder",
+      "Rogélio",
+      "João Paulo",
+      "Luís Pedro",
+      "Filipe",
+      "Samuel",
+      "João Matias",
+      "Nuno"
+    ],
+    "menu": {
+      "Bandida": 3.5,
+      "Batatas": 3,
+      "Bifana": 4.5,
+      "Bitoque": 13.9,
+      "Café": 0.9,
+      "Caneca": 3.5,
+      "Chamuça": 2,
+      "Coca-Cola": 1.8,
+      "Copo Reutilizável": 1,
+      "Costeletão": 17.9,
+      "Croquete": 2,
+      "Imperial": 1.5,
+      "Lagartinhos": 12.9,
+      "Ovo Extra": 1.5,
+      "Ovos Rotos": 11.9,
+      "Panaché": 2.0,
+      "Pica-pau Vazia": 12.9,
+      "Prego": 6.9,
+      "Pão": 1.5,
+      "Queijo": 4.5
+    }
+  },
+  {
+    "id": 1758499200000,
+    "descricao": "Sporting vs Moreirense",
+    "data": "22/09/2025",
+    "ordens": [
+      {
+        "id": 1758499200000,
+        "item": "Bifana",
+        "quantidade": 1,
+        "precoUnitario": 4.5,
+        "precoTotal": 4.5,
+        "amigos": [
+          "Barrona"
+        ],
+        "hora": "22/09, 15:00"
+      },
+      {
+        "id": 1758499200001,
+        "item": "Bifana",
+        "quantidade": 4,
+        "precoUnitario": 4.5,
+        "precoTotal": 18.0,
+        "amigos": [
+          "João Hélder",
+          "Nuno"
+        ],
+        "hora": "22/09, 15:01"
+      },
+      {
+        "id": 1758499200002,
+        "item": "Bitoque",
+        "quantidade": 2,
+        "precoUnitario": 13.9,
+        "precoTotal": 27.8,
+        "amigos": [
+          "Diogo",
+          "Mestre"
+        ],
+        "hora": "22/09, 15:02"
+      },
+      {
+        "id": 1758499200003,
+        "item": "Café",
+        "quantidade": 4,
+        "precoUnitario": 0.9,
+        "precoTotal": 3.6,
+        "amigos": [
+          "Diogo",
+          "João Hélder",
+          "Mestre",
+          "Nuno"
+        ],
+        "hora": "22/09, 15:03"
+      },
+      {
+        "id": 1758499200004,
+        "item": "Caneca",
+        "quantidade": 5,
+        "precoUnitario": 3.5,
+        "precoTotal": 17.5,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "João Hélder",
+          "Mestre",
+          "Nuno"
+        ],
+        "hora": "22/09, 15:04"
+      },
+      {
+        "id": 1758499200005,
+        "item": "Chamuça",
+        "quantidade": 1,
+        "precoUnitario": 1.8,
+        "precoTotal": 1.8,
+        "amigos": [
+          "Mestre"
+        ],
+        "hora": "22/09, 15:05"
+      },
+      {
+        "id": 1758499200006,
+        "item": "Croquete",
+        "quantidade": 4,
+        "precoUnitario": 1.8,
+        "precoTotal": 7.2,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "João Hélder",
+          "Nuno"
+        ],
+        "hora": "22/09, 15:06"
+      },
+      {
+        "id": 1758499200007,
+        "item": "Imperial",
+        "quantidade": 3,
+        "precoUnitario": 1.5,
+        "precoTotal": 4.5,
+        "amigos": [
+          "Diogo",
+          "Mestre",
+          "Nuno"
+        ],
+        "hora": "22/09, 15:07"
+      }
+    ],
+    "ofertas": [],
+    "totalFatura": 80.4,
+    "amigos": [
+      "Diogo",
+      "Barrona",
+      "Mestre",
+      "João Hélder",
+      "Rogélio",
+      "João Paulo",
+      "Luís Pedro",
+      "Filipe",
+      "Samuel",
+      "João Matias",
+      "Nuno"
+    ],
+    "menu": {
+      "Bandida": 3.5,
+      "Batatas": 3,
+      "Bifana": 4.5,
+      "Bitoque": 13.9,
+      "Café": 0.9,
+      "Caneca": 3.5,
+      "Chamuça": 1.8,
+      "Coca-Cola": 1.8,
+      "Copo Reutilizável": 1,
+      "Costeletão": 17.9,
+      "Croquete": 1.8,
+      "Imperial": 1.5,
+      "Lagartinhos": 12.9,
+      "Ovo Extra": 1.5,
+      "Ovos Rotos": 11.9,
+      "Panaché": 2,
+      "Pica-pau Vazia": 12.9,
+      "Prego": 6.9,
+      "Pão": 1.5,
+      "Queijo": 4.5
+    }
+  },
+  {
+    "id": 1759622400000,
+    "descricao": "Sporting vs Braga",
+    "data": "05/10/2025",
+    "ordens": [
+      {
+        "id": 1759622400000,
+        "item": "Bandida",
+        "quantidade": 1,
+        "precoUnitario": 3.5,
+        "precoTotal": 3.5,
+        "amigos": [
+          "Luís Pedro"
+        ],
+        "hora": "05/10, 15:00"
+      },
+      {
+        "id": 1759622400001,
+        "item": "Batatas",
+        "quantidade": 1.2,
+        "precoUnitario": 3.0,
+        "precoTotal": 3.6,
+        "amigos": [
+          "Filipe",
+          "João Hélder",
+          "João Paulo",
+          "Luís Pedro",
+          "Rogélio"
+        ],
+        "hora": "05/10, 15:01"
+      },
+      {
+        "id": 1759622400002,
+        "item": "Batatas",
+        "quantidade": 1.2,
+        "precoUnitario": 3.0,
+        "precoTotal": 3.6,
+        "amigos": [
+          "Diogo",
+          "Mestre"
+        ],
+        "hora": "05/10, 15:02"
+      },
+      {
+        "id": 1759622400003,
+        "item": "Batatas",
+        "quantidade": 0.6,
+        "precoUnitario": 3.0,
+        "precoTotal": 1.8,
+        "amigos": [
+          "Barrona"
+        ],
+        "hora": "05/10, 15:03"
+      },
+      {
+        "id": 1759622400004,
+        "item": "Bifana",
+        "quantidade": 4,
+        "precoUnitario": 4.5,
+        "precoTotal": 18.0,
+        "amigos": [
+          "Diogo",
+          "Filipe",
+          "João Paulo",
+          "Rogélio"
+        ],
+        "hora": "05/10, 15:04"
+      },
+      {
+        "id": 1759622400005,
+        "item": "Bifana",
+        "quantidade": 8,
+        "precoUnitario": 4.5,
+        "precoTotal": 36.0,
+        "amigos": [
+          "Barrona",
+          "João Hélder",
+          "Luís Pedro",
+          "Mestre"
+        ],
+        "hora": "05/10, 15:05"
+      },
+      {
+        "id": 1759622400006,
+        "item": "Caneca",
+        "quantidade": 1,
+        "precoUnitario": 3.5,
+        "precoTotal": 3.5,
+        "amigos": [
+          "Filipe"
+        ],
+        "hora": "05/10, 15:06"
+      },
+      {
+        "id": 1759622400007,
+        "item": "Caneca",
+        "quantidade": 10,
+        "precoUnitario": 3.5,
+        "precoTotal": 35.0,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "João Paulo",
+          "Mestre",
+          "Rogélio"
+        ],
+        "hora": "05/10, 15:07"
+      },
+      {
+        "id": 1759622400008,
+        "item": "Caneca",
+        "quantidade": 6,
+        "precoUnitario": 3.5,
+        "precoTotal": 21.0,
+        "amigos": [
+          "Luís Pedro"
+        ],
+        "hora": "05/10, 15:08"
+      },
+      {
+        "id": 1759622400009,
+        "item": "Chamuça",
+        "quantidade": 1,
+        "precoUnitario": 1.8,
+        "precoTotal": 1.8,
+        "amigos": [
+          "Mestre"
+        ],
+        "hora": "05/10, 15:09"
+      },
+      {
+        "id": 1759622400010,
+        "item": "Croquete",
+        "quantidade": 2,
+        "precoUnitario": 1.8,
+        "precoTotal": 3.6,
+        "amigos": [
+          "Barrona",
+          "João Hélder"
+        ],
+        "hora": "05/10, 15:10"
+      },
+      {
+        "id": 1759622400011,
+        "item": "Croquete",
+        "quantidade": 2,
+        "precoUnitario": 1.8,
+        "precoTotal": 3.6,
+        "amigos": [
+          "Diogo"
+        ],
+        "hora": "05/10, 15:11"
+      }
+    ],
+    "ofertas": [],
+    "totalFatura": 135.0,
+    "amigos": [
+      "Diogo",
+      "Barrona",
+      "Mestre",
+      "João Hélder",
+      "Rogélio",
+      "João Paulo",
+      "Luís Pedro",
+      "Filipe",
+      "Samuel",
+      "João Matias"
+    ],
+    "menu": {
+      "Bandida": 3.5,
+      "Batatas": 3.0,
+      "Bifana": 4.5,
+      "Bitoque": 13.9,
+      "Café": 0.9,
+      "Caneca": 3.5,
+      "Chamuça": 1.8,
+      "Coca-Cola": 1.8,
+      "Copo Reutilizável": 1,
+      "Costeletão": 17.9,
+      "Croquete": 1.8,
+      "Imperial": 1.5,
+      "Lagartinhos": 12.9,
+      "Ovo Extra": 1.5,
+      "Ovos Rotos": 11.9,
+      "Panaché": 2,
+      "Pica-pau Vazia": 12.9,
+      "Prego": 6.9,
+      "Pão": 1.5,
+      "Queijo": 4.5
+    }
+  },
+  {
+    "id": 1761091200000,
+    "descricao": "Sporting vs Marselha",
+    "data": "22/10/2025",
+    "ordens": [
+      {
+        "id": 1761091200000,
+        "item": "Batatas",
+        "quantidade": 1,
+        "precoUnitario": 3.0,
+        "precoTotal": 3.0,
+        "amigos": [
+          "Barrona"
+        ],
+        "hora": "22/10, 15:00"
+      },
+      {
+        "id": 1761091200001,
+        "item": "Bifana",
+        "quantidade": 2,
+        "precoUnitario": 4.5,
+        "precoTotal": 9.0,
+        "amigos": [
+          "Barrona",
+          "João Hélder"
+        ],
+        "hora": "22/10, 15:01"
+      },
+      {
+        "id": 1761091200002,
+        "item": "Bitoque",
+        "quantidade": 1,
+        "precoUnitario": 13.9,
+        "precoTotal": 13.9,
+        "amigos": [
+          "Mestre"
+        ],
+        "hora": "22/10, 15:02"
+      },
+      {
+        "id": 1761091200003,
+        "item": "Café",
+        "quantidade": 2,
+        "precoUnitario": 0.9,
+        "precoTotal": 1.8,
+        "amigos": [
+          "Diogo",
+          "Mestre"
+        ],
+        "hora": "22/10, 15:03"
+      },
+      {
+        "id": 1761091200004,
+        "item": "Caneca",
+        "quantidade": 6,
+        "precoUnitario": 3.5,
+        "precoTotal": 21.0,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "Mestre"
+        ],
+        "hora": "22/10, 15:04"
+      },
+      {
+        "id": 1761091200005,
+        "item": "Chamuça",
+        "quantidade": 1,
+        "precoUnitario": 1.8,
+        "precoTotal": 1.8,
+        "amigos": [
+          "Mestre"
+        ],
+        "hora": "22/10, 15:05"
+      },
+      {
+        "id": 1761091200006,
+        "item": "Croquete",
+        "quantidade": 3,
+        "precoUnitario": 1.8,
+        "precoTotal": 5.4,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "João Hélder"
+        ],
+        "hora": "22/10, 15:06"
+      },
+      {
+        "id": 1761091200007,
+        "item": "Lagartinhos",
+        "quantidade": 1,
+        "precoUnitario": 12.9,
+        "precoTotal": 12.9,
+        "amigos": [
+          "Diogo"
+        ],
+        "hora": "22/10, 15:07"
+      }
+    ],
+    "ofertas": [],
+    "totalFatura": 68.8,
+    "amigos": [
+      "Diogo",
+      "Barrona",
+      "Mestre",
+      "João Hélder",
+      "Rogélio",
+      "João Paulo",
+      "Luís Pedro",
+      "Filipe",
+      "Samuel",
+      "João Matias"
+    ],
+    "menu": {
+      "Bandida": 3.5,
+      "Batatas": 3.0,
+      "Bifana": 4.5,
+      "Bitoque": 13.9,
+      "Café": 0.9,
+      "Caneca": 3.5,
+      "Chamuça": 1.8,
+      "Coca-Cola": 1.8,
+      "Copo Reutilizável": 1,
+      "Costeletão": 17.9,
+      "Croquete": 1.8,
+      "Imperial": 1.5,
+      "Lagartinhos": 12.9,
+      "Ovo Extra": 1.5,
+      "Ovos Rotos": 11.9,
+      "Panaché": 2,
+      "Pica-pau Vazia": 12.9,
+      "Prego": 6.9,
+      "Pão": 1.5,
+      "Queijo": 4.5
+    }
+  },
+  {
+    "id": 1761868800000,
+    "descricao": "Sporting vs Alverca",
+    "data": "31/10/2025",
+    "ordens": [
+      {
+        "id": 1761868800000,
+        "item": "Batatas",
+        "quantidade": 0.7,
+        "precoUnitario": 3.0,
+        "precoTotal": 2.1,
+        "amigos": [
+          "Paulo Conceição",
+          "Rogélio"
+        ],
+        "hora": "31/10, 15:00"
+      },
+      {
+        "id": 1761868800001,
+        "item": "Batatas",
+        "quantidade": 0.3,
+        "precoUnitario": 3.0,
+        "precoTotal": 0.9,
+        "amigos": [
+          "Diogo"
+        ],
+        "hora": "31/10, 15:01"
+      },
+      {
+        "id": 1761868800002,
+        "item": "Café",
+        "quantidade": 3,
+        "precoUnitario": 0.9,
+        "precoTotal": 2.7,
+        "amigos": [
+          "Diogo",
+          "Paulo Conceição",
+          "Rogélio"
+        ],
+        "hora": "31/10, 15:02"
+      },
+      {
+        "id": 1761868800003,
+        "item": "Caneca",
+        "quantidade": 2,
+        "precoUnitario": 3.5,
+        "precoTotal": 7.0,
+        "amigos": [
+          "Filipe",
+          "Rogélio"
+        ],
+        "hora": "31/10, 15:03"
+      },
+      {
+        "id": 1761868800004,
+        "item": "Caneca",
+        "quantidade": 4,
+        "precoUnitario": 3.5,
+        "precoTotal": 14.0,
+        "amigos": [
+          "Diogo",
+          "Paulo Conceição"
+        ],
+        "hora": "31/10, 15:04"
+      },
+      {
+        "id": 1761868800005,
+        "item": "Chamuça",
+        "quantidade": 1,
+        "precoUnitario": 1.8,
+        "precoTotal": 1.8,
+        "amigos": [
+          "Rogélio"
+        ],
+        "hora": "31/10, 15:05"
+      },
+      {
+        "id": 1761868800006,
+        "item": "Croquete",
+        "quantidade": 2,
+        "precoUnitario": 1.8,
+        "precoTotal": 3.6,
+        "amigos": [
+          "Diogo",
+          "Filipe"
+        ],
+        "hora": "31/10, 15:06"
+      },
+      {
+        "id": 1761868800007,
+        "item": "Croquete",
+        "quantidade": 2,
+        "precoUnitario": 1.8,
+        "precoTotal": 3.6,
+        "amigos": [
+          "Paulo Conceição"
+        ],
+        "hora": "31/10, 15:07"
+      },
+      {
+        "id": 1761868800008,
+        "item": "Prego",
+        "quantidade": 2,
+        "precoUnitario": 6.5,
+        "precoTotal": 13.0,
+        "amigos": [
+          "Filipe",
+          "Paulo Conceição"
+        ],
+        "hora": "31/10, 15:08"
+      },
+      {
+        "id": 1761868800009,
+        "item": "Prego",
+        "quantidade": 3,
+        "precoUnitario": 6.5,
+        "precoTotal": 19.5,
+        "amigos": [
+          "Diogo",
+          "Rogélio"
+        ],
+        "hora": "31/10, 15:09"
+      }
+    ],
+    "ofertas": [],
+    "totalFatura": 63.4,
+    "amigos": [
+      "Diogo",
+      "Barrona",
+      "Mestre",
+      "João Hélder",
+      "Rogélio",
+      "João Paulo",
+      "Luís Pedro",
+      "Filipe",
+      "Samuel",
+      "João Matias",
+      "Paulo Conceição"
+    ],
+    "menu": {
+      "Bandida": 3.5,
+      "Batatas": 3.0,
+      "Bifana": 4.5,
+      "Bitoque": 13.9,
+      "Café": 0.9,
+      "Caneca": 3.5,
+      "Chamuça": 1.8,
+      "Coca-Cola": 1.8,
+      "Copo Reutilizável": 1,
+      "Costeletão": 17.9,
+      "Croquete": 1.8,
+      "Imperial": 1.5,
+      "Lagartinhos": 12.9,
+      "Ovo Extra": 1.5,
+      "Ovos Rotos": 11.9,
+      "Panaché": 2,
+      "Pica-pau Vazia": 12.9,
+      "Prego": 6.5,
+      "Pão": 1.5,
+      "Queijo": 4.5
+    }
+  },
+  {
+    "id": 1764115200000,
+    "descricao": "Sporting vs Brugge",
+    "data": "26/11/2025",
+    "ordens": [
+      {
+        "id": 1764115200000,
+        "item": "Bitoque",
+        "quantidade": 2,
+        "precoUnitario": 13.9,
+        "precoTotal": 27.8,
+        "amigos": [
+          "Mestre",
+          "Rogélio"
+        ],
+        "hora": "26/11, 15:00"
+      },
+      {
+        "id": 1764115200001,
+        "item": "Café",
+        "quantidade": 3,
+        "precoUnitario": 0.9,
+        "precoTotal": 2.7,
+        "amigos": [
+          "Diogo",
+          "Mestre",
+          "Rogélio"
+        ],
+        "hora": "26/11, 15:01"
+      },
+      {
+        "id": 1764115200002,
+        "item": "Caneca",
+        "quantidade": 4,
+        "precoUnitario": 3.5,
+        "precoTotal": 14.0,
+        "amigos": [
+          "Barrona"
+        ],
+        "hora": "26/11, 15:02"
+      },
+      {
+        "id": 1764115200003,
+        "item": "Chamuça",
+        "quantidade": 1,
+        "precoUnitario": 1.8,
+        "precoTotal": 1.8,
+        "amigos": [
+          "Mestre"
+        ],
+        "hora": "26/11, 15:03"
+      },
+      {
+        "id": 1764115200004,
+        "item": "Croquete",
+        "quantidade": 3,
+        "precoUnitario": 1.8,
+        "precoTotal": 5.4,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "Rogélio"
+        ],
+        "hora": "26/11, 15:04"
+      },
+      {
+        "id": 1764115200005,
+        "item": "Lagartinhos",
+        "quantidade": 2,
+        "precoUnitario": 12.9,
+        "precoTotal": 25.8,
+        "amigos": [
+          "Barrona",
+          "Diogo"
+        ],
+        "hora": "26/11, 15:05"
+      }
+    ],
+    "ofertas": [],
+    "totalFatura": 77.5,
+    "amigos": [
+      "Diogo",
+      "Barrona",
+      "Mestre",
+      "João Hélder",
+      "Rogélio",
+      "João Paulo",
+      "Luís Pedro",
+      "Filipe",
+      "Samuel",
+      "João Matias"
+    ],
+    "menu": {
+      "Bandida": 3.5,
+      "Batatas": 3,
+      "Bifana": 4.5,
+      "Bitoque": 13.9,
+      "Café": 0.9,
+      "Caneca": 3.5,
+      "Chamuça": 1.8,
+      "Coca-Cola": 1.8,
+      "Copo Reutilizável": 1,
+      "Costeletão": 17.9,
+      "Croquete": 1.8,
+      "Imperial": 1.5,
+      "Lagartinhos": 12.9,
+      "Ovo Extra": 1.5,
+      "Ovos Rotos": 11.9,
+      "Panaché": 2,
+      "Pica-pau Vazia": 12.9,
+      "Prego": 6.9,
+      "Pão": 1.5,
+      "Queijo": 4.5
+    }
+  },
+  {
+    "id": 1764460800000,
+    "descricao": "Sporting vs Amadora",
+    "data": "30/11/2025",
+    "ordens": [
+      {
+        "id": 1764460800000,
+        "item": "Bandida",
+        "quantidade": 1,
+        "precoUnitario": 3.5,
+        "precoTotal": 3.5,
+        "amigos": [
+          "João Hélder"
+        ],
+        "hora": "30/11, 15:00"
+      },
+      {
+        "id": 1764460800001,
+        "item": "Batatas",
+        "quantidade": 0.7,
+        "precoUnitario": 3.0,
+        "precoTotal": 2.1,
+        "amigos": [
+          "Barrona",
+          "João Hélder"
+        ],
+        "hora": "30/11, 15:01"
+      },
+      {
+        "id": 1764460800002,
+        "item": "Batatas",
+        "quantidade": 0.3,
+        "precoUnitario": 3.0,
+        "precoTotal": 0.9,
+        "amigos": [
+          "Diogo"
+        ],
+        "hora": "30/11, 15:02"
+      },
+      {
+        "id": 1764460800003,
+        "item": "Bifana",
+        "quantidade": 2,
+        "precoUnitario": 4.5,
+        "precoTotal": 9.0,
+        "amigos": [
+          "Barrona",
+          "João Hélder"
+        ],
+        "hora": "30/11, 15:03"
+      },
+      {
+        "id": 1764460800004,
+        "item": "Café",
+        "quantidade": 2,
+        "precoUnitario": 0.9,
+        "precoTotal": 1.8,
+        "amigos": [
+          "Diogo",
+          "João Hélder"
+        ],
+        "hora": "30/11, 15:04"
+      },
+      {
+        "id": 1764460800005,
+        "item": "Caneca",
+        "quantidade": 4,
+        "precoUnitario": 3.5,
+        "precoTotal": 14.0,
+        "amigos": [
+          "Barrona",
+          "Diogo"
+        ],
+        "hora": "30/11, 15:05"
+      },
+      {
+        "id": 1764460800006,
+        "item": "Chamuça",
+        "quantidade": 1,
+        "precoUnitario": 1.8,
+        "precoTotal": 1.8,
+        "amigos": [
+          "Barrona"
+        ],
+        "hora": "30/11, 15:06"
+      },
+      {
+        "id": 1764460800007,
+        "item": "Panaché",
+        "quantidade": 1,
+        "precoUnitario": 2.0,
+        "precoTotal": 2.0,
+        "amigos": [
+          "João Hélder"
+        ],
+        "hora": "30/11, 15:07"
+      },
+      {
+        "id": 1764460800008,
+        "item": "Pica-pau Vazia",
+        "quantidade": 0.7,
+        "precoUnitario": 12.9,
+        "precoTotal": 9.03,
+        "amigos": [
+          "Barrona",
+          "João Hélder"
+        ],
+        "hora": "30/11, 15:08"
+      },
+      {
+        "id": 1764460800009,
+        "item": "Pica-pau Vazia",
+        "quantidade": 0.3,
+        "precoUnitario": 12.9,
+        "precoTotal": 3.87,
+        "amigos": [
+          "Diogo"
+        ],
+        "hora": "30/11, 15:09"
+      },
+      {
+        "id": 1764460800010,
+        "item": "Prego",
+        "quantidade": 1,
+        "precoUnitario": 6.5,
+        "precoTotal": 6.5,
+        "amigos": [
+          "Diogo"
+        ],
+        "hora": "30/11, 15:10"
+      },
+      {
+        "id": 1764460800011,
+        "item": "Pão",
+        "quantidade": 0.7,
+        "precoUnitario": 1.5,
+        "precoTotal": 1.05,
+        "amigos": [
+          "Barrona",
+          "João Hélder"
+        ],
+        "hora": "30/11, 15:11"
+      },
+      {
+        "id": 1764460800012,
+        "item": "Pão",
+        "quantidade": 0.3,
+        "precoUnitario": 1.5,
+        "precoTotal": 0.45,
+        "amigos": [
+          "Diogo"
+        ],
+        "hora": "30/11, 15:12"
+      }
+    ],
+    "ofertas": [],
+    "totalFatura": 66.5,
+    "amigos": [
+      "Diogo",
+      "Barrona",
+      "Mestre",
+      "João Hélder",
+      "Rogélio",
+      "João Paulo",
+      "Luís Pedro",
+      "Filipe",
+      "Samuel",
+      "João Matias"
+    ],
+    "menu": {
+      "Bandida": 3.5,
+      "Batatas": 3.0,
+      "Bifana": 4.5,
+      "Bitoque": 13.9,
+      "Café": 0.9,
+      "Caneca": 3.5,
+      "Chamuça": 1.8,
+      "Coca-Cola": 1.8,
+      "Copo Reutilizável": 1,
+      "Costeletão": 17.9,
+      "Croquete": 2,
+      "Imperial": 1.5,
+      "Lagartinhos": 12.9,
+      "Ovo Extra": 1.5,
+      "Ovos Rotos": 11.9,
+      "Panaché": 2.0,
+      "Pica-pau Vazia": 12.9,
+      "Prego": 6.5,
+      "Pão": 1.5,
+      "Queijo": 4.5
+    }
+  },
+  {
+    "id": 1766880000000,
+    "descricao": "Sporting vs Rio Ave",
+    "data": "28/12/2025",
+    "ordens": [
+      {
+        "id": 1766880000000,
+        "item": "Batatas",
+        "quantidade": 2,
+        "precoUnitario": 3.0,
+        "precoTotal": 6.0,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "João Hélder",
+          "João Paulo",
+          "Rogélio"
+        ],
+        "hora": "28/12, 15:00"
+      },
+      {
+        "id": 1766880000001,
+        "item": "Bifana",
+        "quantidade": 4,
+        "precoUnitario": 4.5,
+        "precoTotal": 18.0,
+        "amigos": [
+          "Filipe",
+          "João Paulo",
+          "Luís Pedro",
+          "Rogélio"
+        ],
+        "hora": "28/12, 15:01"
+      },
+      {
+        "id": 1766880000002,
+        "item": "Bifana",
+        "quantidade": 3,
+        "precoUnitario": 4.5,
+        "precoTotal": 13.5,
+        "amigos": [
+          "Barrona",
+          "João Hélder"
+        ],
+        "hora": "28/12, 15:02"
+      },
+      {
+        "id": 1766880000003,
+        "item": "Café",
+        "quantidade": 4,
+        "precoUnitario": 0.9,
+        "precoTotal": 3.6,
+        "amigos": [
+          "Diogo",
+          "João Hélder",
+          "João Paulo",
+          "Rogélio"
+        ],
+        "hora": "28/12, 15:03"
+      },
+      {
+        "id": 1766880000004,
+        "item": "Caneca",
+        "quantidade": 3,
+        "precoUnitario": 3.5,
+        "precoTotal": 10.5,
+        "amigos": [
+          "Filipe",
+          "João Hélder",
+          "Luís Pedro"
+        ],
+        "hora": "28/12, 15:04"
+      },
+      {
+        "id": 1766880000005,
+        "item": "Caneca",
+        "quantidade": 6,
+        "precoUnitario": 3.5,
+        "precoTotal": 21.0,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "Rogélio"
+        ],
+        "hora": "28/12, 15:05"
+      },
+      {
+        "id": 1766880000006,
+        "item": "Caneca",
+        "quantidade": 3,
+        "precoUnitario": 3.5,
+        "precoTotal": 10.5,
+        "amigos": [
+          "João Paulo"
+        ],
+        "hora": "28/12, 15:06"
+      },
+      {
+        "id": 1766880000007,
+        "item": "Croquete",
+        "quantidade": 5,
+        "precoUnitario": 1.8,
+        "precoTotal": 9.0,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "João Hélder",
+          "João Paulo",
+          "Rogélio"
+        ],
+        "hora": "28/12, 15:07"
+      },
+      {
+        "id": 1766880000008,
+        "item": "Lagartinhos",
+        "quantidade": 1,
+        "precoUnitario": 12.9,
+        "precoTotal": 12.9,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "João Hélder",
+          "João Paulo",
+          "Rogélio"
+        ],
+        "hora": "28/12, 15:08"
+      },
+      {
+        "id": 1766880000009,
+        "item": "Prego",
+        "quantidade": 1,
+        "precoUnitario": 6.5,
+        "precoTotal": 6.5,
+        "amigos": [
+          "Diogo"
+        ],
+        "hora": "28/12, 15:09"
+      }
+    ],
+    "ofertas": [],
+    "totalFatura": 111.4,
+    "amigos": [
+      "Diogo",
+      "Barrona",
+      "Mestre",
+      "João Hélder",
+      "Rogélio",
+      "João Paulo",
+      "Luís Pedro",
+      "Filipe",
+      "Samuel",
+      "João Matias"
+    ],
+    "menu": {
+      "Bandida": 3.5,
+      "Batatas": 3.0,
+      "Bifana": 4.5,
+      "Bitoque": 13.9,
+      "Café": 0.9,
+      "Caneca": 3.5,
+      "Chamuça": 2,
+      "Coca-Cola": 1.8,
+      "Copo Reutilizável": 1,
+      "Costeletão": 17.9,
+      "Croquete": 1.8,
+      "Imperial": 1.5,
+      "Lagartinhos": 12.9,
+      "Ovo Extra": 1.5,
+      "Ovos Rotos": 11.9,
+      "Panaché": 2,
+      "Pica-pau Vazia": 12.9,
+      "Prego": 6.5,
+      "Pão": 1.5,
+      "Queijo": 4.5
+    }
+  },
+  {
+    "id": 1768521600000,
+    "descricao": "Sporting vs Casa Pia",
+    "data": "16/01/2026",
+    "ordens": [
+      {
+        "id": 1768521600000,
+        "item": "Azeitonas",
+        "quantidade": 0.7,
+        "precoUnitario": 1.5,
+        "precoTotal": 1.05,
+        "amigos": [
+          "Mestre",
+          "Rogélio"
+        ],
+        "hora": "16/01, 15:00"
+      },
+      {
+        "id": 1768521600001,
+        "item": "Azeitonas",
+        "quantidade": 0.3,
+        "precoUnitario": 1.5,
+        "precoTotal": 0.45,
+        "amigos": [
+          "Diogo"
+        ],
+        "hora": "16/01, 15:01"
+      },
+      {
+        "id": 1768521600002,
+        "item": "Batatas",
+        "quantidade": 1,
+        "precoUnitario": 3.0,
+        "precoTotal": 3.0,
+        "amigos": [
+          "Barrona"
+        ],
+        "hora": "16/01, 15:02"
+      },
+      {
+        "id": 1768521600003,
+        "item": "Bifana",
+        "quantidade": 3,
+        "precoUnitario": 4.5,
+        "precoTotal": 13.5,
+        "amigos": [
+          "Barrona",
+          "João Hélder",
+          "João Paulo"
+        ],
+        "hora": "16/01, 15:03"
+      },
+      {
+        "id": 1768521600004,
+        "item": "Bitoque",
+        "quantidade": 3,
+        "precoUnitario": 13.9,
+        "precoTotal": 41.7,
+        "amigos": [
+          "Diogo",
+          "Mestre",
+          "Rogélio"
+        ],
+        "hora": "16/01, 15:04"
+      },
+      {
+        "id": 1768521600005,
+        "item": "Café",
+        "quantidade": 4,
+        "precoUnitario": 0.9,
+        "precoTotal": 3.6,
+        "amigos": [
+          "Diogo",
+          "João Hélder",
+          "Mestre",
+          "Rogélio"
+        ],
+        "hora": "16/01, 15:05"
+      },
+      {
+        "id": 1768521600006,
+        "item": "Caneca",
+        "quantidade": 1,
+        "precoUnitario": 3.5,
+        "precoTotal": 3.5,
+        "amigos": [
+          "Rogélio"
+        ],
+        "hora": "16/01, 15:06"
+      },
+      {
+        "id": 1768521600007,
+        "item": "Caneca",
+        "quantidade": 8,
+        "precoUnitario": 3.5,
+        "precoTotal": 28.0,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "João Paulo",
+          "Mestre"
+        ],
+        "hora": "16/01, 15:07"
+      },
+      {
+        "id": 1768521600008,
+        "item": "Chamuça",
+        "quantidade": 2,
+        "precoUnitario": 2.0,
+        "precoTotal": 4.0,
+        "amigos": [
+          "Barrona",
+          "Mestre"
+        ],
+        "hora": "16/01, 15:08"
+      },
+      {
+        "id": 1768521600009,
+        "item": "Croquete",
+        "quantidade": 4,
+        "precoUnitario": 2.0,
+        "precoTotal": 8.0,
+        "amigos": [
+          "Diogo",
+          "João Hélder",
+          "João Paulo",
+          "Rogélio"
+        ],
+        "hora": "16/01, 15:09"
+      },
+      {
+        "id": 1768521600010,
+        "item": "Panaché",
+        "quantidade": 1,
+        "precoUnitario": 2.0,
+        "precoTotal": 2.0,
+        "amigos": [
+          "João Hélder"
+        ],
+        "hora": "16/01, 15:10"
+      }
+    ],
+    "ofertas": [],
+    "totalFatura": 111.3,
+    "amigos": [
+      "Diogo",
+      "Barrona",
+      "Mestre",
+      "João Hélder",
+      "Rogélio",
+      "João Paulo",
+      "Luís Pedro",
+      "Filipe",
+      "Samuel",
+      "João Matias"
+    ],
+    "menu": {
+      "Azeitonas": 1.5,
+      "Bandida": 3.5,
+      "Batatas": 3.0,
+      "Bifana": 4.5,
+      "Bitoque": 13.9,
+      "Café": 0.9,
+      "Caneca": 3.5,
+      "Chamuça": 2.0,
+      "Coca-Cola": 1.8,
+      "Copo Reutilizável": 1,
+      "Costeletão": 17.9,
+      "Croquete": 2.0,
+      "Imperial": 1.5,
+      "Lagartinhos": 12.9,
+      "Ovo Extra": 1.5,
+      "Ovos Rotos": 11.9,
+      "Panaché": 2.0,
+      "Pica-pau Vazia": 12.9,
+      "Prego": 6.9,
+      "Pão": 1.5,
+      "Queijo": 4.5
+    }
+  },
+  {
+    "id": 1768867200000,
+    "descricao": "Sporting vs PSG",
+    "data": "20/01/2026",
+    "ordens": [
+      {
+        "id": 1768867200000,
+        "item": "Bifana",
+        "quantidade": 1,
+        "precoUnitario": 4.5,
+        "precoTotal": 4.5,
+        "amigos": [
+          "Luís Pedro"
+        ],
+        "hora": "20/01, 15:00"
+      },
+      {
+        "id": 1768867200001,
+        "item": "Bitoque",
+        "quantidade": 4,
+        "precoUnitario": 13.9,
+        "precoTotal": 55.6,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "Mestre",
+          "Rogélio"
+        ],
+        "hora": "20/01, 15:01"
+      },
+      {
+        "id": 1768867200002,
+        "item": "Café",
+        "quantidade": 3,
+        "precoUnitario": 0.9,
+        "precoTotal": 2.7,
+        "amigos": [
+          "Diogo",
+          "Mestre",
+          "Rogélio"
+        ],
+        "hora": "20/01, 15:02"
+      },
+      {
+        "id": 1768867200003,
+        "item": "Caneca",
+        "quantidade": 5,
+        "precoUnitario": 3.5,
+        "precoTotal": 17.5,
+        "amigos": [
+          "Mestre"
+        ],
+        "hora": "20/01, 15:03"
+      },
+      {
+        "id": 1768867200004,
+        "item": "Chamuça",
+        "quantidade": 2,
+        "precoUnitario": 2.0,
+        "precoTotal": 4.0,
+        "amigos": [
+          "Mestre",
+          "Rogélio"
+        ],
+        "hora": "20/01, 15:04"
+      },
+      {
+        "id": 1768867200005,
+        "item": "Imperial",
+        "quantidade": 3,
+        "precoUnitario": 1.5,
+        "precoTotal": 4.5,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "Mestre"
+        ],
+        "hora": "20/01, 15:05"
+      },
+      {
+        "id": 1768867200006,
+        "item": "Patanisca",
+        "quantidade": 1,
+        "precoUnitario": 2.0,
+        "precoTotal": 2.0,
+        "amigos": [
+          "Mestre"
+        ],
+        "hora": "20/01, 15:06"
+      }
+    ],
+    "ofertas": [],
+    "totalFatura": 90.8,
+    "amigos": [
+      "Diogo",
+      "Barrona",
+      "Mestre",
+      "João Hélder",
+      "Rogélio",
+      "João Paulo",
+      "Luís Pedro",
+      "Filipe",
+      "Samuel",
+      "João Matias"
+    ],
+    "menu": {
+      "Bandida": 3.5,
+      "Batatas": 3,
+      "Bifana": 4.5,
+      "Bitoque": 13.9,
+      "Café": 0.9,
+      "Caneca": 3.5,
+      "Chamuça": 2.0,
+      "Coca-Cola": 1.8,
+      "Copo Reutilizável": 1,
+      "Costeletão": 17.9,
+      "Croquete": 2,
+      "Imperial": 1.5,
+      "Lagartinhos": 12.9,
+      "Ovo Extra": 1.5,
+      "Ovos Rotos": 11.9,
+      "Panaché": 2,
+      "Patanisca": 2.0,
+      "Pica-pau Vazia": 12.9,
+      "Prego": 6.9,
+      "Pão": 1.5,
+      "Queijo": 4.5
+    }
+  },
+  {
+    "id": 1769904000000,
+    "descricao": "Sporting vs Nacional",
+    "data": "01/02/2026",
+    "ordens": [
+      {
+        "id": 1769904000000,
+        "item": "Batatas",
+        "quantidade": 0.2,
+        "precoUnitario": 3.0,
+        "precoTotal": 0.6,
+        "amigos": [
+          "Samuel"
+        ],
+        "hora": "01/02, 15:00"
+      },
+      {
+        "id": 1769904000001,
+        "item": "Batatas",
+        "quantidade": 0.3,
+        "precoUnitario": 3.0,
+        "precoTotal": 0.9,
+        "amigos": [
+          "João Paulo"
+        ],
+        "hora": "01/02, 15:01"
+      },
+      {
+        "id": 1769904000002,
+        "item": "Batatas",
+        "quantidade": 0.7,
+        "precoUnitario": 3.0,
+        "precoTotal": 2.1,
+        "amigos": [
+          "João Hélder",
+          "Mestre"
+        ],
+        "hora": "01/02, 15:02"
+      },
+      {
+        "id": 1769904000003,
+        "item": "Batatas",
+        "quantidade": 0.3,
+        "precoUnitario": 3.0,
+        "precoTotal": 0.9,
+        "amigos": [
+          "Rogélio"
+        ],
+        "hora": "01/02, 15:03"
+      },
+      {
+        "id": 1769904000004,
+        "item": "Batatas",
+        "quantidade": 0.5,
+        "precoUnitario": 3.0,
+        "precoTotal": 1.5,
+        "amigos": [
+          "Barrona"
+        ],
+        "hora": "01/02, 15:04"
+      },
+      {
+        "id": 1769904000005,
+        "item": "Bifana",
+        "quantidade": 1,
+        "precoUnitario": 4.5,
+        "precoTotal": 4.5,
+        "amigos": [
+          "Luís Pedro",
+          "Rogélio"
+        ],
+        "hora": "01/02, 15:05"
+      },
+      {
+        "id": 1769904000006,
+        "item": "Bifana",
+        "quantidade": 6,
+        "precoUnitario": 4.5,
+        "precoTotal": 27.0,
+        "amigos": [
+          "Barrona",
+          "Filipe",
+          "João Hélder",
+          "João Paulo",
+          "Mestre",
+          "Samuel"
+        ],
+        "hora": "01/02, 15:06"
+      },
+      {
+        "id": 1769904000007,
+        "item": "Caneca",
+        "quantidade": 2,
+        "precoUnitario": 3.5,
+        "precoTotal": 7.0,
+        "amigos": [
+          "Luís Pedro",
+          "Mestre"
+        ],
+        "hora": "01/02, 15:07"
+      },
+      {
+        "id": 1769904000008,
+        "item": "Caneca",
+        "quantidade": 4,
+        "precoUnitario": 3.5,
+        "precoTotal": 14.0,
+        "amigos": [
+          "João Paulo",
+          "Samuel"
+        ],
+        "hora": "01/02, 15:08"
+      },
+      {
+        "id": 1769904000009,
+        "item": "Caneca",
+        "quantidade": 3,
+        "precoUnitario": 3.5,
+        "precoTotal": 10.5,
+        "amigos": [
+          "Barrona"
+        ],
+        "hora": "01/02, 15:09"
+      },
+      {
+        "id": 1769904000010,
+        "item": "Caneca",
+        "quantidade": 7,
+        "precoUnitario": 3.5,
+        "precoTotal": 24.5,
+        "amigos": [
+          "Rogélio"
+        ],
+        "hora": "01/02, 15:10"
+      },
+      {
+        "id": 1769904000011,
+        "item": "Chamuça",
+        "quantidade": 5,
+        "precoUnitario": 2.0,
+        "precoTotal": 10.0,
+        "amigos": [
+          "Barrona",
+          "João Hélder",
+          "João Paulo",
+          "Mestre",
+          "Samuel"
+        ],
+        "hora": "01/02, 15:11"
+      },
+      {
+        "id": 1769904000012,
+        "item": "Croquete",
+        "quantidade": 4,
+        "precoUnitario": 2.0,
+        "precoTotal": 8.0,
+        "amigos": [
+          "Barrona",
+          "João Hélder",
+          "João Paulo",
+          "Samuel"
+        ],
+        "hora": "01/02, 15:12"
+      },
+      {
+        "id": 1769904000013,
+        "item": "Ovo Extra",
+        "quantidade": 1,
+        "precoUnitario": 1.5,
+        "precoTotal": 1.5,
+        "amigos": [
+          "Samuel"
+        ],
+        "hora": "01/02, 15:13"
+      },
+      {
+        "id": 1769904000014,
+        "item": "Panaché",
+        "quantidade": 1,
+        "precoUnitario": 2.0,
+        "precoTotal": 2.0,
+        "amigos": [
+          "Rogélio"
+        ],
+        "hora": "01/02, 15:14"
+      },
+      {
+        "id": 1769904000015,
+        "item": "Tremoços",
+        "quantidade": 0.7,
+        "precoUnitario": 1.5,
+        "precoTotal": 1.05,
+        "amigos": [
+          "João Paulo"
+        ],
+        "hora": "01/02, 15:15"
+      },
+      {
+        "id": 1769904000016,
+        "item": "Tremoços",
+        "quantidade": 1.3,
+        "precoUnitario": 1.5,
+        "precoTotal": 1.95,
+        "amigos": [
+          "Barrona",
+          "Samuel"
+        ],
+        "hora": "01/02, 15:16"
+      }
+    ],
+    "ofertas": [],
+    "totalFatura": 120.0,
+    "amigos": [
+      "Diogo",
+      "Barrona",
+      "Mestre",
+      "João Hélder",
+      "Rogélio",
+      "João Paulo",
+      "Luís Pedro",
+      "Filipe",
+      "Samuel",
+      "João Matias"
+    ],
+    "menu": {
+      "Bandida": 3.5,
+      "Batatas": 3.0,
+      "Bifana": 4.5,
+      "Bitoque": 13.9,
+      "Café": 0.9,
+      "Caneca": 3.5,
+      "Chamuça": 2.0,
+      "Coca-Cola": 1.8,
+      "Copo Reutilizável": 1,
+      "Costeletão": 17.9,
+      "Croquete": 2.0,
+      "Imperial": 1.5,
+      "Lagartinhos": 12.9,
+      "Ovo Extra": 1.5,
+      "Ovos Rotos": 11.9,
+      "Panaché": 2.0,
+      "Pica-pau Vazia": 12.9,
+      "Prego": 6.9,
+      "Pão": 1.5,
+      "Queijo": 4.5,
+      "Tremoços": 1.5
+    }
+  },
+  {
+    "id": 1771113600000,
+    "descricao": "Sporting vs Famalicão",
+    "data": "15/02/2026",
+    "ordens": [
+      {
+        "id": 1771113600000,
+        "item": "Azeitonas",
+        "quantidade": 1,
+        "precoUnitario": 1.5,
+        "precoTotal": 1.5,
+        "amigos": [
+          "Diogo"
+        ],
+        "hora": "15/02, 15:00"
+      },
+      {
+        "id": 1771113600001,
+        "item": "Bandida",
+        "quantidade": 1,
+        "precoUnitario": 3.5,
+        "precoTotal": 3.5,
+        "amigos": [
+          "Diogo"
+        ],
+        "hora": "15/02, 15:01"
+      },
+      {
+        "id": 1771113600002,
+        "item": "Bifana",
+        "quantidade": 3,
+        "precoUnitario": 4.5,
+        "precoTotal": 13.5,
+        "amigos": [
+          "Filipe",
+          "Luís Pedro",
+          "Rogélio"
+        ],
+        "hora": "15/02, 15:02"
+      },
+      {
+        "id": 1771113600003,
+        "item": "Bifana",
+        "quantidade": 6,
+        "precoUnitario": 4.5,
+        "precoTotal": 27.0,
+        "amigos": [
+          "Barrona",
+          "João Hélder",
+          "João Paulo"
+        ],
+        "hora": "15/02, 15:03"
+      },
+      {
+        "id": 1771113600004,
+        "item": "Bitoque",
+        "quantidade": 1,
+        "precoUnitario": 13.9,
+        "precoTotal": 13.9,
+        "amigos": [
+          "Mestre"
+        ],
+        "hora": "15/02, 15:04"
+      },
+      {
+        "id": 1771113600005,
+        "item": "Café",
+        "quantidade": 5,
+        "precoUnitario": 0.9,
+        "precoTotal": 4.5,
+        "amigos": [
+          "Diogo",
+          "João Hélder",
+          "João Paulo",
+          "Mestre",
+          "Rogélio"
+        ],
+        "hora": "15/02, 15:05"
+      },
+      {
+        "id": 1771113600006,
+        "item": "Caneca",
+        "quantidade": 2,
+        "precoUnitario": 3.5,
+        "precoTotal": 7.0,
+        "amigos": [
+          "Mestre",
+          "Rogélio"
+        ],
+        "hora": "15/02, 15:06"
+      },
+      {
+        "id": 1771113600007,
+        "item": "Caneca",
+        "quantidade": 4,
+        "precoUnitario": 3.5,
+        "precoTotal": 14.0,
+        "amigos": [
+          "Barrona",
+          "João Paulo"
+        ],
+        "hora": "15/02, 15:07"
+      },
+      {
+        "id": 1771113600008,
+        "item": "Caneca",
+        "quantidade": 8,
+        "precoUnitario": 3.5,
+        "precoTotal": 28.0,
+        "amigos": [
+          "Diogo"
+        ],
+        "hora": "15/02, 15:08"
+      },
+      {
+        "id": 1771113600009,
+        "item": "Chamuça",
+        "quantidade": 3,
+        "precoUnitario": 2.0,
+        "precoTotal": 6.0,
+        "amigos": [
+          "Barrona",
+          "João Paulo",
+          "Mestre"
+        ],
+        "hora": "15/02, 15:09"
+      },
+      {
+        "id": 1771113600010,
+        "item": "Coca-Cola",
+        "quantidade": 2,
+        "precoUnitario": 1.8,
+        "precoTotal": 3.6,
+        "amigos": [
+          "Diogo",
+          "Luís Pedro"
+        ],
+        "hora": "15/02, 15:10"
+      },
+      {
+        "id": 1771113600011,
+        "item": "Ovo Extra",
+        "quantidade": 1,
+        "precoUnitario": 1.5,
+        "precoTotal": 1.5,
+        "amigos": [
+          "Luís Pedro"
+        ],
+        "hora": "15/02, 15:11"
+      },
+      {
+        "id": 1771113600012,
+        "item": "Prego",
+        "quantidade": 1,
+        "precoUnitario": 6.9,
+        "precoTotal": 6.9,
+        "amigos": [
+          "Diogo"
+        ],
+        "hora": "15/02, 15:12"
+      },
+      {
+        "id": 1771113600013,
+        "item": "Pão",
+        "quantidade": 1,
+        "precoUnitario": 1.5,
+        "precoTotal": 1.5,
+        "amigos": [
+          "Diogo"
+        ],
+        "hora": "15/02, 15:13"
+      },
+      {
+        "id": 1771113600014,
+        "item": "Queijo",
+        "quantidade": 1,
+        "precoUnitario": 3.5,
+        "precoTotal": 3.5,
+        "amigos": [
+          "Diogo"
+        ],
+        "hora": "15/02, 15:14"
+      }
+    ],
+    "ofertas": [],
+    "totalFatura": 135.9,
+    "amigos": [
+      "Diogo",
+      "Barrona",
+      "Mestre",
+      "João Hélder",
+      "Rogélio",
+      "João Paulo",
+      "Luís Pedro",
+      "Filipe",
+      "Samuel",
+      "João Matias"
+    ],
+    "menu": {
+      "Azeitonas": 1.5,
+      "Bandida": 3.5,
+      "Batatas": 3,
+      "Bifana": 4.5,
+      "Bitoque": 13.9,
+      "Café": 0.9,
+      "Caneca": 3.5,
+      "Chamuça": 2.0,
+      "Coca-Cola": 1.8,
+      "Copo Reutilizável": 1,
+      "Costeletão": 17.9,
+      "Croquete": 2,
+      "Imperial": 1.5,
+      "Lagartinhos": 12.9,
+      "Ovo Extra": 1.5,
+      "Ovos Rotos": 11.9,
+      "Panaché": 2,
+      "Pica-pau Vazia": 12.9,
+      "Prego": 6.9,
+      "Pão": 1.5,
+      "Queijo": 3.5
+    }
+  },
+  {
+    "id": 1772150400000,
+    "descricao": "Sporting vs Estoril",
+    "data": "27/02/2026",
+    "ordens": [
+      {
+        "id": 1772150400000,
+        "item": "Bifana",
+        "quantidade": 1,
+        "precoUnitario": 4.5,
+        "precoTotal": 4.5,
+        "amigos": [
+          "João Hélder"
+        ],
+        "hora": "27/02, 15:00"
+      },
+      {
+        "id": 1772150400001,
+        "item": "Bifana",
+        "quantidade": 4,
+        "precoUnitario": 4.5,
+        "precoTotal": 18.0,
+        "amigos": [
+          "Barrona",
+          "João Paulo"
+        ],
+        "hora": "27/02, 15:01"
+      },
+      {
+        "id": 1772150400002,
+        "item": "Bitoque",
+        "quantidade": 2,
+        "precoUnitario": 13.9,
+        "precoTotal": 27.8,
+        "amigos": [
+          "Barrona",
+          "Mestre"
+        ],
+        "hora": "27/02, 15:02"
+      },
+      {
+        "id": 1772150400003,
+        "item": "Café",
+        "quantidade": 1,
+        "precoUnitario": 0.9,
+        "precoTotal": 0.9,
+        "amigos": [
+          "Mestre"
+        ],
+        "hora": "27/02, 15:03"
+      },
+      {
+        "id": 1772150400004,
+        "item": "Caneca",
+        "quantidade": 2,
+        "precoUnitario": 3.5,
+        "precoTotal": 7.0,
+        "amigos": [
+          "João Hélder",
+          "Luís Pedro"
+        ],
+        "hora": "27/02, 15:04"
+      },
+      {
+        "id": 1772150400005,
+        "item": "Caneca",
+        "quantidade": 6,
+        "precoUnitario": 3.5,
+        "precoTotal": 21.0,
+        "amigos": [
+          "João Paulo",
+          "Mestre"
+        ],
+        "hora": "27/02, 15:05"
+      },
+      {
+        "id": 1772150400006,
+        "item": "Caneca",
+        "quantidade": 4,
+        "precoUnitario": 3.5,
+        "precoTotal": 14.0,
+        "amigos": [
+          "Barrona"
+        ],
+        "hora": "27/02, 15:06"
+      },
+      {
+        "id": 1772150400007,
+        "item": "Chamuça",
+        "quantidade": 2,
+        "precoUnitario": 2.0,
+        "precoTotal": 4.0,
+        "amigos": [
+          "Barrona"
+        ],
+        "hora": "27/02, 15:07"
+      },
+      {
+        "id": 1772150400008,
+        "item": "Croquete",
+        "quantidade": 2,
+        "precoUnitario": 2.0,
+        "precoTotal": 4.0,
+        "amigos": [
+          "João Hélder",
+          "João Paulo"
+        ],
+        "hora": "27/02, 15:08"
+      },
+      {
+        "id": 1772150400009,
+        "item": "Croquete",
+        "quantidade": 4,
+        "precoUnitario": 2.0,
+        "precoTotal": 8.0,
+        "amigos": [
+          "Barrona",
+          "Mestre"
+        ],
+        "hora": "27/02, 15:09"
+      }
+    ],
+    "ofertas": [],
+    "totalFatura": 109.2,
+    "amigos": [
+      "Diogo",
+      "Barrona",
+      "Mestre",
+      "João Hélder",
+      "Rogélio",
+      "João Paulo",
+      "Luís Pedro",
+      "Filipe",
+      "Samuel",
+      "João Matias"
+    ],
+    "menu": {
+      "Bandida": 3.5,
+      "Batatas": 3,
+      "Bifana": 4.5,
+      "Bitoque": 13.9,
+      "Café": 0.9,
+      "Caneca": 3.5,
+      "Chamuça": 2.0,
+      "Coca-Cola": 1.8,
+      "Copo Reutilizável": 1,
+      "Costeletão": 17.9,
+      "Croquete": 2.0,
+      "Imperial": 1.5,
+      "Lagartinhos": 12.9,
+      "Ovo Extra": 1.5,
+      "Ovos Rotos": 11.9,
+      "Panaché": 2,
+      "Pica-pau Vazia": 12.9,
+      "Prego": 6.9,
+      "Pão": 1.5,
+      "Queijo": 4.5
+    }
+  },
+  {
+    "id": 1772496000000,
+    "descricao": "Sporting vs Porto",
+    "data": "03/03/2026",
+    "ordens": [
+      {
+        "id": 1772496000000,
+        "item": "Bifana",
+        "quantidade": 2,
+        "precoUnitario": 4.5,
+        "precoTotal": 9.0,
+        "amigos": [
+          "Barrona",
+          "João Paulo"
+        ],
+        "hora": "03/03, 15:00"
+      },
+      {
+        "id": 1772496000001,
+        "item": "Caneca",
+        "quantidade": 3,
+        "precoUnitario": 3.5,
+        "precoTotal": 10.5,
+        "amigos": [
+          "Filipe",
+          "João Hélder",
+          "Luís Pedro"
+        ],
+        "hora": "03/03, 15:01"
+      },
+      {
+        "id": 1772496000002,
+        "item": "Caneca",
+        "quantidade": 4,
+        "precoUnitario": 3.5,
+        "precoTotal": 14.0,
+        "amigos": [
+          "João Paulo",
+          "Rogélio"
+        ],
+        "hora": "03/03, 15:02"
+      },
+      {
+        "id": 1772496000003,
+        "item": "Caneca",
+        "quantidade": 9,
+        "precoUnitario": 3.5,
+        "precoTotal": 31.5,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "Mestre"
+        ],
+        "hora": "03/03, 15:03"
+      },
+      {
+        "id": 1772496000004,
+        "item": "Costeletão",
+        "quantidade": 2,
+        "precoUnitario": 17.9,
+        "precoTotal": 35.8,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "João Hélder",
+          "Mestre",
+          "Rogélio"
+        ],
+        "hora": "03/03, 15:04"
+      },
+      {
+        "id": 1772496000005,
+        "item": "Croquete",
+        "quantidade": 5,
+        "precoUnitario": 2.0,
+        "precoTotal": 10.0,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "Filipe",
+          "João Hélder",
+          "Mestre"
+        ],
+        "hora": "03/03, 15:05"
+      },
+      {
+        "id": 1772496000006,
+        "item": "Lagartinhos",
+        "quantidade": 1,
+        "precoUnitario": 12.9,
+        "precoTotal": 12.9,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "Mestre",
+          "Rogélio"
+        ],
+        "hora": "03/03, 15:06"
+      },
+      {
+        "id": 1772496000007,
+        "item": "Ovos Rotos",
+        "quantidade": 1,
+        "precoUnitario": 11.9,
+        "precoTotal": 11.9,
+        "amigos": [
+          "Barrona",
+          "Diogo",
+          "Mestre",
+          "Rogélio"
+        ],
+        "hora": "03/03, 15:07"
+      },
+      {
+        "id": 1772496000008,
+        "item": "Pão",
+        "quantidade": 1,
+        "precoUnitario": 1.5,
+        "precoTotal": 1.5,
+        "amigos": [
+          "Diogo",
+          "Mestre"
+        ],
+        "hora": "03/03, 15:08"
+      },
+      {
+        "id": 1772496000009,
+        "item": "Queijo",
+        "quantidade": 1,
+        "precoUnitario": 4.5,
+        "precoTotal": 4.5,
+        "amigos": [
+          "Diogo",
+          "Mestre"
+        ],
+        "hora": "03/03, 15:09"
+      }
+    ],
+    "ofertas": [],
+    "totalFatura": 112.1,
+    "amigos": [
+      "Diogo",
+      "Barrona",
+      "Mestre",
+      "João Hélder",
+      "Rogélio",
+      "João Paulo",
+      "Luís Pedro",
+      "Filipe",
+      "Samuel",
+      "João Matias"
+    ],
+    "menu": {
+      "Bandida": 3.5,
+      "Batatas": 3,
+      "Bifana": 4.5,
+      "Bitoque": 13.9,
+      "Café": 0.9,
+      "Caneca": 3.5,
+      "Chamuça": 2,
+      "Coca-Cola": 1.8,
+      "Copo Reutilizável": 1,
+      "Costeletão": 17.9,
+      "Croquete": 2.0,
+      "Imperial": 1.5,
+      "Lagartinhos": 12.9,
+      "Ovo Extra": 1.5,
+      "Ovos Rotos": 11.9,
+      "Panaché": 2,
+      "Pica-pau Vazia": 12.9,
+      "Prego": 6.9,
+      "Pão": 1.5,
+      "Queijo": 4.5
+    }
+  },
+  {
     "id": 1776722419660,
     "descricao": "Sporting vs Benfica",
     "data": "19/04/2026",
