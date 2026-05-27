@@ -1139,7 +1139,35 @@
     </div>
 </div>
 
+<!-- CONFIGURAÇÕES DO EVENTO (amigos + menu) -->
+<div class="section" id="section-config">
+    <div class="config-toggle" onclick="toggleConfig()">
+        <h2 style="border-bottom:none;margin-bottom:0;">⚙️ Configurações do Evento</h2>
+        <span id="config-arrow" style="font-size:18px;color:#95a5a6;">▼</span>
+    </div>
+    <div class="config-body" id="config-body" style="display:none;">
+        <div class="config-section-label">👥 Amigos</div>
+        <div id="config-amigos-lista"></div>
+        <div class="config-add-row">
+            <input type="text" id="novo-amigo" placeholder="Nome do amigo">
+            <button onclick="adicionarAmigo()">+ Adicionar</button>
+        </div>
 
+        <div class="config-section-label" style="margin-top:18px;">🍽️ Menu</div>
+        <div id="config-menu-lista"></div>
+        <div class="config-add-row">
+            <input type="text" id="novo-item-nome" placeholder="Nome do item" style="flex:2;">
+            <input type="number" id="novo-item-preco" placeholder="€" min="0" step="0.10" style="flex:1;min-width:60px;">
+            <button onclick="adicionarItemMenu()">+ Adicionar</button>
+        </div>
+
+        <div class="config-add-row" style="margin-top:14px;">
+            <button onclick="document.getElementById('input-xlsx').click()" style="flex:1;">📥 Importar Excel</button>
+            <button class="danger" onclick="limparConfigs()" style="flex:1;">🗑️ Limpar tudo</button>
+        </div>
+        <input type="file" id="input-xlsx" accept=".xlsx" style="display:none;" onchange="importarExcel()">
+    </div>
+</div>
 
 
 </div> <!-- end page-eventos -->
@@ -1190,36 +1218,6 @@
 <!-- ═══ PAGE: GERAL ═══ -->
 <div id="page-geral" style="display:none;">
 
-<!-- CONFIGURAÇÕES -->
-<div class="section" id="section-config">
-    <div class="config-toggle" onclick="toggleConfig()">
-        <h2 style="border-bottom:none;margin-bottom:0;">⚙️ Configurações</h2>
-        <span id="config-arrow" style="font-size:18px;color:#95a5a6;">▼</span>
-    </div>
-    <div class="config-body" id="config-body" style="display:none;">
-        <div class="config-section-label">👥 Amigos</div>
-        <div id="config-amigos-lista"></div>
-        <div class="config-add-row">
-            <input type="text" id="novo-amigo" placeholder="Nome do amigo">
-            <button onclick="adicionarAmigo()">+ Adicionar</button>
-        </div>
-
-        <div class="config-section-label" style="margin-top:18px;">🍽️ Menu</div>
-        <div id="config-menu-lista"></div>
-        <div class="config-add-row">
-            <input type="text" id="novo-item-nome" placeholder="Nome do item" style="flex:2;">
-            <input type="number" id="novo-item-preco" placeholder="€" min="0" step="0.10" style="flex:1;min-width:60px;">
-            <button onclick="adicionarItemMenu()">+ Adicionar</button>
-        </div>
-
-        <div class="config-add-row" style="margin-top:14px;">
-            <button onclick="document.getElementById('input-xlsx').click()" style="flex:1;">📥 Importar Excel</button>
-            <button class="danger" onclick="limparConfigs()" style="flex:1;">🗑️ Limpar tudo</button>
-        </div>
-        <input type="file" id="input-xlsx" accept=".xlsx" style="display:none;" onchange="importarExcel()">
-    </div>
-</div>
-
 <!-- AJUDA -->
 <div class="section" id="section-ajuda">
     <div class="config-toggle" onclick="toggleAjuda()">
@@ -1227,7 +1225,7 @@
         <span id="ajuda-arrow" style="font-size:18px;color:#95a5a6;">▼</span>
     </div>
     <div id="ajuda-body" style="display:none;margin-top:14px;font-size:13px;color:#555;line-height:1.7;">
-        <p><strong>⚙️ Configurações</strong> — Importa o ficheiro Excel com os amigos e o menu do restaurante. Podes editar, adicionar ou remover entradas diretamente na app. Tudo fica guardado por evento — amigos e menu são específicos de cada jogo.</p>
+        <p><strong>⚙️ Configurações do Evento</strong> — No final da página Eventos, configura os amigos e o menu do restaurante para cada evento. Podes importar um ficheiro Excel, ou editar, adicionar e remover entradas diretamente na app. Cada evento tem os seus próprios amigos e menu.</p>
         <p style="margin-top:8px;"><strong>📚 Histórico</strong> — Painel no topo para navegar entre eventos. Os eventos com fatura ficam em modo leitura; usa <strong>🔓 Desbloquear</strong> para editar. Todas as alterações são guardadas automaticamente.</p>
         <p style="margin-top:8px;"><strong>＋ Novo</strong> — Cria um novo evento, herdando os amigos e menu do evento mais recente como ponto de partida.</p>
         <p style="margin-top:8px;"><strong>1. Adicionar Ordem</strong> — Seleciona o item, a quantidade e quem comeu/bebeu. A data do evento é definida automaticamente pela hora da primeira ordem registada.</p>
@@ -1350,15 +1348,6 @@ function init() {
                 if (pessoa !== ev.pagador && contaFinal[pessoa] > 0.005) {
                     const val = Math.round(contaFinal[pessoa] * 100) / 100;
                     ev.dividas[pessoa] = { valor: val };
-                    // Create a payment entry so legacy events appear as paid
-                    const existingPgto = pagamentos.find(pg => pg.eventoId === ev.id && pg.pessoa === pessoa);
-                    if (!existingPgto) {
-                        pagamentos.push({
-                            id: Date.now() + Math.random() * 1000 | 0,
-                            pessoa, valor: val, tipo: 'evento', eventoId: ev.id,
-                            data: ev.data || 'migrado'
-                        });
-                    }
                 }
             });
             migrated = true;
@@ -1386,6 +1375,23 @@ function init() {
             if (hadPago) migrated = true;
         }
     });
+
+    // Deduplicate pagamentos: remove entries with same pessoa + eventoId + tipo='evento'
+    const pgtoSeen = new Set();
+    const pgtoClean = [];
+    let hadDuplicates = false;
+    pagamentos.forEach(p => {
+        if (p.tipo === 'evento' && p.eventoId) {
+            const key = p.pessoa + '|' + p.eventoId;
+            if (pgtoSeen.has(key)) { hadDuplicates = true; return; }
+            pgtoSeen.add(key);
+        }
+        pgtoClean.push(p);
+    });
+    if (hadDuplicates) {
+        pagamentos = pgtoClean;
+        migrated = true;
+    }
     if (migrated) {
         salvarHistoricoLocal();
         salvarPagamentos();
@@ -2567,7 +2573,7 @@ function atualizarAjuste() {
 
 function atualizarReadOnly() {
     const banner = document.getElementById('readonly-banner');
-    const sections = ['section-adicionar', 'section-ofertas'];
+    const sections = ['section-adicionar', 'section-ofertas', 'section-config'];
 
     // Sync fatura buttons
     const hasFatura = !!estado.totalFatura;
@@ -3175,6 +3181,13 @@ async function registarPagamento() {
         eventoId = selEvento.value;
         if (!eventoId) { mostrarPgtoMsg('⚠️ Seleciona o evento', false); return; }
         valor = parseFloat(selEvento.selectedOptions[0].dataset.valor);
+
+        // Check for duplicate: same pessoa + same eventoId already paid in full
+        const existente = pagamentos.find(p => p.pessoa === pessoa && p.tipo === 'evento' && String(p.eventoId) === String(eventoId));
+        if (existente) {
+            mostrarPgtoMsg('⚠️ ' + pessoa + ' já tem um pagamento registado para este evento', false);
+            return;
+        }
     } else {
         valor = parseFloat(document.getElementById('pgto-valor-livre').value);
         if (!valor || valor <= 0) { mostrarPgtoMsg('⚠️ Introduz um valor válido', false); return; }
