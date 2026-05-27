@@ -4048,6 +4048,38 @@
       "tipo": "evento",
       "eventoId": 1772496000000,
       "data": "27/05/2026, 11:48"
+    },
+    {
+      "id": 1779878962511,
+      "pessoa": "Luís Pedro",
+      "valor": 3.45,
+      "tipo": "evento",
+      "eventoId": 1772496000000,
+      "data": "27/05/2026, 11:49"
+    },
+    {
+      "id": 1779878970377,
+      "pessoa": "Mestre",
+      "valor": 28.45,
+      "tipo": "evento",
+      "eventoId": 1772496000000,
+      "data": "27/05/2026, 11:49"
+    },
+    {
+      "id": 1779878983858,
+      "pessoa": "João Hélder",
+      "valor": 12.48,
+      "tipo": "evento",
+      "eventoId": 1772496000000,
+      "data": "27/05/2026, 11:49"
+    },
+    {
+      "id": 1779878996597,
+      "pessoa": "Rogélio",
+      "valor": 20.07,
+      "tipo": "evento",
+      "eventoId": 1772496000000,
+      "data": "27/05/2026, 11:49"
     }
   ]
 }
