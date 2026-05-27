@@ -988,6 +988,7 @@
 
 <div class="header">
     <h1>Divisão de Contas <span style="font-size:1.2em;">🍽️⚽💰</span></h1>
+    <div id="header-evento-context">
     <input type="text" id="descricao-evento" placeholder="Descrição do evento (ex: Almoço Sá 19 Abril)" maxlength="80"
         style="margin-top:10px;width:100%;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;border-radius:4px;padding:8px 10px;font-size:13px;text-align:center;"
         oninput="estado.descricaoEvento=this.value;salvarNoLocalStorage()"
@@ -1005,6 +1006,7 @@
         <button id="btn-gh-reset" style="display:none;background:rgba(52,152,219,0.85);border-color:rgba(255,255,255,0.4);font-size:12px;padding:8px 10px;" onclick="ghReset()">🔄 Sync</button>
     </div>
     <div class="historico-panel" id="historico-panel"></div>
+    </div>
 </div>
 
 <!-- Top Navigation -->
@@ -1203,12 +1205,16 @@
         </select>
     </div>
     <div id="pgto-evento-row" style="display:flex;gap:8px;margin-bottom:8px;">
-        <select id="pgto-evento" style="flex:1;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:13px;" onchange="atualizarPgtoValorEvento()">
+        <select id="pgto-evento" style="flex:1;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:11px;" onchange="atualizarPgtoValorEvento()">
             <option value="">-- Seleciona evento --</option>
         </select>
     </div>
     <div id="pgto-livre-row" style="display:none;gap:8px;margin-bottom:8px;">
         <input type="number" id="pgto-valor-livre" placeholder="Valor (€)" min="0" step="0.01" style="flex:1;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:13px;">
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:8px;align-items:center;">
+        <label style="font-size:12px;color:#7f8c8d;white-space:nowrap;">📅 Data:</label>
+        <input type="text" id="pgto-data" placeholder="dd/mm/aaaa" style="flex:1;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:13px;">
     </div>
     <div id="pgto-info" style="font-size:12px;color:#555;margin-bottom:8px;display:none;"></div>
     <button onclick="registarPagamento()" style="width:100%;background:#27ae60;padding:10px;font-size:13px;">✓ Registar Pagamento</button>
@@ -2680,6 +2686,7 @@ function mudarPagina(pagina) {
     document.getElementById('page-pagamentos').style.display = pagina === 'pagamentos' ? '' : 'none';
     document.getElementById('page-geral').style.display = pagina === 'geral' ? '' : 'none';
     document.getElementById('readonly-banner').style.display = pagina === 'eventos' && modoReadOnly ? '' : 'none';
+    document.getElementById('header-evento-context').style.display = pagina === 'eventos' ? '' : 'none';
     document.getElementById('nav-eventos').classList.toggle('active', pagina === 'eventos');
     document.getElementById('nav-pagamentos').classList.toggle('active', pagina === 'pagamentos');
     document.getElementById('nav-geral').classList.toggle('active', pagina === 'geral');
@@ -2708,6 +2715,9 @@ function abrirFabPanel() {
     document.getElementById('fab-panel').style.display = 'block';
     document.getElementById('fab-backdrop').style.display = 'block';
     document.getElementById('fab-pgto').style.display = 'none';
+    // Default date to today
+    const dataInput = document.getElementById('pgto-data');
+    if (dataInput) dataInput.value = new Date().toLocaleDateString('pt-PT', {day:'2-digit', month:'2-digit', year:'numeric'});
     renderPgtoForm();
 }
 
@@ -2915,14 +2925,15 @@ function renderContasEventos(lista, resumo) {
     const pessoaOpts = todasPessoas.map(p =>
         '<option value="' + p + '"' + (_evtFilterPessoa === p ? ' selected' : '') + '>' + p + '</option>'
     ).join('');
-    const jogoOpts = [...eventosFechados].reverse().map(ev =>
-        '<option value="' + ev.id + '"' + (_evtFilterJogo === String(ev.id) ? ' selected' : '') + '>' + (ev.descricao || 'Sem nome') + '</option>'
-    ).join('');
+    const jogoOpts = [...eventosFechados].reverse().map(ev => {
+        const label = (ev.descricao || 'Sem nome') + ' · ' + (ev.data || '');
+        return '<option value="' + ev.id + '"' + (_evtFilterJogo === String(ev.id) ? ' selected' : '') + '>' + label + '</option>';
+    }).join('');
 
     const filtersHtml = '<div style="display:flex;gap:6px;margin-bottom:10px;">'
-        + '<select class="pgto-search" style="flex:1;" onchange="_evtFilterPessoa=this.value;renderContasEventos(document.getElementById(\'contas-lista\'),document.getElementById(\'contas-resumo\'))">'
+        + '<select class="pgto-search" style="flex:1;font-size:11px;" onchange="_evtFilterPessoa=this.value;renderContasEventos(document.getElementById(\'contas-lista\'),document.getElementById(\'contas-resumo\'))">'
         + '<option value="">\uD83D\uDC64 Todos</option>' + pessoaOpts + '</select>'
-        + '<select class="pgto-search" style="flex:1;" onchange="_evtFilterJogo=this.value;renderContasEventos(document.getElementById(\'contas-lista\'),document.getElementById(\'contas-resumo\'))">'
+        + '<select class="pgto-search" style="flex:1;font-size:11px;" onchange="_evtFilterJogo=this.value;renderContasEventos(document.getElementById(\'contas-lista\'),document.getElementById(\'contas-resumo\'))">'
         + '<option value="">\u26BD Todos os jogos</option>' + jogoOpts + '</select>'
         + '</div>';
 
@@ -3004,13 +3015,15 @@ function renderContasPagamentos(lista, resumo) {
         return '<option value="' + p + '"' + (_pgtoFilterPessoa === p ? ' selected' : '') + '>' + p + '</option>';
     }).join('');
     var eventoOpts = allEventos.map(function(e) {
-        return '<option value="' + e.id + '"' + (_pgtoFilterEvento === String(e.id) ? ' selected' : '') + '>' + e.desc + '</option>';
+        var ev = historico.find(function(h) { return h.id === e.id; });
+        var dataStr = ev && ev.data ? ' · ' + ev.data : '';
+        return '<option value="' + e.id + '"' + (_pgtoFilterEvento === String(e.id) ? ' selected' : '') + '>' + e.desc + dataStr + '</option>';
     }).join('');
 
     var filtersHtml = '<div style="display:flex;gap:6px;margin-bottom:10px;">'
-        + '<select class="pgto-search" style="flex:1;" onchange="_pgtoFilterPessoa=this.value;renderContasPagamentos(document.getElementById(\'contas-lista\'),document.getElementById(\'contas-resumo\'))">'
+        + '<select class="pgto-search" style="flex:1;font-size:11px;" onchange="_pgtoFilterPessoa=this.value;renderContasPagamentos(document.getElementById(\'contas-lista\'),document.getElementById(\'contas-resumo\'))">'
         + '<option value="">\uD83D\uDC64 Todos</option>' + pessoaOpts + '</select>'
-        + '<select class="pgto-search" style="flex:1;" onchange="_pgtoFilterEvento=this.value;renderContasPagamentos(document.getElementById(\'contas-lista\'),document.getElementById(\'contas-resumo\'))">'
+        + '<select class="pgto-search" style="flex:1;font-size:11px;" onchange="_pgtoFilterEvento=this.value;renderContasPagamentos(document.getElementById(\'contas-lista\'),document.getElementById(\'contas-resumo\'))">'
         + '<option value="">\u26BD Todos os jogos</option>'
         + '<option value="livre"' + (_pgtoFilterEvento === 'livre' ? ' selected' : '') + '>\uD83D\uDCB8 Livres</option>'
         + eventoOpts + '</select></div>';
@@ -3148,10 +3161,13 @@ function renderPgtoEventoSelect() {
     if (!pessoaSaldo) return;
 
     pessoaSaldo.eventos.filter(e => e.restante > 0.005).forEach(e => {
+        const ev = historico.find(h => h.id === e.eventoId);
+        const dataStr = ev && ev.data ? ' · ' + ev.data : '';
         const opt = document.createElement('option');
         opt.value = e.eventoId;
-        opt.textContent = `${e.descricao} — €${e.restante.toFixed(2)}`;
+        opt.textContent = `${e.descricao}${dataStr} — €${e.restante.toFixed(2)}`;
         opt.dataset.valor = e.restante.toFixed(2);
+        opt.dataset.eventoData = ev && ev.data ? ev.data : '';
         sel.appendChild(opt);
     });
 }
@@ -3160,9 +3176,14 @@ function atualizarPgtoValorEvento() {
     const sel = document.getElementById('pgto-evento');
     const opt = sel.selectedOptions[0];
     const info = document.getElementById('pgto-info');
+    const dataInput = document.getElementById('pgto-data');
     if (opt && opt.dataset.valor) {
         info.textContent = '💰 Valor: €' + parseFloat(opt.dataset.valor).toFixed(2);
         info.style.display = 'block';
+        // Auto-fill date with event date
+        if (opt.dataset.eventoData && dataInput) {
+            dataInput.value = opt.dataset.eventoData;
+        }
     } else {
         info.style.display = 'none';
     }
@@ -3193,18 +3214,25 @@ async function registarPagamento() {
         if (!valor || valor <= 0) { mostrarPgtoMsg('⚠️ Introduz um valor válido', false); return; }
     }
 
+    // Use user-provided date, fallback to now
+    const dataInput = document.getElementById('pgto-data');
+    const dataPgto = dataInput && dataInput.value.trim()
+        ? dataInput.value.trim()
+        : new Date().toLocaleDateString('pt-PT', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'});
+
     pagamentos.push({
         id: Date.now(),
         pessoa,
         valor,
         tipo,
         eventoId: tipo === 'evento' ? parseInt(eventoId) : null,
-        data: new Date().toLocaleDateString('pt-PT', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'})
+        data: dataPgto
     });
     salvarPagamentos();
 
     document.getElementById('pgto-evento').value = '';
     document.getElementById('pgto-valor-livre').value = '';
+    document.getElementById('pgto-data').value = '';
     document.getElementById('pgto-info').style.display = 'none';
 
     fecharFabPanel();
