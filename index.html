@@ -785,6 +785,62 @@
         .saldo-card.expanded .saldo-expand-icon {
             transform: rotate(90deg);
         }
+        /* New saldo-pessoa card styles */
+        .saldo-pessoa-card {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #eee;
+        }
+        .saldo-pessoa-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .saldo-pessoa-nome {
+            font-weight: 700;
+            font-size: 14px;
+            color: #2c3e50;
+        }
+        .saldo-pessoa-total {
+            font-weight: 800;
+            font-size: 15px;
+            color: #e74c3c;
+        }
+        .saldo-evento-row {
+            background: white;
+            border-radius: 5px;
+            padding: 8px 10px;
+            margin-bottom: 4px;
+            border: 1px solid #eee;
+            font-size: 13px;
+        }
+        .saldo-evento-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .saldo-evento-nome {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .saldo-evento-data {
+            font-size: 11px;
+            color: #95a5a6;
+        }
+        .saldo-evento-consumo {
+            font-size: 11px;
+            color: #95a5a6;
+            margin-top: 3px;
+        }
+        .saldo-evento-valor {
+            font-weight: 700;
+            color: #e74c3c;
+            margin-top: 4px;
+            font-size: 13px;
+        }
         .pgto-hist-item {
             display: flex;
             justify-content: space-between;
@@ -955,6 +1011,7 @@
 <div class="top-nav">
     <button class="top-nav-btn active" id="nav-eventos" onclick="mudarPagina('eventos')">📋 Eventos</button>
     <button class="top-nav-btn" id="nav-pagamentos" onclick="mudarPagina('pagamentos')">💰 Pagamentos <span id="nav-pgto-badge" class="top-nav-badge" style="display:none;"></span></button>
+    <button class="top-nav-btn" id="nav-geral" onclick="mudarPagina('geral')">⚙️ Geral</button>
 </div>
 
 <!-- Custom confirm modal -->
@@ -1130,6 +1187,9 @@
     <div id="pgto-msg" style="margin-top:6px;"></div>
 </div>
 
+<!-- ═══ PAGE: GERAL ═══ -->
+<div id="page-geral" style="display:none;">
+
 <!-- CONFIGURAÇÕES -->
 <div class="section" id="section-config">
     <div class="config-toggle" onclick="toggleConfig()">
@@ -1247,6 +1307,8 @@
     <!-- END GITHUB SYNC -->
     </div><!-- /guardar-body -->
 </div>
+
+</div> <!-- end page-geral -->
 
 <script>
 let amigos = [];
@@ -2505,7 +2567,7 @@ function atualizarAjuste() {
 
 function atualizarReadOnly() {
     const banner = document.getElementById('readonly-banner');
-    const sections = ['section-adicionar', 'section-ofertas', 'section-config'];
+    const sections = ['section-adicionar', 'section-ofertas'];
 
     // Sync fatura buttons
     const hasFatura = !!estado.totalFatura;
@@ -2591,6 +2653,8 @@ let _paginaAtual = 'eventos';
 let _pgtoSearchQuery = '';
 let _pgtoFilterPessoa = '';
 let _pgtoFilterEvento = '';
+let _evtFilterPessoa = '';
+let _evtFilterJogo = '';
 
 function carregarPagamentos() {
     const saved = localStorage.getItem('splitbill_pagamentos');
@@ -2608,9 +2672,11 @@ function mudarPagina(pagina) {
     _paginaAtual = pagina;
     document.getElementById('page-eventos').style.display = pagina === 'eventos' ? '' : 'none';
     document.getElementById('page-pagamentos').style.display = pagina === 'pagamentos' ? '' : 'none';
+    document.getElementById('page-geral').style.display = pagina === 'geral' ? '' : 'none';
     document.getElementById('readonly-banner').style.display = pagina === 'eventos' && modoReadOnly ? '' : 'none';
     document.getElementById('nav-eventos').classList.toggle('active', pagina === 'eventos');
     document.getElementById('nav-pagamentos').classList.toggle('active', pagina === 'pagamentos');
+    document.getElementById('nav-geral').classList.toggle('active', pagina === 'geral');
     // FAB visibility: only on pagamentos page + token
     const fab = document.getElementById('fab-pgto');
     fab.style.display = (pagina === 'pagamentos' && ghHasToken()) ? 'block' : 'none';
@@ -2761,39 +2827,58 @@ function renderContas() {
 
 function renderContasSaldos(lista, resumo) {
     const saldos = calcularSaldos();
-    const pessoas = Object.keys(saldos).sort((a, b) => saldos[b].saldo - saldos[a].saldo);
+    // Only show people with outstanding balance
+    const pessoas = Object.keys(saldos)
+        .filter(p => saldos[p].saldo >= 0.01)
+        .sort((a, b) => saldos[b].saldo - saldos[a].saldo);
 
     if (pessoas.length === 0) {
-        lista.innerHTML = '<div class="contas-vazio">Nenhuma conta fechada ainda</div>';
+        lista.innerHTML = '<div class="contas-vazio">✅ Não há dívidas pendentes</div>';
         resumo.innerHTML = '';
         return;
     }
 
     lista.innerHTML = pessoas.map(pessoa => {
         const s = saldos[pessoa];
-        if (s.divida < 0.01 && s.pago < 0.01) return '';
-        const isLiquidado = s.saldo < 0.01;
-        const eventosComDivida = s.eventos.filter(e => e.valor > 0);
-        const detalheEventos = eventosComDivida.map(e => {
-            const st = e.restante < 0.01 ? '\u2705' : '\u23f3';
-            return '<div style="display:flex;justify-content:space-between;align-items:center;padding:3px 0;">'
-                + '<span>' + st + ' ' + e.descricao + '</span>'
-                + '<span style="font-weight:600;min-width:55px;text-align:right;">\u20ac' + e.valor.toFixed(2) + '</span>'
+        // Only show events with remaining balance
+        const eventosPendentes = s.eventos.filter(e => e.restante >= 0.01);
+
+        const eventosHtml = eventosPendentes.map(e => {
+            // Get consumption detail for this person in this event
+            const ev = historico.find(h => h.id === e.eventoId);
+            let consumoStr = '';
+            if (ev && ev.ordens) {
+                const consumos = {};
+                ev.ordens.forEach(o => {
+                    if (o.amigos.includes(pessoa)) {
+                        const share = o.quantidade / o.amigos.length;
+                        consumos[o.item] = (consumos[o.item] || 0) + share;
+                    }
+                });
+                consumoStr = Object.keys(consumos).sort().map(item => {
+                    const qtd = consumos[item];
+                    return (Number.isInteger(qtd) ? qtd : qtd.toFixed(1)) + '\u00d7 ' + item;
+                }).join(', ');
+            }
+            return '<div class="saldo-evento-row">'
+                + '<div class="saldo-evento-info">'
+                + '<span class="saldo-evento-nome">\u26BD ' + e.descricao + '</span>'
+                + '<span class="saldo-evento-data">' + (e.data || '\u2014') + '</span>'
+                + '</div>'
+                + (consumoStr ? '<div class="saldo-evento-consumo">' + consumoStr + '</div>' : '')
+                + '<div class="saldo-evento-valor">\u20ac' + e.restante.toFixed(2)
+                + (e.restante < e.valor - 0.005 ? ' <span style="color:#27ae60;font-size:10px;">(parcial)</span>' : '')
+                + '</div>'
                 + '</div>';
         }).join('');
-        const hasDetail = eventosComDivida.length > 0 || (s.pago > 0.005 && s.divida > 0.005);
 
-        return `
-        <div class="saldo-card" onclick="this.classList.toggle('expanded')">
-            <div style="flex:1;">
-                <div class="nome">${pessoa}${hasDetail ? ' <span class=\'saldo-expand-icon\'>▶</span>' : ''}</div>
-                <div class="saldo-detalhe">
-                    ${eventosComDivida.length > 0 ? detalheEventos : ''}
-                    ${s.pago > 0.005 && s.divida > 0.005 ? '<div style="color:#27ae60;margin-top:5px;font-weight:600;font-size:12px;">💸 Já pagou: €' + s.pago.toFixed(2) + ' de €' + s.divida.toFixed(2) + '</div>' : ''}
-                </div>
-            </div>
-            <span class="saldo-valor ${isLiquidado ? 'liquidado' : 'devedor'}">${isLiquidado ? '✅' : '€' + s.saldo.toFixed(2)}</span>
-        </div>`;
+        return '<div class="saldo-pessoa-card">'
+            + '<div class="saldo-pessoa-header">'
+            + '<span class="saldo-pessoa-nome">\uD83D\uDC64 ' + pessoa + '</span>'
+            + '<span class="saldo-pessoa-total">\u20ac' + s.saldo.toFixed(2) + '</span>'
+            + '</div>'
+            + eventosHtml
+            + '</div>';
     }).join('');
 
     let totalPendente = 0;
@@ -2819,9 +2904,32 @@ function renderContasEventos(lista, resumo) {
 
     const saldos = calcularSaldos();
 
-    lista.innerHTML = [...eventosFechados].reverse().map(ev => {
+    // Build filter options
+    const todasPessoas = [...new Set(eventosFechados.flatMap(ev => Object.keys(ev.dividas || {})))].sort();
+    const pessoaOpts = todasPessoas.map(p =>
+        '<option value="' + p + '"' + (_evtFilterPessoa === p ? ' selected' : '') + '>' + p + '</option>'
+    ).join('');
+    const jogoOpts = [...eventosFechados].reverse().map(ev =>
+        '<option value="' + ev.id + '"' + (_evtFilterJogo === String(ev.id) ? ' selected' : '') + '>' + (ev.descricao || 'Sem nome') + '</option>'
+    ).join('');
+
+    const filtersHtml = '<div style="display:flex;gap:6px;margin-bottom:10px;">'
+        + '<select class="pgto-search" style="flex:1;" onchange="_evtFilterPessoa=this.value;renderContasEventos(document.getElementById(\'contas-lista\'),document.getElementById(\'contas-resumo\'))">'
+        + '<option value="">\uD83D\uDC64 Todos</option>' + pessoaOpts + '</select>'
+        + '<select class="pgto-search" style="flex:1;" onchange="_evtFilterJogo=this.value;renderContasEventos(document.getElementById(\'contas-lista\'),document.getElementById(\'contas-resumo\'))">'
+        + '<option value="">\u26BD Todos os jogos</option>' + jogoOpts + '</select>'
+        + '</div>';
+
+    const eventosFiltrados = [...eventosFechados].reverse().filter(ev => {
+        if (_evtFilterJogo && String(ev.id) !== _evtFilterJogo) return false;
+        if (_evtFilterPessoa && !Object.keys(ev.dividas || {}).includes(_evtFilterPessoa)) return false;
+        return true;
+    });
+
+    const html = eventosFiltrados.map(ev => {
         const dividas = ev.dividas || {};
-        const pessoas = Object.keys(dividas).sort();
+        let pessoas = Object.keys(dividas).sort();
+        if (_evtFilterPessoa) pessoas = pessoas.filter(p => p === _evtFilterPessoa);
         if (pessoas.length === 0) return '';
 
         const dividasHtml = pessoas.map(p => {
@@ -2861,6 +2969,10 @@ function renderContasEventos(lista, resumo) {
             ${dividasHtml}
         </div>`;
     }).join('');
+
+    lista.innerHTML = filtersHtml + (eventosFiltrados.length === 0
+        ? '<div class="contas-vazio">Nenhum resultado encontrado</div>'
+        : html);
 
     resumo.innerHTML = '';
 }
