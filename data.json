@@ -2751,7 +2751,7 @@
         }
       ],
       "ofertas": [],
-      "totalFatura": 112.1,
+      "totalFatura": null,
       "amigos": [
         "Diogo",
         "Barrona",
@@ -2786,30 +2786,8 @@
         "Pão": 1.5,
         "Queijo": 4.5
       },
-      "pagador": "Diogo",
-      "dividas": {
-        "Barrona": {
-          "valor": 24.04
-        },
-        "João Paulo": {
-          "valor": 9.1
-        },
-        "Filipe": {
-          "valor": 4.35
-        },
-        "João Hélder": {
-          "valor": 10.02
-        },
-        "Luís Pedro": {
-          "valor": 2.77
-        },
-        "Rogélio": {
-          "valor": 16.12
-        },
-        "Mestre": {
-          "valor": 22.85
-        }
-      }
+      "pagador": "",
+      "dividas": {}
     },
     {
       "id": 1776722419660,
@@ -3912,62 +3890,6 @@
       "tipo": "evento",
       "eventoId": 1772150400000,
       "data": "27/02/2026"
-    },
-    {
-      "id": 1710797095,
-      "pessoa": "Barrona",
-      "valor": 24.04,
-      "tipo": "evento",
-      "eventoId": 1772496000000,
-      "data": "03/03/2026"
-    },
-    {
-      "id": 1710796736,
-      "pessoa": "João Paulo",
-      "valor": 9.1,
-      "tipo": "evento",
-      "eventoId": 1772496000000,
-      "data": "03/03/2026"
-    },
-    {
-      "id": 1710796685,
-      "pessoa": "Filipe",
-      "valor": 4.35,
-      "tipo": "evento",
-      "eventoId": 1772496000000,
-      "data": "03/03/2026"
-    },
-    {
-      "id": 1710796237,
-      "pessoa": "João Hélder",
-      "valor": 10.02,
-      "tipo": "evento",
-      "eventoId": 1772496000000,
-      "data": "03/03/2026"
-    },
-    {
-      "id": 1710796457,
-      "pessoa": "Luís Pedro",
-      "valor": 2.77,
-      "tipo": "evento",
-      "eventoId": 1772496000000,
-      "data": "03/03/2026"
-    },
-    {
-      "id": 1710797115,
-      "pessoa": "Rogélio",
-      "valor": 16.12,
-      "tipo": "evento",
-      "eventoId": 1772496000000,
-      "data": "03/03/2026"
-    },
-    {
-      "id": 1710796237,
-      "pessoa": "Mestre",
-      "valor": 22.85,
-      "tipo": "evento",
-      "eventoId": 1772496000000,
-      "data": "03/03/2026"
     },
     {
       "id": 1710796383,
