@@ -4024,6 +4024,14 @@
       "tipo": "evento",
       "eventoId": 1778956908479,
       "data": "16/05/2026"
+    },
+    {
+      "id": 1779880348920,
+      "pessoa": "Barrona",
+      "valor": 29.93,
+      "tipo": "evento",
+      "eventoId": 1772496000000,
+      "data": "03/03/2026"
     }
   ]
 }
