@@ -52,7 +52,7 @@
           "item": "Caneca",
           "quantidade": 4,
           "precoUnitario": 3.5,
-          "precoTotal": 14.0,
+          "precoTotal": 14,
           "amigos": [
             "Filipe",
             "João Hélder",
@@ -66,7 +66,7 @@
           "item": "Caneca",
           "quantidade": 2,
           "precoUnitario": 3.5,
-          "precoTotal": 7.0,
+          "precoTotal": 7,
           "amigos": [
             "João Paulo"
           ],
@@ -77,7 +77,7 @@
           "item": "Caneca",
           "quantidade": 12,
           "precoUnitario": 3.5,
-          "precoTotal": 42.0,
+          "precoTotal": 42,
           "amigos": [
             "Barrona",
             "Diogo",
@@ -139,8 +139,8 @@
           "id": 1756512000010,
           "item": "Panaché",
           "quantidade": 1,
-          "precoUnitario": 2.0,
-          "precoTotal": 2.0,
+          "precoUnitario": 2,
+          "precoTotal": 2,
           "amigos": [
             "João Hélder"
           ],
@@ -177,7 +177,7 @@
         "Lagartinhos": 12.9,
         "Ovo Extra": 1.5,
         "Ovos Rotos": 11.9,
-        "Panaché": 2.0,
+        "Panaché": 2,
         "Pica-pau Vazia": 12.9,
         "Prego": 6.9,
         "Pão": 1.5,
@@ -185,26 +185,26 @@
       },
       "pagador": "Diogo",
       "dividas": {
-        "João Paulo": {
-          "valor": 13.71
-        },
         "Filipe": {
           "valor": 9.46
         },
-        "João Hélder": {
-          "valor": 24.45
+        "João Paulo": {
+          "valor": 13.71
         },
         "Rogélio": {
           "valor": 8.59
         },
-        "Luís Pedro": {
-          "valor": 3.38
+        "Barrona": {
+          "valor": 31.78
+        },
+        "João Hélder": {
+          "valor": 24.45
         },
         "Mestre": {
           "valor": 34.39
         },
-        "Barrona": {
-          "valor": 31.78
+        "Luís Pedro": {
+          "valor": 3.38
         }
       }
     },
@@ -218,7 +218,7 @@
           "item": "Bifana",
           "quantidade": 2,
           "precoUnitario": 4.5,
-          "precoTotal": 9.0,
+          "precoTotal": 9,
           "amigos": [
             "Barrona",
             "Rogélio"
@@ -242,7 +242,7 @@
           "item": "Bifana",
           "quantidade": 6,
           "precoUnitario": 4.5,
-          "precoTotal": 27.0,
+          "precoTotal": 27,
           "amigos": [
             "João Hélder",
             "João Matias",
@@ -255,7 +255,7 @@
           "item": "Caneca",
           "quantidade": 4,
           "precoUnitario": 3.5,
-          "precoTotal": 14.0,
+          "precoTotal": 14,
           "amigos": [
             "Barrona",
             "Diogo",
@@ -281,8 +281,8 @@
           "id": 1758153600005,
           "item": "Panaché",
           "quantidade": 1,
-          "precoUnitario": 2.0,
-          "precoTotal": 2.0,
+          "precoUnitario": 2,
+          "precoTotal": 2,
           "amigos": [
             "João Hélder"
           ],
@@ -320,7 +320,7 @@
         "Lagartinhos": 12.9,
         "Ovo Extra": 1.5,
         "Ovos Rotos": 11.9,
-        "Panaché": 2.0,
+        "Panaché": 2,
         "Pica-pau Vazia": 12.9,
         "Prego": 6.9,
         "Pão": 1.5,
@@ -328,23 +328,23 @@
       },
       "pagador": "Diogo",
       "dividas": {
-        "Filipe": {
-          "valor": 8.43
-        },
-        "João Matias": {
-          "valor": 12.77
-        },
-        "João Hélder": {
-          "valor": 11.24
+        "Barrona": {
+          "valor": 8.17
         },
         "Rogélio": {
           "valor": 6.13
         },
-        "Nuno": {
+        "Filipe": {
+          "valor": 8.43
+        },
+        "João Hélder": {
+          "valor": 11.24
+        },
+        "João Matias": {
           "valor": 12.77
         },
-        "Barrona": {
-          "valor": 8.17
+        "Nuno": {
+          "valor": 12.77
         }
       }
     },
@@ -369,7 +369,7 @@
           "item": "Bifana",
           "quantidade": 4,
           "precoUnitario": 4.5,
-          "precoTotal": 18.0,
+          "precoTotal": 18,
           "amigos": [
             "João Hélder",
             "Nuno"
@@ -495,17 +495,17 @@
       },
       "pagador": "Diogo",
       "dividas": {
+        "Barrona": {
+          "valor": 9.28
+        },
         "João Hélder": {
           "valor": 14.39
-        },
-        "Mestre": {
-          "valor": 20.46
         },
         "Nuno": {
           "valor": 15.81
         },
-        "Barrona": {
-          "valor": 9.28
+        "Mestre": {
+          "valor": 20.46
         }
       }
     },
@@ -529,7 +529,7 @@
           "id": 1759622400001,
           "item": "Batatas",
           "quantidade": 1.2,
-          "precoUnitario": 3.0,
+          "precoUnitario": 3,
           "precoTotal": 3.6,
           "amigos": [
             "Filipe",
@@ -544,7 +544,7 @@
           "id": 1759622400002,
           "item": "Batatas",
           "quantidade": 1.2,
-          "precoUnitario": 3.0,
+          "precoUnitario": 3,
           "precoTotal": 3.6,
           "amigos": [
             "Diogo",
@@ -556,7 +556,7 @@
           "id": 1759622400003,
           "item": "Batatas",
           "quantidade": 0.6,
-          "precoUnitario": 3.0,
+          "precoUnitario": 3,
           "precoTotal": 1.8,
           "amigos": [
             "Barrona"
@@ -568,7 +568,7 @@
           "item": "Bifana",
           "quantidade": 4,
           "precoUnitario": 4.5,
-          "precoTotal": 18.0,
+          "precoTotal": 18,
           "amigos": [
             "Diogo",
             "Filipe",
@@ -582,7 +582,7 @@
           "item": "Bifana",
           "quantidade": 8,
           "precoUnitario": 4.5,
-          "precoTotal": 36.0,
+          "precoTotal": 36,
           "amigos": [
             "Barrona",
             "João Hélder",
@@ -607,7 +607,7 @@
           "item": "Caneca",
           "quantidade": 10,
           "precoUnitario": 3.5,
-          "precoTotal": 35.0,
+          "precoTotal": 35,
           "amigos": [
             "Barrona",
             "Diogo",
@@ -622,7 +622,7 @@
           "item": "Caneca",
           "quantidade": 6,
           "precoUnitario": 3.5,
-          "precoTotal": 21.0,
+          "precoTotal": 21,
           "amigos": [
             "Luís Pedro"
           ],
@@ -664,7 +664,7 @@
         }
       ],
       "ofertas": [],
-      "totalFatura": 135.0,
+      "totalFatura": 135,
       "amigos": [
         "Diogo",
         "Barrona",
@@ -679,7 +679,7 @@
       ],
       "menu": {
         "Bandida": 3.5,
-        "Batatas": 3.0,
+        "Batatas": 3,
         "Bifana": 4.5,
         "Bitoque": 13.9,
         "Café": 0.9,
@@ -701,8 +701,8 @@
       },
       "pagador": "Diogo",
       "dividas": {
-        "João Paulo": {
-          "valor": 12.22
+        "Luís Pedro": {
+          "valor": 34.22
         },
         "Filipe": {
           "valor": 8.72
@@ -710,11 +710,11 @@
         "João Hélder": {
           "valor": 11.52
         },
-        "Rogélio": {
+        "João Paulo": {
           "valor": 12.22
         },
-        "Luís Pedro": {
-          "valor": 34.22
+        "Rogélio": {
+          "valor": 12.22
         },
         "Mestre": {
           "valor": 19.6
@@ -733,8 +733,8 @@
           "id": 1761091200000,
           "item": "Batatas",
           "quantidade": 1,
-          "precoUnitario": 3.0,
-          "precoTotal": 3.0,
+          "precoUnitario": 3,
+          "precoTotal": 3,
           "amigos": [
             "Barrona"
           ],
@@ -745,7 +745,7 @@
           "item": "Bifana",
           "quantidade": 2,
           "precoUnitario": 4.5,
-          "precoTotal": 9.0,
+          "precoTotal": 9,
           "amigos": [
             "Barrona",
             "João Hélder"
@@ -780,7 +780,7 @@
           "item": "Caneca",
           "quantidade": 6,
           "precoUnitario": 3.5,
-          "precoTotal": 21.0,
+          "precoTotal": 21,
           "amigos": [
             "Barrona",
             "Diogo",
@@ -840,7 +840,7 @@
       ],
       "menu": {
         "Bandida": 3.5,
-        "Batatas": 3.0,
+        "Batatas": 3,
         "Bifana": 4.5,
         "Bitoque": 13.9,
         "Café": 0.9,
@@ -862,14 +862,14 @@
       },
       "pagador": "Diogo",
       "dividas": {
-        "Mestre": {
-          "valor": 23.6
+        "Barrona": {
+          "valor": 16.3
         },
         "João Hélder": {
           "valor": 6.3
         },
-        "Barrona": {
-          "valor": 16.3
+        "Mestre": {
+          "valor": 23.6
         }
       }
     },
@@ -882,7 +882,7 @@
           "id": 1761868800000,
           "item": "Batatas",
           "quantidade": 0.7,
-          "precoUnitario": 3.0,
+          "precoUnitario": 3,
           "precoTotal": 2.1,
           "amigos": [
             "Paulo Conceição",
@@ -894,7 +894,7 @@
           "id": 1761868800001,
           "item": "Batatas",
           "quantidade": 0.3,
-          "precoUnitario": 3.0,
+          "precoUnitario": 3,
           "precoTotal": 0.9,
           "amigos": [
             "Diogo"
@@ -919,7 +919,7 @@
           "item": "Caneca",
           "quantidade": 2,
           "precoUnitario": 3.5,
-          "precoTotal": 7.0,
+          "precoTotal": 7,
           "amigos": [
             "Filipe",
             "Rogélio"
@@ -931,7 +931,7 @@
           "item": "Caneca",
           "quantidade": 4,
           "precoUnitario": 3.5,
-          "precoTotal": 14.0,
+          "precoTotal": 14,
           "amigos": [
             "Diogo",
             "Paulo Conceição"
@@ -977,7 +977,7 @@
           "item": "Prego",
           "quantidade": 2,
           "precoUnitario": 6.5,
-          "precoTotal": 13.0,
+          "precoTotal": 13,
           "amigos": [
             "Filipe",
             "Paulo Conceição"
@@ -1014,7 +1014,7 @@
       ],
       "menu": {
         "Bandida": 3.5,
-        "Batatas": 3.0,
+        "Batatas": 3,
         "Bifana": 4.5,
         "Bitoque": 13.9,
         "Café": 0.9,
@@ -1036,11 +1036,11 @@
       },
       "pagador": "Diogo",
       "dividas": {
-        "Rogélio": {
-          "valor": 15.8
-        },
         "Paulo Conceição": {
           "valor": 17.71
+        },
+        "Rogélio": {
+          "valor": 15.8
         },
         "Filipe": {
           "valor": 10.97
@@ -1082,7 +1082,7 @@
           "item": "Caneca",
           "quantidade": 4,
           "precoUnitario": 3.5,
-          "precoTotal": 14.0,
+          "precoTotal": 14,
           "amigos": [
             "Barrona"
           ],
@@ -1163,10 +1163,10 @@
       },
       "pagador": "Diogo",
       "dividas": {
-        "Rogélio": {
+        "Mestre": {
           "valor": 16.6
         },
-        "Mestre": {
+        "Rogélio": {
           "valor": 16.6
         },
         "Barrona": {
@@ -1194,7 +1194,7 @@
           "id": 1764460800001,
           "item": "Batatas",
           "quantidade": 0.7,
-          "precoUnitario": 3.0,
+          "precoUnitario": 3,
           "precoTotal": 2.1,
           "amigos": [
             "Barrona",
@@ -1206,7 +1206,7 @@
           "id": 1764460800002,
           "item": "Batatas",
           "quantidade": 0.3,
-          "precoUnitario": 3.0,
+          "precoUnitario": 3,
           "precoTotal": 0.9,
           "amigos": [
             "Diogo"
@@ -1218,7 +1218,7 @@
           "item": "Bifana",
           "quantidade": 2,
           "precoUnitario": 4.5,
-          "precoTotal": 9.0,
+          "precoTotal": 9,
           "amigos": [
             "Barrona",
             "João Hélder"
@@ -1242,7 +1242,7 @@
           "item": "Caneca",
           "quantidade": 4,
           "precoUnitario": 3.5,
-          "precoTotal": 14.0,
+          "precoTotal": 14,
           "amigos": [
             "Barrona",
             "Diogo"
@@ -1264,8 +1264,8 @@
           "id": 1764460800007,
           "item": "Panaché",
           "quantidade": 1,
-          "precoUnitario": 2.0,
-          "precoTotal": 2.0,
+          "precoUnitario": 2,
+          "precoTotal": 2,
           "amigos": [
             "João Hélder"
           ],
@@ -1345,7 +1345,7 @@
       ],
       "menu": {
         "Bandida": 3.5,
-        "Batatas": 3.0,
+        "Batatas": 3,
         "Bifana": 4.5,
         "Bitoque": 13.9,
         "Café": 0.9,
@@ -1359,7 +1359,7 @@
         "Lagartinhos": 12.9,
         "Ovo Extra": 1.5,
         "Ovos Rotos": 11.9,
-        "Panaché": 2.0,
+        "Panaché": 2,
         "Pica-pau Vazia": 12.9,
         "Prego": 6.5,
         "Pão": 1.5,
@@ -1384,8 +1384,8 @@
           "id": 1766880000000,
           "item": "Batatas",
           "quantidade": 2,
-          "precoUnitario": 3.0,
-          "precoTotal": 6.0,
+          "precoUnitario": 3,
+          "precoTotal": 6,
           "amigos": [
             "Barrona",
             "Diogo",
@@ -1400,7 +1400,7 @@
           "item": "Bifana",
           "quantidade": 4,
           "precoUnitario": 4.5,
-          "precoTotal": 18.0,
+          "precoTotal": 18,
           "amigos": [
             "Filipe",
             "João Paulo",
@@ -1453,7 +1453,7 @@
           "item": "Caneca",
           "quantidade": 6,
           "precoUnitario": 3.5,
-          "precoTotal": 21.0,
+          "precoTotal": 21,
           "amigos": [
             "Barrona",
             "Diogo",
@@ -1477,7 +1477,7 @@
           "item": "Croquete",
           "quantidade": 5,
           "precoUnitario": 1.8,
-          "precoTotal": 9.0,
+          "precoTotal": 9,
           "amigos": [
             "Barrona",
             "Diogo",
@@ -1530,7 +1530,7 @@
       ],
       "menu": {
         "Bandida": 3.5,
-        "Batatas": 3.0,
+        "Batatas": 3,
         "Bifana": 4.5,
         "Bitoque": 13.9,
         "Café": 0.9,
@@ -1552,23 +1552,23 @@
       },
       "pagador": "Diogo",
       "dividas": {
-        "João Paulo": {
-          "valor": 21.46
-        },
-        "Filipe": {
-          "valor": 7.99
+        "Barrona": {
+          "valor": 19.31
         },
         "João Hélder": {
           "valor": 16.71
         },
+        "João Paulo": {
+          "valor": 21.46
+        },
         "Rogélio": {
           "valor": 17.96
         },
-        "Luís Pedro": {
+        "Filipe": {
           "valor": 7.99
         },
-        "Barrona": {
-          "valor": 19.31
+        "Luís Pedro": {
+          "valor": 7.99
         }
       }
     },
@@ -1604,8 +1604,8 @@
           "id": 1768521600002,
           "item": "Batatas",
           "quantidade": 1,
-          "precoUnitario": 3.0,
-          "precoTotal": 3.0,
+          "precoUnitario": 3,
+          "precoTotal": 3,
           "amigos": [
             "Barrona"
           ],
@@ -1667,7 +1667,7 @@
           "item": "Caneca",
           "quantidade": 8,
           "precoUnitario": 3.5,
-          "precoTotal": 28.0,
+          "precoTotal": 28,
           "amigos": [
             "Barrona",
             "Diogo",
@@ -1680,8 +1680,8 @@
           "id": 1768521600008,
           "item": "Chamuça",
           "quantidade": 2,
-          "precoUnitario": 2.0,
-          "precoTotal": 4.0,
+          "precoUnitario": 2,
+          "precoTotal": 4,
           "amigos": [
             "Barrona",
             "Mestre"
@@ -1692,8 +1692,8 @@
           "id": 1768521600009,
           "item": "Croquete",
           "quantidade": 4,
-          "precoUnitario": 2.0,
-          "precoTotal": 8.0,
+          "precoUnitario": 2,
+          "precoTotal": 8,
           "amigos": [
             "Diogo",
             "João Hélder",
@@ -1706,8 +1706,8 @@
           "id": 1768521600010,
           "item": "Panaché",
           "quantidade": 1,
-          "precoUnitario": 2.0,
-          "precoTotal": 2.0,
+          "precoUnitario": 2,
+          "precoTotal": 2,
           "amigos": [
             "João Hélder"
           ],
@@ -1731,21 +1731,21 @@
       "menu": {
         "Azeitonas": 1.5,
         "Bandida": 3.5,
-        "Batatas": 3.0,
+        "Batatas": 3,
         "Bifana": 4.5,
         "Bitoque": 13.9,
         "Café": 0.9,
         "Caneca": 3.5,
-        "Chamuça": 2.0,
+        "Chamuça": 2,
         "Coca-Cola": 1.8,
         "Copo Reutilizável": 1,
         "Costeletão": 17.9,
-        "Croquete": 2.0,
+        "Croquete": 2,
         "Imperial": 1.5,
         "Lagartinhos": 12.9,
         "Ovo Extra": 1.5,
         "Ovos Rotos": 11.9,
-        "Panaché": 2.0,
+        "Panaché": 2,
         "Pica-pau Vazia": 12.9,
         "Prego": 6.9,
         "Pão": 1.5,
@@ -1753,20 +1753,20 @@
       },
       "pagador": "Diogo",
       "dividas": {
-        "João Paulo": {
-          "valor": 13.81
-        },
-        "João Hélder": {
-          "valor": 9.62
+        "Mestre": {
+          "valor": 24.88
         },
         "Rogélio": {
           "valor": 21.3
         },
-        "Mestre": {
-          "valor": 24.88
-        },
         "Barrona": {
           "valor": 16.88
+        },
+        "João Hélder": {
+          "valor": 9.62
+        },
+        "João Paulo": {
+          "valor": 13.81
         }
       }
     },
@@ -1828,8 +1828,8 @@
           "id": 1768867200004,
           "item": "Chamuça",
           "quantidade": 2,
-          "precoUnitario": 2.0,
-          "precoTotal": 4.0,
+          "precoUnitario": 2,
+          "precoTotal": 4,
           "amigos": [
             "Mestre",
             "Rogélio"
@@ -1853,8 +1853,8 @@
           "id": 1768867200006,
           "item": "Patanisca",
           "quantidade": 1,
-          "precoUnitario": 2.0,
-          "precoTotal": 2.0,
+          "precoUnitario": 2,
+          "precoTotal": 2,
           "amigos": [
             "Mestre"
           ],
@@ -1882,7 +1882,7 @@
         "Bitoque": 13.9,
         "Café": 0.9,
         "Caneca": 3.5,
-        "Chamuça": 2.0,
+        "Chamuça": 2,
         "Coca-Cola": 1.8,
         "Copo Reutilizável": 1,
         "Costeletão": 17.9,
@@ -1892,7 +1892,7 @@
         "Ovo Extra": 1.5,
         "Ovos Rotos": 11.9,
         "Panaché": 2,
-        "Patanisca": 2.0,
+        "Patanisca": 2,
         "Pica-pau Vazia": 12.9,
         "Prego": 6.9,
         "Pão": 1.5,
@@ -1903,14 +1903,14 @@
         "Luís Pedro": {
           "valor": 4.5
         },
-        "Rogélio": {
-          "valor": 16.8
+        "Barrona": {
+          "valor": 15.4
         },
         "Mestre": {
           "valor": 37.8
         },
-        "Barrona": {
-          "valor": 15.4
+        "Rogélio": {
+          "valor": 16.8
         }
       }
     },
@@ -1923,7 +1923,7 @@
           "id": 1769904000000,
           "item": "Batatas",
           "quantidade": 0.2,
-          "precoUnitario": 3.0,
+          "precoUnitario": 3,
           "precoTotal": 0.6,
           "amigos": [
             "Samuel"
@@ -1934,7 +1934,7 @@
           "id": 1769904000001,
           "item": "Batatas",
           "quantidade": 0.3,
-          "precoUnitario": 3.0,
+          "precoUnitario": 3,
           "precoTotal": 0.9,
           "amigos": [
             "João Paulo"
@@ -1945,7 +1945,7 @@
           "id": 1769904000002,
           "item": "Batatas",
           "quantidade": 0.7,
-          "precoUnitario": 3.0,
+          "precoUnitario": 3,
           "precoTotal": 2.1,
           "amigos": [
             "João Hélder",
@@ -1957,7 +1957,7 @@
           "id": 1769904000003,
           "item": "Batatas",
           "quantidade": 0.3,
-          "precoUnitario": 3.0,
+          "precoUnitario": 3,
           "precoTotal": 0.9,
           "amigos": [
             "Rogélio"
@@ -1968,7 +1968,7 @@
           "id": 1769904000004,
           "item": "Batatas",
           "quantidade": 0.5,
-          "precoUnitario": 3.0,
+          "precoUnitario": 3,
           "precoTotal": 1.5,
           "amigos": [
             "Barrona"
@@ -1992,7 +1992,7 @@
           "item": "Bifana",
           "quantidade": 6,
           "precoUnitario": 4.5,
-          "precoTotal": 27.0,
+          "precoTotal": 27,
           "amigos": [
             "Barrona",
             "Filipe",
@@ -2008,7 +2008,7 @@
           "item": "Caneca",
           "quantidade": 2,
           "precoUnitario": 3.5,
-          "precoTotal": 7.0,
+          "precoTotal": 7,
           "amigos": [
             "Luís Pedro",
             "Mestre"
@@ -2020,7 +2020,7 @@
           "item": "Caneca",
           "quantidade": 4,
           "precoUnitario": 3.5,
-          "precoTotal": 14.0,
+          "precoTotal": 14,
           "amigos": [
             "João Paulo",
             "Samuel"
@@ -2053,8 +2053,8 @@
           "id": 1769904000011,
           "item": "Chamuça",
           "quantidade": 5,
-          "precoUnitario": 2.0,
-          "precoTotal": 10.0,
+          "precoUnitario": 2,
+          "precoTotal": 10,
           "amigos": [
             "Barrona",
             "João Hélder",
@@ -2068,8 +2068,8 @@
           "id": 1769904000012,
           "item": "Croquete",
           "quantidade": 4,
-          "precoUnitario": 2.0,
-          "precoTotal": 8.0,
+          "precoUnitario": 2,
+          "precoTotal": 8,
           "amigos": [
             "Barrona",
             "João Hélder",
@@ -2093,8 +2093,8 @@
           "id": 1769904000014,
           "item": "Panaché",
           "quantidade": 1,
-          "precoUnitario": 2.0,
-          "precoTotal": 2.0,
+          "precoUnitario": 2,
+          "precoTotal": 2,
           "amigos": [
             "Rogélio"
           ],
@@ -2125,7 +2125,7 @@
         }
       ],
       "ofertas": [],
-      "totalFatura": 120.0,
+      "totalFatura": 120,
       "amigos": [
         "Diogo",
         "Barrona",
@@ -2140,21 +2140,21 @@
       ],
       "menu": {
         "Bandida": 3.5,
-        "Batatas": 3.0,
+        "Batatas": 3,
         "Bifana": 4.5,
         "Bitoque": 13.9,
         "Café": 0.9,
         "Caneca": 3.5,
-        "Chamuça": 2.0,
+        "Chamuça": 2,
         "Coca-Cola": 1.8,
         "Copo Reutilizável": 1,
         "Costeletão": 17.9,
-        "Croquete": 2.0,
+        "Croquete": 2,
         "Imperial": 1.5,
         "Lagartinhos": 12.9,
         "Ovo Extra": 1.5,
         "Ovos Rotos": 11.9,
-        "Panaché": 2.0,
+        "Panaché": 2,
         "Pica-pau Vazia": 12.9,
         "Prego": 6.9,
         "Pão": 1.5,
@@ -2163,29 +2163,29 @@
       },
       "pagador": "Diogo",
       "dividas": {
+        "Samuel": {
+          "valor": 18.89
+        },
         "João Paulo": {
           "valor": 17.75
-        },
-        "Filipe": {
-          "valor": 4.58
         },
         "João Hélder": {
           "valor": 9.71
         },
+        "Mestre": {
+          "valor": 11.24
+        },
         "Rogélio": {
           "valor": 30.15
+        },
+        "Barrona": {
+          "valor": 21.84
         },
         "Luís Pedro": {
           "valor": 5.85
         },
-        "Mestre": {
-          "valor": 11.24
-        },
-        "Samuel": {
-          "valor": 18.89
-        },
-        "Barrona": {
-          "valor": 21.84
+        "Filipe": {
+          "valor": 4.58
         }
       }
     },
@@ -2234,7 +2234,7 @@
           "item": "Bifana",
           "quantidade": 6,
           "precoUnitario": 4.5,
-          "precoTotal": 27.0,
+          "precoTotal": 27,
           "amigos": [
             "Barrona",
             "João Hélder",
@@ -2273,7 +2273,7 @@
           "item": "Caneca",
           "quantidade": 2,
           "precoUnitario": 3.5,
-          "precoTotal": 7.0,
+          "precoTotal": 7,
           "amigos": [
             "Mestre",
             "Rogélio"
@@ -2285,7 +2285,7 @@
           "item": "Caneca",
           "quantidade": 4,
           "precoUnitario": 3.5,
-          "precoTotal": 14.0,
+          "precoTotal": 14,
           "amigos": [
             "Barrona",
             "João Paulo"
@@ -2297,7 +2297,7 @@
           "item": "Caneca",
           "quantidade": 8,
           "precoUnitario": 3.5,
-          "precoTotal": 28.0,
+          "precoTotal": 28,
           "amigos": [
             "Diogo"
           ],
@@ -2307,8 +2307,8 @@
           "id": 1771113600009,
           "item": "Chamuça",
           "quantidade": 3,
-          "precoUnitario": 2.0,
-          "precoTotal": 6.0,
+          "precoUnitario": 2,
+          "precoTotal": 6,
           "amigos": [
             "Barrona",
             "João Paulo",
@@ -2395,7 +2395,7 @@
         "Bitoque": 13.9,
         "Café": 0.9,
         "Caneca": 3.5,
-        "Chamuça": 2.0,
+        "Chamuça": 2,
         "Coca-Cola": 1.8,
         "Copo Reutilizável": 1,
         "Costeletão": 17.9,
@@ -2412,26 +2412,26 @@
       },
       "pagador": "Diogo",
       "dividas": {
-        "João Paulo": {
-          "valor": 18.9
-        },
         "Filipe": {
           "valor": 4.5
-        },
-        "João Hélder": {
-          "valor": 9.9
-        },
-        "Rogélio": {
-          "valor": 8.9
         },
         "Luís Pedro": {
           "valor": 7.8
         },
-        "Mestre": {
-          "valor": 20.3
+        "Rogélio": {
+          "valor": 8.9
         },
         "Barrona": {
-          "valor": 18.0
+          "valor": 18
+        },
+        "João Hélder": {
+          "valor": 9.9
+        },
+        "João Paulo": {
+          "valor": 18.9
+        },
+        "Mestre": {
+          "valor": 20.3
         }
       }
     },
@@ -2456,7 +2456,7 @@
           "item": "Bifana",
           "quantidade": 4,
           "precoUnitario": 4.5,
-          "precoTotal": 18.0,
+          "precoTotal": 18,
           "amigos": [
             "Barrona",
             "João Paulo"
@@ -2491,7 +2491,7 @@
           "item": "Caneca",
           "quantidade": 2,
           "precoUnitario": 3.5,
-          "precoTotal": 7.0,
+          "precoTotal": 7,
           "amigos": [
             "João Hélder",
             "Luís Pedro"
@@ -2503,7 +2503,7 @@
           "item": "Caneca",
           "quantidade": 6,
           "precoUnitario": 3.5,
-          "precoTotal": 21.0,
+          "precoTotal": 21,
           "amigos": [
             "João Paulo",
             "Mestre"
@@ -2515,7 +2515,7 @@
           "item": "Caneca",
           "quantidade": 4,
           "precoUnitario": 3.5,
-          "precoTotal": 14.0,
+          "precoTotal": 14,
           "amigos": [
             "Barrona"
           ],
@@ -2525,8 +2525,8 @@
           "id": 1772150400007,
           "item": "Chamuça",
           "quantidade": 2,
-          "precoUnitario": 2.0,
-          "precoTotal": 4.0,
+          "precoUnitario": 2,
+          "precoTotal": 4,
           "amigos": [
             "Barrona"
           ],
@@ -2536,8 +2536,8 @@
           "id": 1772150400008,
           "item": "Croquete",
           "quantidade": 2,
-          "precoUnitario": 2.0,
-          "precoTotal": 4.0,
+          "precoUnitario": 2,
+          "precoTotal": 4,
           "amigos": [
             "João Hélder",
             "João Paulo"
@@ -2548,8 +2548,8 @@
           "id": 1772150400009,
           "item": "Croquete",
           "quantidade": 4,
-          "precoUnitario": 2.0,
-          "precoTotal": 8.0,
+          "precoUnitario": 2,
+          "precoTotal": 8,
           "amigos": [
             "Barrona",
             "Mestre"
@@ -2578,11 +2578,11 @@
         "Bitoque": 13.9,
         "Café": 0.9,
         "Caneca": 3.5,
-        "Chamuça": 2.0,
+        "Chamuça": 2,
         "Coca-Cola": 1.8,
         "Copo Reutilizável": 1,
         "Costeletão": 17.9,
-        "Croquete": 2.0,
+        "Croquete": 2,
         "Imperial": 1.5,
         "Lagartinhos": 12.9,
         "Ovo Extra": 1.5,
@@ -2595,20 +2595,20 @@
       },
       "pagador": "Diogo",
       "dividas": {
+        "João Hélder": {
+          "valor": 10
+        },
+        "Barrona": {
+          "valor": 44.9
+        },
         "João Paulo": {
           "valor": 21.5
-        },
-        "João Hélder": {
-          "valor": 10.0
-        },
-        "Luís Pedro": {
-          "valor": 3.5
         },
         "Mestre": {
           "valor": 29.3
         },
-        "Barrona": {
-          "valor": 44.9
+        "Luís Pedro": {
+          "valor": 3.5
         }
       }
     },
@@ -2622,7 +2622,7 @@
           "item": "Bifana",
           "quantidade": 2,
           "precoUnitario": 4.5,
-          "precoTotal": 9.0,
+          "precoTotal": 9,
           "amigos": [
             "Barrona",
             "João Paulo"
@@ -2647,7 +2647,7 @@
           "item": "Caneca",
           "quantidade": 4,
           "precoUnitario": 3.5,
-          "precoTotal": 14.0,
+          "precoTotal": 14,
           "amigos": [
             "João Paulo",
             "Rogélio"
@@ -2686,8 +2686,8 @@
           "id": 1772496000005,
           "item": "Croquete",
           "quantidade": 5,
-          "precoUnitario": 2.0,
-          "precoTotal": 10.0,
+          "precoUnitario": 2,
+          "precoTotal": 10,
           "amigos": [
             "Barrona",
             "Diogo",
@@ -2775,7 +2775,7 @@
         "Coca-Cola": 1.8,
         "Copo Reutilizável": 1,
         "Costeletão": 17.9,
-        "Croquete": 2.0,
+        "Croquete": 2,
         "Imperial": 1.5,
         "Lagartinhos": 12.9,
         "Ovo Extra": 1.5,
@@ -2788,6 +2788,9 @@
       },
       "pagador": "Diogo",
       "dividas": {
+        "Barrona": {
+          "valor": 24.04
+        },
         "João Paulo": {
           "valor": 9.1
         },
@@ -2805,9 +2808,6 @@
         },
         "Mestre": {
           "valor": 22.85
-        },
-        "Barrona": {
-          "valor": 24.04
         }
       }
     },
@@ -3077,26 +3077,26 @@
       },
       "pagador": "Diogo",
       "dividas": {
+        "Barrona": {
+          "valor": 36.46
+        },
+        "Rogélio": {
+          "valor": 33.83
+        },
         "João Paulo": {
           "valor": 32.93
-        },
-        "Filipe": {
-          "valor": 10.6
         },
         "João Hélder": {
           "valor": 26.76
         },
-        "Rogélio": {
-          "valor": 33.83
+        "Filipe": {
+          "valor": 10.6
         },
         "Luís Pedro": {
           "valor": 22.62
         },
         "Mestre": {
           "valor": 5.55
-        },
-        "Barrona": {
-          "valor": 36.46
         }
       }
     },
@@ -3207,14 +3207,14 @@
       },
       "pagador": "Diogo",
       "dividas": {
-        "João Paulo": {
-          "valor": 10.0
+        "Barrona": {
+          "valor": 12
         },
         "João Hélder": {
-          "valor": 10.0
+          "valor": 10
         },
-        "Barrona": {
-          "valor": 12.0
+        "João Paulo": {
+          "valor": 10
         }
       }
     },
@@ -3339,14 +3339,14 @@
       },
       "pagador": "Diogo",
       "dividas": {
-        "João Paulo": {
+        "Barrona": {
           "valor": 15.19
-        },
-        "Filipe": {
-          "valor": 9.48
         },
         "João Hélder": {
           "valor": 36.19
+        },
+        "João Paulo": {
+          "valor": 15.19
         },
         "Luís Pedro": {
           "valor": 3.77
@@ -3354,11 +3354,756 @@
         "Samuel": {
           "valor": 15.19
         },
-        "Barrona": {
-          "valor": 15.19
+        "Filipe": {
+          "valor": 9.48
         }
       }
     }
   ],
-  "pagamentos": []
+  "pagamentos": [
+    {
+      "id": 1710796759,
+      "pessoa": "Filipe",
+      "valor": 9.46,
+      "tipo": "evento",
+      "eventoId": 1756512000000,
+      "data": "30/08/2025"
+    },
+    {
+      "id": 1710796688,
+      "pessoa": "João Paulo",
+      "valor": 13.71,
+      "tipo": "evento",
+      "eventoId": 1756512000000,
+      "data": "30/08/2025"
+    },
+    {
+      "id": 1710796344,
+      "pessoa": "Rogélio",
+      "valor": 8.59,
+      "tipo": "evento",
+      "eventoId": 1756512000000,
+      "data": "30/08/2025"
+    },
+    {
+      "id": 1710797180,
+      "pessoa": "Barrona",
+      "valor": 31.78,
+      "tipo": "evento",
+      "eventoId": 1756512000000,
+      "data": "30/08/2025"
+    },
+    {
+      "id": 1710796761,
+      "pessoa": "João Hélder",
+      "valor": 24.45,
+      "tipo": "evento",
+      "eventoId": 1756512000000,
+      "data": "30/08/2025"
+    },
+    {
+      "id": 1710796900,
+      "pessoa": "Mestre",
+      "valor": 34.39,
+      "tipo": "evento",
+      "eventoId": 1756512000000,
+      "data": "30/08/2025"
+    },
+    {
+      "id": 1710796327,
+      "pessoa": "Luís Pedro",
+      "valor": 3.38,
+      "tipo": "evento",
+      "eventoId": 1756512000000,
+      "data": "30/08/2025"
+    },
+    {
+      "id": 1710796582,
+      "pessoa": "Barrona",
+      "valor": 8.17,
+      "tipo": "evento",
+      "eventoId": 1758153600000,
+      "data": "18/09/2025"
+    },
+    {
+      "id": 1710797175,
+      "pessoa": "Rogélio",
+      "valor": 6.13,
+      "tipo": "evento",
+      "eventoId": 1758153600000,
+      "data": "18/09/2025"
+    },
+    {
+      "id": 1710796672,
+      "pessoa": "Filipe",
+      "valor": 8.43,
+      "tipo": "evento",
+      "eventoId": 1758153600000,
+      "data": "18/09/2025"
+    },
+    {
+      "id": 1710796598,
+      "pessoa": "João Hélder",
+      "valor": 11.24,
+      "tipo": "evento",
+      "eventoId": 1758153600000,
+      "data": "18/09/2025"
+    },
+    {
+      "id": 1710796754,
+      "pessoa": "João Matias",
+      "valor": 12.77,
+      "tipo": "evento",
+      "eventoId": 1758153600000,
+      "data": "18/09/2025"
+    },
+    {
+      "id": 1710796959,
+      "pessoa": "Nuno",
+      "valor": 12.77,
+      "tipo": "evento",
+      "eventoId": 1758153600000,
+      "data": "18/09/2025"
+    },
+    {
+      "id": 1710796932,
+      "pessoa": "Barrona",
+      "valor": 9.28,
+      "tipo": "evento",
+      "eventoId": 1758499200000,
+      "data": "22/09/2025"
+    },
+    {
+      "id": 1710797062,
+      "pessoa": "João Hélder",
+      "valor": 14.39,
+      "tipo": "evento",
+      "eventoId": 1758499200000,
+      "data": "22/09/2025"
+    },
+    {
+      "id": 1710796673,
+      "pessoa": "Nuno",
+      "valor": 15.81,
+      "tipo": "evento",
+      "eventoId": 1758499200000,
+      "data": "22/09/2025"
+    },
+    {
+      "id": 1710796934,
+      "pessoa": "Mestre",
+      "valor": 20.46,
+      "tipo": "evento",
+      "eventoId": 1758499200000,
+      "data": "22/09/2025"
+    },
+    {
+      "id": 1710796340,
+      "pessoa": "Luís Pedro",
+      "valor": 34.22,
+      "tipo": "evento",
+      "eventoId": 1759622400000,
+      "data": "05/10/2025"
+    },
+    {
+      "id": 1710797027,
+      "pessoa": "Filipe",
+      "valor": 8.72,
+      "tipo": "evento",
+      "eventoId": 1759622400000,
+      "data": "05/10/2025"
+    },
+    {
+      "id": 1710796810,
+      "pessoa": "João Hélder",
+      "valor": 11.52,
+      "tipo": "evento",
+      "eventoId": 1759622400000,
+      "data": "05/10/2025"
+    },
+    {
+      "id": 1710796302,
+      "pessoa": "João Paulo",
+      "valor": 12.22,
+      "tipo": "evento",
+      "eventoId": 1759622400000,
+      "data": "05/10/2025"
+    },
+    {
+      "id": 1710796845,
+      "pessoa": "Rogélio",
+      "valor": 12.22,
+      "tipo": "evento",
+      "eventoId": 1759622400000,
+      "data": "05/10/2025"
+    },
+    {
+      "id": 1710796453,
+      "pessoa": "Mestre",
+      "valor": 19.6,
+      "tipo": "evento",
+      "eventoId": 1759622400000,
+      "data": "05/10/2025"
+    },
+    {
+      "id": 1710796216,
+      "pessoa": "Barrona",
+      "valor": 19.6,
+      "tipo": "evento",
+      "eventoId": 1759622400000,
+      "data": "05/10/2025"
+    },
+    {
+      "id": 1710796656,
+      "pessoa": "Barrona",
+      "valor": 16.3,
+      "tipo": "evento",
+      "eventoId": 1761091200000,
+      "data": "22/10/2025"
+    },
+    {
+      "id": 1710796939,
+      "pessoa": "João Hélder",
+      "valor": 6.3,
+      "tipo": "evento",
+      "eventoId": 1761091200000,
+      "data": "22/10/2025"
+    },
+    {
+      "id": 1710796445,
+      "pessoa": "Mestre",
+      "valor": 23.6,
+      "tipo": "evento",
+      "eventoId": 1761091200000,
+      "data": "22/10/2025"
+    },
+    {
+      "id": 1710797107,
+      "pessoa": "Paulo Conceição",
+      "valor": 17.71,
+      "tipo": "evento",
+      "eventoId": 1761868800000,
+      "data": "31/10/2025"
+    },
+    {
+      "id": 1710797027,
+      "pessoa": "Rogélio",
+      "valor": 15.8,
+      "tipo": "evento",
+      "eventoId": 1761868800000,
+      "data": "31/10/2025"
+    },
+    {
+      "id": 1710796649,
+      "pessoa": "Filipe",
+      "valor": 10.97,
+      "tipo": "evento",
+      "eventoId": 1761868800000,
+      "data": "31/10/2025"
+    },
+    {
+      "id": 1710796383,
+      "pessoa": "Mestre",
+      "valor": 16.6,
+      "tipo": "evento",
+      "eventoId": 1764115200000,
+      "data": "26/11/2025"
+    },
+    {
+      "id": 1710796325,
+      "pessoa": "Rogélio",
+      "valor": 16.6,
+      "tipo": "evento",
+      "eventoId": 1764115200000,
+      "data": "26/11/2025"
+    },
+    {
+      "id": 1710796507,
+      "pessoa": "Barrona",
+      "valor": 28.7,
+      "tipo": "evento",
+      "eventoId": 1764115200000,
+      "data": "26/11/2025"
+    },
+    {
+      "id": 1710796545,
+      "pessoa": "João Hélder",
+      "valor": 20.18,
+      "tipo": "evento",
+      "eventoId": 1764460800000,
+      "data": "30/11/2025"
+    },
+    {
+      "id": 1710797143,
+      "pessoa": "Barrona",
+      "valor": 23.03,
+      "tipo": "evento",
+      "eventoId": 1764460800000,
+      "data": "30/11/2025"
+    },
+    {
+      "id": 1710796616,
+      "pessoa": "Barrona",
+      "valor": 19.31,
+      "tipo": "evento",
+      "eventoId": 1766880000000,
+      "data": "28/12/2025"
+    },
+    {
+      "id": 1710797173,
+      "pessoa": "João Hélder",
+      "valor": 16.71,
+      "tipo": "evento",
+      "eventoId": 1766880000000,
+      "data": "28/12/2025"
+    },
+    {
+      "id": 1710796581,
+      "pessoa": "João Paulo",
+      "valor": 21.46,
+      "tipo": "evento",
+      "eventoId": 1766880000000,
+      "data": "28/12/2025"
+    },
+    {
+      "id": 1710796457,
+      "pessoa": "Rogélio",
+      "valor": 17.96,
+      "tipo": "evento",
+      "eventoId": 1766880000000,
+      "data": "28/12/2025"
+    },
+    {
+      "id": 1710797150,
+      "pessoa": "Filipe",
+      "valor": 7.99,
+      "tipo": "evento",
+      "eventoId": 1766880000000,
+      "data": "28/12/2025"
+    },
+    {
+      "id": 1710796346,
+      "pessoa": "Luís Pedro",
+      "valor": 7.99,
+      "tipo": "evento",
+      "eventoId": 1766880000000,
+      "data": "28/12/2025"
+    },
+    {
+      "id": 1710796592,
+      "pessoa": "Mestre",
+      "valor": 24.88,
+      "tipo": "evento",
+      "eventoId": 1768521600000,
+      "data": "16/01/2026"
+    },
+    {
+      "id": 1710797022,
+      "pessoa": "Rogélio",
+      "valor": 21.3,
+      "tipo": "evento",
+      "eventoId": 1768521600000,
+      "data": "16/01/2026"
+    },
+    {
+      "id": 1710796729,
+      "pessoa": "Barrona",
+      "valor": 16.88,
+      "tipo": "evento",
+      "eventoId": 1768521600000,
+      "data": "16/01/2026"
+    },
+    {
+      "id": 1710796608,
+      "pessoa": "João Hélder",
+      "valor": 9.62,
+      "tipo": "evento",
+      "eventoId": 1768521600000,
+      "data": "16/01/2026"
+    },
+    {
+      "id": 1710796858,
+      "pessoa": "João Paulo",
+      "valor": 13.81,
+      "tipo": "evento",
+      "eventoId": 1768521600000,
+      "data": "16/01/2026"
+    },
+    {
+      "id": 1710796306,
+      "pessoa": "Luís Pedro",
+      "valor": 4.5,
+      "tipo": "evento",
+      "eventoId": 1768867200000,
+      "data": "20/01/2026"
+    },
+    {
+      "id": 1710796494,
+      "pessoa": "Barrona",
+      "valor": 15.4,
+      "tipo": "evento",
+      "eventoId": 1768867200000,
+      "data": "20/01/2026"
+    },
+    {
+      "id": 1710796518,
+      "pessoa": "Mestre",
+      "valor": 37.8,
+      "tipo": "evento",
+      "eventoId": 1768867200000,
+      "data": "20/01/2026"
+    },
+    {
+      "id": 1710796811,
+      "pessoa": "Rogélio",
+      "valor": 16.8,
+      "tipo": "evento",
+      "eventoId": 1768867200000,
+      "data": "20/01/2026"
+    },
+    {
+      "id": 1710796442,
+      "pessoa": "Samuel",
+      "valor": 18.89,
+      "tipo": "evento",
+      "eventoId": 1769904000000,
+      "data": "01/02/2026"
+    },
+    {
+      "id": 1710796658,
+      "pessoa": "João Paulo",
+      "valor": 17.75,
+      "tipo": "evento",
+      "eventoId": 1769904000000,
+      "data": "01/02/2026"
+    },
+    {
+      "id": 1710797008,
+      "pessoa": "João Hélder",
+      "valor": 9.71,
+      "tipo": "evento",
+      "eventoId": 1769904000000,
+      "data": "01/02/2026"
+    },
+    {
+      "id": 1710796286,
+      "pessoa": "Mestre",
+      "valor": 11.24,
+      "tipo": "evento",
+      "eventoId": 1769904000000,
+      "data": "01/02/2026"
+    },
+    {
+      "id": 1710796212,
+      "pessoa": "Rogélio",
+      "valor": 30.15,
+      "tipo": "evento",
+      "eventoId": 1769904000000,
+      "data": "01/02/2026"
+    },
+    {
+      "id": 1710797044,
+      "pessoa": "Barrona",
+      "valor": 21.84,
+      "tipo": "evento",
+      "eventoId": 1769904000000,
+      "data": "01/02/2026"
+    },
+    {
+      "id": 1710797062,
+      "pessoa": "Luís Pedro",
+      "valor": 5.85,
+      "tipo": "evento",
+      "eventoId": 1769904000000,
+      "data": "01/02/2026"
+    },
+    {
+      "id": 1710796573,
+      "pessoa": "Filipe",
+      "valor": 4.58,
+      "tipo": "evento",
+      "eventoId": 1769904000000,
+      "data": "01/02/2026"
+    },
+    {
+      "id": 1710796703,
+      "pessoa": "Filipe",
+      "valor": 4.5,
+      "tipo": "evento",
+      "eventoId": 1771113600000,
+      "data": "15/02/2026"
+    },
+    {
+      "id": 1710796304,
+      "pessoa": "Luís Pedro",
+      "valor": 7.8,
+      "tipo": "evento",
+      "eventoId": 1771113600000,
+      "data": "15/02/2026"
+    },
+    {
+      "id": 1710797100,
+      "pessoa": "Rogélio",
+      "valor": 8.9,
+      "tipo": "evento",
+      "eventoId": 1771113600000,
+      "data": "15/02/2026"
+    },
+    {
+      "id": 1710796560,
+      "pessoa": "Barrona",
+      "valor": 18,
+      "tipo": "evento",
+      "eventoId": 1771113600000,
+      "data": "15/02/2026"
+    },
+    {
+      "id": 1710796788,
+      "pessoa": "João Hélder",
+      "valor": 9.9,
+      "tipo": "evento",
+      "eventoId": 1771113600000,
+      "data": "15/02/2026"
+    },
+    {
+      "id": 1710796513,
+      "pessoa": "João Paulo",
+      "valor": 18.9,
+      "tipo": "evento",
+      "eventoId": 1771113600000,
+      "data": "15/02/2026"
+    },
+    {
+      "id": 1710796490,
+      "pessoa": "Mestre",
+      "valor": 20.3,
+      "tipo": "evento",
+      "eventoId": 1771113600000,
+      "data": "15/02/2026"
+    },
+    {
+      "id": 1710796455,
+      "pessoa": "João Hélder",
+      "valor": 10,
+      "tipo": "evento",
+      "eventoId": 1772150400000,
+      "data": "27/02/2026"
+    },
+    {
+      "id": 1710797203,
+      "pessoa": "Barrona",
+      "valor": 44.9,
+      "tipo": "evento",
+      "eventoId": 1772150400000,
+      "data": "27/02/2026"
+    },
+    {
+      "id": 1710797166,
+      "pessoa": "João Paulo",
+      "valor": 21.5,
+      "tipo": "evento",
+      "eventoId": 1772150400000,
+      "data": "27/02/2026"
+    },
+    {
+      "id": 1710797114,
+      "pessoa": "Mestre",
+      "valor": 29.3,
+      "tipo": "evento",
+      "eventoId": 1772150400000,
+      "data": "27/02/2026"
+    },
+    {
+      "id": 1710797172,
+      "pessoa": "Luís Pedro",
+      "valor": 3.5,
+      "tipo": "evento",
+      "eventoId": 1772150400000,
+      "data": "27/02/2026"
+    },
+    {
+      "id": 1710797095,
+      "pessoa": "Barrona",
+      "valor": 24.04,
+      "tipo": "evento",
+      "eventoId": 1772496000000,
+      "data": "03/03/2026"
+    },
+    {
+      "id": 1710796736,
+      "pessoa": "João Paulo",
+      "valor": 9.1,
+      "tipo": "evento",
+      "eventoId": 1772496000000,
+      "data": "03/03/2026"
+    },
+    {
+      "id": 1710796685,
+      "pessoa": "Filipe",
+      "valor": 4.35,
+      "tipo": "evento",
+      "eventoId": 1772496000000,
+      "data": "03/03/2026"
+    },
+    {
+      "id": 1710796237,
+      "pessoa": "João Hélder",
+      "valor": 10.02,
+      "tipo": "evento",
+      "eventoId": 1772496000000,
+      "data": "03/03/2026"
+    },
+    {
+      "id": 1710796457,
+      "pessoa": "Luís Pedro",
+      "valor": 2.77,
+      "tipo": "evento",
+      "eventoId": 1772496000000,
+      "data": "03/03/2026"
+    },
+    {
+      "id": 1710797115,
+      "pessoa": "Rogélio",
+      "valor": 16.12,
+      "tipo": "evento",
+      "eventoId": 1772496000000,
+      "data": "03/03/2026"
+    },
+    {
+      "id": 1710796237,
+      "pessoa": "Mestre",
+      "valor": 22.85,
+      "tipo": "evento",
+      "eventoId": 1772496000000,
+      "data": "03/03/2026"
+    },
+    {
+      "id": 1710796383,
+      "pessoa": "Barrona",
+      "valor": 36.46,
+      "tipo": "evento",
+      "eventoId": 1776722419660,
+      "data": "19/04/2026"
+    },
+    {
+      "id": 1710797113,
+      "pessoa": "Rogélio",
+      "valor": 33.83,
+      "tipo": "evento",
+      "eventoId": 1776722419660,
+      "data": "19/04/2026"
+    },
+    {
+      "id": 1710796572,
+      "pessoa": "João Paulo",
+      "valor": 32.93,
+      "tipo": "evento",
+      "eventoId": 1776722419660,
+      "data": "19/04/2026"
+    },
+    {
+      "id": 1710796251,
+      "pessoa": "João Hélder",
+      "valor": 26.76,
+      "tipo": "evento",
+      "eventoId": 1776722419660,
+      "data": "19/04/2026"
+    },
+    {
+      "id": 1710796502,
+      "pessoa": "Filipe",
+      "valor": 10.6,
+      "tipo": "evento",
+      "eventoId": 1776722419660,
+      "data": "19/04/2026"
+    },
+    {
+      "id": 1710797136,
+      "pessoa": "Luís Pedro",
+      "valor": 22.62,
+      "tipo": "evento",
+      "eventoId": 1776722419660,
+      "data": "19/04/2026"
+    },
+    {
+      "id": 1710796670,
+      "pessoa": "Mestre",
+      "valor": 5.55,
+      "tipo": "evento",
+      "eventoId": 1776722419660,
+      "data": "19/04/2026"
+    },
+    {
+      "id": 1710797193,
+      "pessoa": "Barrona",
+      "valor": 12,
+      "tipo": "evento",
+      "eventoId": 1778887690888,
+      "data": "04/05/2026"
+    },
+    {
+      "id": 1710796783,
+      "pessoa": "João Hélder",
+      "valor": 10,
+      "tipo": "evento",
+      "eventoId": 1778887690888,
+      "data": "04/05/2026"
+    },
+    {
+      "id": 1710797085,
+      "pessoa": "João Paulo",
+      "valor": 10,
+      "tipo": "evento",
+      "eventoId": 1778887690888,
+      "data": "04/05/2026"
+    },
+    {
+      "id": 1710796679,
+      "pessoa": "Barrona",
+      "valor": 15.19,
+      "tipo": "evento",
+      "eventoId": 1778956908479,
+      "data": "16/05/2026"
+    },
+    {
+      "id": 1710797059,
+      "pessoa": "João Hélder",
+      "valor": 36.19,
+      "tipo": "evento",
+      "eventoId": 1778956908479,
+      "data": "16/05/2026"
+    },
+    {
+      "id": 1710796622,
+      "pessoa": "João Paulo",
+      "valor": 15.19,
+      "tipo": "evento",
+      "eventoId": 1778956908479,
+      "data": "16/05/2026"
+    },
+    {
+      "id": 1710796367,
+      "pessoa": "Luís Pedro",
+      "valor": 3.77,
+      "tipo": "evento",
+      "eventoId": 1778956908479,
+      "data": "16/05/2026"
+    },
+    {
+      "id": 1710796350,
+      "pessoa": "Samuel",
+      "valor": 15.19,
+      "tipo": "evento",
+      "eventoId": 1778956908479,
+      "data": "16/05/2026"
+    },
+    {
+      "id": 1710797080,
+      "pessoa": "Filipe",
+      "valor": 9.48,
+      "tipo": "evento",
+      "eventoId": 1778956908479,
+      "data": "16/05/2026"
+    }
+  ]
 }
