@@ -3674,14 +3674,6 @@
       "data": "28/12/2025"
     },
     {
-      "id": 1710796346,
-      "pessoa": "Luís Pedro",
-      "valor": 7.99,
-      "tipo": "evento",
-      "eventoId": 1766880000000,
-      "data": "28/12/2025"
-    },
-    {
       "id": 1710796592,
       "pessoa": "Mestre",
       "valor": 24.88,
@@ -4032,46 +4024,6 @@
       "tipo": "evento",
       "eventoId": 1778956908479,
       "data": "16/05/2026"
-    },
-    {
-      "id": 1779878933926,
-      "pessoa": "Barrona",
-      "valor": 29.93,
-      "tipo": "evento",
-      "eventoId": 1772496000000,
-      "data": "27/05/2026, 11:48"
-    },
-    {
-      "id": 1779878962511,
-      "pessoa": "Luís Pedro",
-      "valor": 3.45,
-      "tipo": "evento",
-      "eventoId": 1772496000000,
-      "data": "27/05/2026, 11:49"
-    },
-    {
-      "id": 1779878970377,
-      "pessoa": "Mestre",
-      "valor": 28.45,
-      "tipo": "evento",
-      "eventoId": 1772496000000,
-      "data": "27/05/2026, 11:49"
-    },
-    {
-      "id": 1779878983858,
-      "pessoa": "João Hélder",
-      "valor": 12.48,
-      "tipo": "evento",
-      "eventoId": 1772496000000,
-      "data": "27/05/2026, 11:49"
-    },
-    {
-      "id": 1779878996597,
-      "pessoa": "Rogélio",
-      "valor": 20.07,
-      "tipo": "evento",
-      "eventoId": 1772496000000,
-      "data": "27/05/2026, 11:49"
     }
   ]
 }
