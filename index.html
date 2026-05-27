@@ -31,8 +31,8 @@
         .top-nav {
             display: flex;
             background: #34495e;
-            border-radius: 0 0 8px 8px;
-            margin-bottom: 20px;
+            border-radius: 0;
+            margin-bottom: 0;
             overflow: hidden;
         }
         .top-nav-btn {
@@ -988,13 +988,23 @@
 
 <div class="header">
     <h1>Divisão de Contas <span style="font-size:1.2em;">🍽️⚽💰</span></h1>
-    <div id="header-evento-context">
+</div>
+
+<!-- Top Navigation -->
+<div class="top-nav">
+    <button class="top-nav-btn active" id="nav-eventos" onclick="mudarPagina('eventos')">📋 Eventos</button>
+    <button class="top-nav-btn" id="nav-pagamentos" onclick="mudarPagina('pagamentos')">💰 Pagamentos <span id="nav-pgto-badge" class="top-nav-badge" style="display:none;"></span></button>
+    <button class="top-nav-btn" id="nav-geral" onclick="mudarPagina('geral')">⚙️ Geral</button>
+</div>
+
+<!-- Event context bar (only visible on Eventos tab) -->
+<div id="header-evento-context" style="background:#2c3e50;padding:10px 15px 15px;border-radius:0 0 8px 8px;margin-bottom:15px;">
     <input type="text" id="descricao-evento" placeholder="Descrição do evento (ex: Almoço Sá 19 Abril)" maxlength="80"
-        style="margin-top:10px;width:100%;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;border-radius:4px;padding:8px 10px;font-size:13px;text-align:center;"
+        style="width:100%;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;border-radius:4px;padding:8px 10px;font-size:13px;text-align:center;"
         oninput="estado.descricaoEvento=this.value;salvarNoLocalStorage()"
         onfocus="this.style.background='rgba(255,255,255,0.25)'"
         onblur="this.style.background='rgba(255,255,255,0.15)'">
-    <div class="header-nav">
+    <div class="header-nav" style="margin-top:10px;">
         <select id="historico-select" onchange="navegarHistorico(this.value)" style="display:none;">
             <option value="">📚 Histórico de eventos</option>
         </select>
@@ -1006,14 +1016,6 @@
         <button id="btn-gh-reset" style="display:none;background:rgba(52,152,219,0.85);border-color:rgba(255,255,255,0.4);font-size:12px;padding:8px 10px;" onclick="ghReset()">🔄 Sync</button>
     </div>
     <div class="historico-panel" id="historico-panel"></div>
-    </div>
-</div>
-
-<!-- Top Navigation -->
-<div class="top-nav">
-    <button class="top-nav-btn active" id="nav-eventos" onclick="mudarPagina('eventos')">📋 Eventos</button>
-    <button class="top-nav-btn" id="nav-pagamentos" onclick="mudarPagina('pagamentos')">💰 Pagamentos <span id="nav-pgto-badge" class="top-nav-badge" style="display:none;"></span></button>
-    <button class="top-nav-btn" id="nav-geral" onclick="mudarPagina('geral')">⚙️ Geral</button>
 </div>
 
 <!-- Custom confirm modal -->
@@ -2668,6 +2670,12 @@ let _pgtoFilterEvento = '';
 let _evtFilterPessoa = '';
 let _evtFilterJogo = '';
 
+// Helper: strip 'Sporting' prefix from event description for compact combo labels
+function comboLabel(descricao) {
+    let label = (descricao || 'Sem nome').replace(/\bSporting\b\s*/gi, '').trim();
+    return label || descricao || 'Sem nome';
+}
+
 function carregarPagamentos() {
     const saved = localStorage.getItem('splitbill_pagamentos');
     if (saved) { try { pagamentos = JSON.parse(saved); } catch(e) { pagamentos = []; } }
@@ -2687,6 +2695,15 @@ function mudarPagina(pagina) {
     document.getElementById('page-geral').style.display = pagina === 'geral' ? '' : 'none';
     document.getElementById('readonly-banner').style.display = pagina === 'eventos' && modoReadOnly ? '' : 'none';
     document.getElementById('header-evento-context').style.display = pagina === 'eventos' ? '' : 'none';
+    // Adjust top-nav bottom style based on whether event context is visible
+    const topNav = document.querySelector('.top-nav');
+    if (pagina === 'eventos') {
+        topNav.style.borderRadius = '0';
+        topNav.style.marginBottom = '0';
+    } else {
+        topNav.style.borderRadius = '0 0 8px 8px';
+        topNav.style.marginBottom = '20px';
+    }
     document.getElementById('nav-eventos').classList.toggle('active', pagina === 'eventos');
     document.getElementById('nav-pagamentos').classList.toggle('active', pagina === 'pagamentos');
     document.getElementById('nav-geral').classList.toggle('active', pagina === 'geral');
@@ -2926,7 +2943,7 @@ function renderContasEventos(lista, resumo) {
         '<option value="' + p + '"' + (_evtFilterPessoa === p ? ' selected' : '') + '>' + p + '</option>'
     ).join('');
     const jogoOpts = [...eventosFechados].reverse().map(ev => {
-        const label = (ev.descricao || 'Sem nome') + ' · ' + (ev.data || '');
+        const label = comboLabel(ev.descricao) + ' · ' + (ev.data || '');
         return '<option value="' + ev.id + '"' + (_evtFilterJogo === String(ev.id) ? ' selected' : '') + '>' + label + '</option>';
     }).join('');
 
@@ -3014,10 +3031,16 @@ function renderContasPagamentos(lista, resumo) {
     var pessoaOpts = allPessoas.map(function(p) {
         return '<option value="' + p + '"' + (_pgtoFilterPessoa === p ? ' selected' : '') + '>' + p + '</option>';
     }).join('');
-    var eventoOpts = allEventos.map(function(e) {
+    var eventoOpts = allEventos.sort(function(a, b) {
+        var evA = historico.find(function(h) { return h.id === a.id; });
+        var evB = historico.find(function(h) { return h.id === b.id; });
+        var dA = evA && evA.data ? evA.data.split('/').reverse().join('') : '0';
+        var dB = evB && evB.data ? evB.data.split('/').reverse().join('') : '0';
+        return dB.localeCompare(dA);
+    }).map(function(e) {
         var ev = historico.find(function(h) { return h.id === e.id; });
         var dataStr = ev && ev.data ? ' · ' + ev.data : '';
-        return '<option value="' + e.id + '"' + (_pgtoFilterEvento === String(e.id) ? ' selected' : '') + '>' + e.desc + dataStr + '</option>';
+        return '<option value="' + e.id + '"' + (_pgtoFilterEvento === String(e.id) ? ' selected' : '') + '>' + comboLabel(e.desc) + dataStr + '</option>';
     }).join('');
 
     var filtersHtml = '<div style="display:flex;gap:6px;margin-bottom:10px;">'
@@ -3160,12 +3183,19 @@ function renderPgtoEventoSelect() {
     const pessoaSaldo = saldos[pessoa];
     if (!pessoaSaldo) return;
 
-    pessoaSaldo.eventos.filter(e => e.restante > 0.005).forEach(e => {
+    const eventosOrdenados = pessoaSaldo.eventos.filter(e => e.restante > 0.005).sort((a, b) => {
+        const evA = historico.find(h => h.id === a.eventoId);
+        const evB = historico.find(h => h.id === b.eventoId);
+        const dA = evA && evA.data ? evA.data.split('/').reverse().join('') : '0';
+        const dB = evB && evB.data ? evB.data.split('/').reverse().join('') : '0';
+        return dB.localeCompare(dA);
+    });
+    eventosOrdenados.forEach(e => {
         const ev = historico.find(h => h.id === e.eventoId);
         const dataStr = ev && ev.data ? ' · ' + ev.data : '';
         const opt = document.createElement('option');
         opt.value = e.eventoId;
-        opt.textContent = `${e.descricao}${dataStr} — €${e.restante.toFixed(2)}`;
+        opt.textContent = `${comboLabel(e.descricao)}${dataStr} — €${e.restante.toFixed(2)}`;
         opt.dataset.valor = e.restante.toFixed(2);
         opt.dataset.eventoData = ev && ev.data ? ev.data : '';
         sel.appendChild(opt);
