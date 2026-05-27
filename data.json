@@ -2751,7 +2751,7 @@
         }
       ],
       "ofertas": [],
-      "totalFatura": null,
+      "totalFatura": 139.6,
       "amigos": [
         "Diogo",
         "Barrona",
@@ -2786,8 +2786,30 @@
         "Pão": 1.5,
         "Queijo": 4.5
       },
-      "pagador": "",
-      "dividas": {}
+      "pagador": "Diogo",
+      "dividas": {
+        "Barrona": {
+          "valor": 29.93
+        },
+        "João Paulo": {
+          "valor": 11.34
+        },
+        "Filipe": {
+          "valor": 5.42
+        },
+        "João Hélder": {
+          "valor": 12.48
+        },
+        "Luís Pedro": {
+          "valor": 3.45
+        },
+        "Rogélio": {
+          "valor": 20.07
+        },
+        "Mestre": {
+          "valor": 28.45
+        }
+      }
     },
     {
       "id": 1776722419660,
@@ -4018,6 +4040,14 @@
       "tipo": "evento",
       "eventoId": 1778956908479,
       "data": "16/05/2026"
+    },
+    {
+      "id": 1779878933926,
+      "pessoa": "Barrona",
+      "valor": 29.93,
+      "tipo": "evento",
+      "eventoId": 1772496000000,
+      "data": "27/05/2026, 11:48"
     }
   ]
 }
