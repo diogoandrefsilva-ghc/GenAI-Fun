@@ -2590,7 +2590,7 @@
         "Pão": 1.5,
         "Queijo": 4.5
       },
-      "pagador": "Diogo",
+      "pagador": "Luís Pedro",
       "dividas": {
         "João Hélder": {
           "valor": 10
@@ -2603,9 +2603,6 @@
         },
         "Mestre": {
           "valor": 29.3
-        },
-        "Luís Pedro": {
-          "valor": 3.5
         }
       }
     },
@@ -3796,46 +3793,6 @@
       "data": "15/02/2026"
     },
     {
-      "id": 1710796455,
-      "pessoa": "João Hélder",
-      "valor": 10,
-      "tipo": "evento",
-      "eventoId": 1772150400000,
-      "data": "27/02/2026"
-    },
-    {
-      "id": 1710797203,
-      "pessoa": "Barrona",
-      "valor": 44.9,
-      "tipo": "evento",
-      "eventoId": 1772150400000,
-      "data": "27/02/2026"
-    },
-    {
-      "id": 1710797166,
-      "pessoa": "João Paulo",
-      "valor": 21.5,
-      "tipo": "evento",
-      "eventoId": 1772150400000,
-      "data": "27/02/2026"
-    },
-    {
-      "id": 1710797114,
-      "pessoa": "Mestre",
-      "valor": 29.3,
-      "tipo": "evento",
-      "eventoId": 1772150400000,
-      "data": "27/02/2026"
-    },
-    {
-      "id": 1710797172,
-      "pessoa": "Luís Pedro",
-      "valor": 3.5,
-      "tipo": "evento",
-      "eventoId": 1772150400000,
-      "data": "27/02/2026"
-    },
-    {
       "id": 1710797193,
       "pessoa": "Barrona",
       "valor": 12,
@@ -3978,6 +3935,14 @@
       "tipo": "evento",
       "eventoId": 1778956908479,
       "data": "16/05/2026"
+    },
+    {
+      "id": 1780097636664,
+      "pessoa": "Barrona",
+      "valor": 44.9,
+      "tipo": "evento",
+      "eventoId": 1772150400000,
+      "data": "27/02/2026"
     }
   ]
 }
