@@ -3943,6 +3943,70 @@
       "tipo": "evento",
       "eventoId": 1772150400000,
       "data": "27/02/2026"
+    },
+    {
+      "id": 1780097641446,
+      "pessoa": "Barrona",
+      "valor": 21.84,
+      "tipo": "evento",
+      "eventoId": 1769904000000,
+      "data": "01/02/2026"
+    },
+    {
+      "id": 1780097649381,
+      "pessoa": "Filipe",
+      "valor": 4.58,
+      "tipo": "evento",
+      "eventoId": 1769904000000,
+      "data": "01/02/2026"
+    },
+    {
+      "id": 1780097658216,
+      "pessoa": "João Hélder",
+      "valor": 9.71,
+      "tipo": "evento",
+      "eventoId": 1769904000000,
+      "data": "01/02/2026"
+    },
+    {
+      "id": 1780097662381,
+      "pessoa": "João Hélder",
+      "valor": 10,
+      "tipo": "evento",
+      "eventoId": 1772150400000,
+      "data": "27/02/2026"
+    },
+    {
+      "id": 1780097671785,
+      "pessoa": "João Paulo",
+      "valor": 17.75,
+      "tipo": "evento",
+      "eventoId": 1769904000000,
+      "data": "01/02/2026"
+    },
+    {
+      "id": 1780097681265,
+      "pessoa": "João Paulo",
+      "valor": 21.5,
+      "tipo": "evento",
+      "eventoId": 1772150400000,
+      "data": "27/02/2026"
+    },
+    {
+      "id": 1780097692954,
+      "pessoa": "Mestre",
+      "valor": 11.24,
+      "tipo": "evento",
+      "eventoId": 1769904000000,
+      "data": "01/02/2026"
+    },
+    {
+      "id": 1780097699518,
+      "pessoa": "Mestre",
+      "valor": 29.3,
+      "tipo": "evento",
+      "eventoId": 1772150400000,
+      "data": "27/02/2026"
     }
   ]
 }
