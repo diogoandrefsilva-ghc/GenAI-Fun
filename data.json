@@ -3337,13 +3337,10 @@
         "Prego": 6.9,
         "Queijo": 4.5
       },
-      "pagador": "Diogo",
+      "pagador": "João Hélder",
       "dividas": {
         "Barrona": {
           "valor": 15.19
-        },
-        "João Hélder": {
-          "valor": 36.19
         },
         "João Paulo": {
           "valor": 15.19
@@ -3922,54 +3919,6 @@
       "data": "04/05/2026"
     },
     {
-      "id": 1710796679,
-      "pessoa": "Barrona",
-      "valor": 15.19,
-      "tipo": "evento",
-      "eventoId": 1778956908479,
-      "data": "16/05/2026"
-    },
-    {
-      "id": 1710797059,
-      "pessoa": "João Hélder",
-      "valor": 36.19,
-      "tipo": "evento",
-      "eventoId": 1778956908479,
-      "data": "16/05/2026"
-    },
-    {
-      "id": 1710796622,
-      "pessoa": "João Paulo",
-      "valor": 15.19,
-      "tipo": "evento",
-      "eventoId": 1778956908479,
-      "data": "16/05/2026"
-    },
-    {
-      "id": 1710796367,
-      "pessoa": "Luís Pedro",
-      "valor": 3.77,
-      "tipo": "evento",
-      "eventoId": 1778956908479,
-      "data": "16/05/2026"
-    },
-    {
-      "id": 1710796350,
-      "pessoa": "Samuel",
-      "valor": 15.19,
-      "tipo": "evento",
-      "eventoId": 1778956908479,
-      "data": "16/05/2026"
-    },
-    {
-      "id": 1710797080,
-      "pessoa": "Filipe",
-      "valor": 9.48,
-      "tipo": "evento",
-      "eventoId": 1778956908479,
-      "data": "16/05/2026"
-    },
-    {
       "id": 1779880348920,
       "pessoa": "Barrona",
       "valor": 29.93,
@@ -4013,6 +3962,46 @@
       "id": 1780097309500,
       "pessoa": "Barrona",
       "valor": 36.46,
+      "tipo": "evento",
+      "eventoId": 1776722419660,
+      "data": "19/04/2026"
+    },
+    {
+      "id": 1780097319567,
+      "pessoa": "Diogo",
+      "valor": 33.83,
+      "tipo": "evento",
+      "eventoId": 1776722419660,
+      "data": "19/04/2026"
+    },
+    {
+      "id": 1780097330901,
+      "pessoa": "Filipe",
+      "valor": 10.6,
+      "tipo": "evento",
+      "eventoId": 1776722419660,
+      "data": "19/04/2026"
+    },
+    {
+      "id": 1780097337361,
+      "pessoa": "João Hélder",
+      "valor": 26.76,
+      "tipo": "evento",
+      "eventoId": 1776722419660,
+      "data": "19/04/2026"
+    },
+    {
+      "id": 1780097347672,
+      "pessoa": "Luís Pedro",
+      "valor": 22.62,
+      "tipo": "evento",
+      "eventoId": 1776722419660,
+      "data": "19/04/2026"
+    },
+    {
+      "id": 1780097355569,
+      "pessoa": "Rogélio",
+      "valor": 33.83,
       "tipo": "evento",
       "eventoId": 1776722419660,
       "data": "19/04/2026"
