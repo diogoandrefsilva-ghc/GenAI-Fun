@@ -2161,7 +2161,7 @@
         "Queijo": 4.5,
         "Tremoços": 1.5
       },
-      "pagador": "Diogo",
+      "pagador": "Luís Pedro",
       "dividas": {
         "Samuel": {
           "valor": 18.89
@@ -2180,9 +2180,6 @@
         },
         "Barrona": {
           "valor": 21.84
-        },
-        "Luís Pedro": {
-          "valor": 5.85
         },
         "Filipe": {
           "valor": 4.58
@@ -3743,70 +3740,6 @@
       "data": "20/01/2026"
     },
     {
-      "id": 1710796442,
-      "pessoa": "Samuel",
-      "valor": 18.89,
-      "tipo": "evento",
-      "eventoId": 1769904000000,
-      "data": "01/02/2026"
-    },
-    {
-      "id": 1710796658,
-      "pessoa": "João Paulo",
-      "valor": 17.75,
-      "tipo": "evento",
-      "eventoId": 1769904000000,
-      "data": "01/02/2026"
-    },
-    {
-      "id": 1710797008,
-      "pessoa": "João Hélder",
-      "valor": 9.71,
-      "tipo": "evento",
-      "eventoId": 1769904000000,
-      "data": "01/02/2026"
-    },
-    {
-      "id": 1710796286,
-      "pessoa": "Mestre",
-      "valor": 11.24,
-      "tipo": "evento",
-      "eventoId": 1769904000000,
-      "data": "01/02/2026"
-    },
-    {
-      "id": 1710796212,
-      "pessoa": "Rogélio",
-      "valor": 30.15,
-      "tipo": "evento",
-      "eventoId": 1769904000000,
-      "data": "01/02/2026"
-    },
-    {
-      "id": 1710797044,
-      "pessoa": "Barrona",
-      "valor": 21.84,
-      "tipo": "evento",
-      "eventoId": 1769904000000,
-      "data": "01/02/2026"
-    },
-    {
-      "id": 1710797062,
-      "pessoa": "Luís Pedro",
-      "valor": 5.85,
-      "tipo": "evento",
-      "eventoId": 1769904000000,
-      "data": "01/02/2026"
-    },
-    {
-      "id": 1710796573,
-      "pessoa": "Filipe",
-      "valor": 4.58,
-      "tipo": "evento",
-      "eventoId": 1769904000000,
-      "data": "01/02/2026"
-    },
-    {
       "id": 1710796703,
       "pessoa": "Filipe",
       "valor": 4.5,
@@ -4005,6 +3938,46 @@
       "tipo": "evento",
       "eventoId": 1776722419660,
       "data": "19/04/2026"
+    },
+    {
+      "id": 1780097459453,
+      "pessoa": "Filipe",
+      "valor": 9.48,
+      "tipo": "evento",
+      "eventoId": 1778956908479,
+      "data": "16/05/2026"
+    },
+    {
+      "id": 1780097466694,
+      "pessoa": "Barrona",
+      "valor": 15.19,
+      "tipo": "evento",
+      "eventoId": 1778956908479,
+      "data": "16/05/2026"
+    },
+    {
+      "id": 1780097478640,
+      "pessoa": "João Paulo",
+      "valor": 15.19,
+      "tipo": "evento",
+      "eventoId": 1778956908479,
+      "data": "16/05/2026"
+    },
+    {
+      "id": 1780097486703,
+      "pessoa": "Luís Pedro",
+      "valor": 3.77,
+      "tipo": "evento",
+      "eventoId": 1778956908479,
+      "data": "16/05/2026"
+    },
+    {
+      "id": 1780097494639,
+      "pessoa": "Samuel",
+      "valor": 15.19,
+      "tipo": "evento",
+      "eventoId": 1778956908479,
+      "data": "16/05/2026"
     }
   ]
 }
