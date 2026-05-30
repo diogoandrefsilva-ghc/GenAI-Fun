@@ -2714,6 +2714,12 @@ function comboLabel(descricao) {
     return label || descricao || 'Sem nome';
 }
 
+function shortDate(d) {
+    if (!d) return '';
+    var parts = d.split('/');
+    return parts.length >= 2 ? parts[0] + '/' + parts[1] : d;
+}
+
 function carregarPagamentos() {
     const saved = localStorage.getItem('splitbill_pagamentos');
     if (saved) { try { pagamentos = JSON.parse(saved); } catch(e) { pagamentos = []; } }
@@ -3018,7 +3024,7 @@ function renderContasEventos(lista, resumo) {
         '<option value="' + p + '"' + (_evtFilterPessoa === p ? ' selected' : '') + '>' + p + '</option>'
     ).join('');
     const jogoOpts = [...eventosFechados].reverse().map(ev => {
-        const label = comboLabel(ev.descricao) + ' · ' + (ev.data || '');
+        const label = comboLabel(ev.descricao) + ' · ' + shortDate(ev.data);
         return '<option value="' + ev.id + '"' + (_evtFilterJogo === String(ev.id) ? ' selected' : '') + '>' + label + '</option>';
     }).join('');
 
@@ -3061,7 +3067,7 @@ function renderContasEventos(lista, resumo) {
             }).join(', ');
             return '<div class="contas-divida-item" style="flex-wrap:wrap;">'
                 + '<span class="nome">' + p + '</span>'
-                + '<span class="valor ' + (isPago ? 'pago' : 'pendente') + '">\u20ac' + d.valor.toFixed(2) + (!isPago && restante < d.valor - 0.005 ? ' (resta \u20ac' + restante.toFixed(2) + ')' : '') + ' <span style="margin-left:10px;">' + (isPago ? '\u2705' : '\u23f3') + '</span></span>'
+                + '<span class="valor ' + (isPago ? 'pago' : 'pendente') + '">\u20ac' + d.valor.toFixed(2) + (!isPago && restante < d.valor - 0.005 ? ' (resta \u20ac' + restante.toFixed(2) + ')' : '') + ' <span style="margin-left:10px;">' + (isPago ? '<span style="color:#27ae60;font-size:16px;">✓</span>' : '\u23f3') + '</span></span>'
                 + (consumoStr ? '<div style="width:100%;font-size:11px;color:#95a5a6;margin-top:2px;">' + consumoStr + '</div>' : '')
                 + '</div>';
         }).join('');
@@ -3083,10 +3089,10 @@ function renderContasEventos(lista, resumo) {
             }).join(', ');
             const contaFinal = calcularContaFinalEvento(ev);
             const pagadorValor = contaFinal[ev.pagador] || 0;
-            pagadorConsumoHtml = '<div class="contas-divida-item" style="flex-wrap:wrap;opacity:0.5;border:1px dashed #ccc;background:#f9f9f9;">'
-                + '<span class="nome" style="color:#95a5a6;">💳 ' + ev.pagador + ' <span style="font-weight:400;font-size:11px;">(pagou)</span></span>'
-                + '<span class="valor" style="color:#95a5a6;font-weight:600;">\u20ac' + pagadorValor.toFixed(2) + '</span>'
-                + (pagadorConsumoStr ? '<div style="width:100%;font-size:11px;color:#b0b0b0;margin-top:2px;">' + pagadorConsumoStr + '</div>' : '')
+            pagadorConsumoHtml = '<div class="contas-divida-item" style="flex-wrap:wrap;opacity:0.65;border:1px dashed #ccc;background:#f9f9f9;">'
+                + '<span class="nome" style="color:#7f8c8d;">' + ev.pagador + ' <span style="font-weight:400;font-size:11px;">(pagou)</span></span>'
+                + '<span class="valor" style="color:#7f8c8d;font-weight:600;">\u20ac' + pagadorValor.toFixed(2) + ' <span style="margin-left:10px;">💳</span></span>'
+                + (pagadorConsumoStr ? '<div style="width:100%;font-size:11px;color:#aaa;margin-top:2px;">' + pagadorConsumoStr + '</div>' : '')
                 + '</div>';
         }
 
@@ -3098,9 +3104,9 @@ function renderContasEventos(lista, resumo) {
                 <span class="contas-evento-titulo">${ev.descricao || 'Sem nome'}</span>
                 <span class="contas-evento-data">${ev.data || '—'}</span>
             </div>
-            <div class="contas-evento-pagador">💳 Pago por: <strong>${ev.pagador}</strong> · Fatura: €${ev.totalFatura.toFixed(2)} · Dívidas: €${totalEvento.toFixed(2)}</div>
-            ${dividasHtml}
+            <div class="contas-evento-pagador">💳 Pago por: <strong>${ev.pagador}</strong> · Fatura: €${ev.totalFatura.toFixed(2)}</div>
             ${pagadorConsumoHtml}
+            ${dividasHtml}
         </div>`;
     }).join('');
 
@@ -3147,7 +3153,7 @@ function renderContasPagamentos(lista, resumo) {
         return dB.localeCompare(dA);
     }).map(function(e) {
         var ev = historico.find(function(h) { return h.id === e.id; });
-        var dataStr = ev && ev.data ? ' · ' + ev.data : '';
+        var dataStr = ev && ev.data ? ' · ' + shortDate(ev.data) : '';
         return '<option value="' + e.id + '"' + (_pgtoFilterEvento === String(e.id) ? ' selected' : '') + '>' + comboLabel(e.desc) + dataStr + '</option>';
     }).join('');
 
