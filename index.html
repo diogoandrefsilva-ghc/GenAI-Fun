@@ -2437,6 +2437,20 @@ async function fecharComFatura() {
         }
     });
 
+    // Adjust kept payments proportionally if fatura changed
+    if (estado._manterPagamentos && estado._faturaAnterior && estado._faturaAnterior > 0) {
+        const pgtosEvento = pagamentos.filter(p => p.eventoId === eventoAtualId);
+        pgtosEvento.forEach(p => {
+            const novaDivida = estado.dividas[p.pessoa];
+            if (novaDivida) {
+                p.valor = novaDivida.valor;
+            }
+        });
+        salvarPagamentos();
+    }
+    delete estado._manterPagamentos;
+    delete estado._faturaAnterior;
+
     document.getElementById('total-fatura').disabled = true;
     document.getElementById('pagador-select').disabled = true;
     document.getElementById('btn-fechar-evento').style.display = 'none';
@@ -2487,14 +2501,38 @@ function calcularContaFinalPorPessoa() {
     return contaFinal;
 }
 
-function reabrirEvento() {
+async function reabrirEvento() {
+    const pgtosEvento = pagamentos.filter(p => p.eventoId === eventoAtualId);
+    let manterPagamentos = false;
+
+    if (pgtosEvento.length > 0 && ghHasToken()) {
+        // Ask user whether to keep or delete existing payments
+        const totalPgtos = pgtosEvento.reduce((s, p) => s + p.valor, 0);
+        const ok = await mostrarModal({
+            icon: '💰',
+            title: 'Manter pagamentos?',
+            msg: 'Este evento tem <strong>' + pgtosEvento.length + ' pagamento(s)</strong> registado(s) (total: €' + totalPgtos.toFixed(2) + ').<br><br>'
+                + '🔄 <strong>Manter</strong> — os valores serão ajustados proporcionalmente se o total da conta mudar.<br>'
+                + '🗑️ <strong>Eliminar</strong> — todos os pagamentos deste evento serão removidos.',
+            confirmText: '🔄 Manter',
+            cancelText: '🗑️ Eliminar',
+            danger: false
+        });
+        manterPagamentos = ok;
+    }
+
     modoReadOnly = false;
-    // Remove pagamentos associated with this event
-    pagamentos = pagamentos.filter(p => p.eventoId !== eventoAtualId);
-    salvarPagamentos();
+
+    if (!manterPagamentos) {
+        pagamentos = pagamentos.filter(p => p.eventoId !== eventoAtualId);
+        salvarPagamentos();
+    }
+    // Store old fatura value for proportional adjustment later
+    estado._faturaAnterior = estado.totalFatura;
     estado.totalFatura = null;
     estado.pagador = '';
     estado.dividas = {};
+    estado._manterPagamentos = manterPagamentos;
     document.getElementById('total-fatura').disabled = false;
     document.getElementById('pagador-select').disabled = false;
     document.getElementById('pagador-select').value = '';
@@ -2505,7 +2543,7 @@ function reabrirEvento() {
     atualizarReadOnly();
     atualizarUI();
     renderContas();
-    mostrarMensagem('🔓 Evento reaberto', true);
+    mostrarMensagem(manterPagamentos ? '🔓 Evento reaberto (pagamentos mantidos)' : '🔓 Evento reaberto', true);
 }
 
 function confirmarFatura() { fecharComFatura(); }
@@ -3073,6 +3111,14 @@ function renderContasEventos(lista, resumo) {
     resumo.innerHTML = '';
 }
 
+// Parse "dd/mm/aaaa, hh:mm" or "dd/mm/aaaa" into a sortable timestamp
+function _parsePgtoData(str) {
+    if (!str) return 0;
+    var m = str.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})(?:[,\s]+(\d{1,2}):(\d{2}))?/);
+    if (!m) return 0;
+    return new Date(parseInt(m[3]), parseInt(m[2]) - 1, parseInt(m[1]), parseInt(m[4] || 0), parseInt(m[5] || 0)).getTime();
+}
+
 function renderContasPagamentos(lista, resumo) {
     // Build filter combo options
     var allPessoas = [];
@@ -3121,7 +3167,9 @@ function renderContasPagamentos(lista, resumo) {
 
     var hasToken = ghHasToken();
 
-    var filtrados = pagamentos.slice().reverse().filter(function(p) {
+    var filtrados = pagamentos.slice().sort(function(a, b) {
+        return _parsePgtoData(b.data) - _parsePgtoData(a.data);
+    }).filter(function(p) {
         if (_pgtoFilterPessoa && p.pessoa !== _pgtoFilterPessoa) return false;
         if (_pgtoFilterEvento) {
             if (_pgtoFilterEvento === 'livre') { if (p.tipo !== 'livre') return false; }
