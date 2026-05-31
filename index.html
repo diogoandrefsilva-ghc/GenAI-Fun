@@ -1282,7 +1282,6 @@
             <label style="font-size:12px;font-weight:600;color:#555;display:block;margin-bottom:3px">Token GitHub <em style="text-transform:none;font-weight:400;letter-spacing:0;font-size:11px">(ghp_… — obrigatório para guardar)</em></label>
             <div style="display:flex;gap:6px">
               <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="flex:1;padding:8px;border:1px solid #ddd;border-radius:5px;font-size:13px">
-              <button class="secondary" style="font-size:12px;padding:4px 10px;white-space:nowrap" onclick="toggleGhToken()">👁</button>
             </div>
           </div>
           <div style="display:flex;gap:8px">
@@ -3903,10 +3902,6 @@ function ghStatus(msg, err) {
     el.textContent = msg;
 }
 
-function toggleGhToken() {
-    const inp = document.getElementById('gh-token');
-    inp.type = inp.type === 'password' ? 'text' : 'password';
-}
 
 function toggleGhSection() {
     const body = document.getElementById('gh-body');
