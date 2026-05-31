@@ -4007,6 +4007,22 @@
       "tipo": "evento",
       "eventoId": 1772150400000,
       "data": "27/02/2026"
+    },
+    {
+      "id": 1780097707018,
+      "pessoa": "Rogélio",
+      "valor": 30.15,
+      "tipo": "evento",
+      "eventoId": 1769904000000,
+      "data": "01/02/2026"
+    },
+    {
+      "id": 1780097712700,
+      "pessoa": "Samuel",
+      "valor": 18.89,
+      "tipo": "evento",
+      "eventoId": 1769904000000,
+      "data": "01/02/2026"
     }
   ]
 }
